@@ -21,6 +21,11 @@ template<typename T = float>
 class Mat3 final {
     static_assert(std::is_integral<T>::value || std::is_floating_point<T>::value, "T must be intergral or floating point");
     static_assert(std::is_nothrow_move_constructible<T>::value, "T must be no throw move constructable");
+
+public: // friends
+    template<typename U> 
+    friend class Mat4;
+
 public: // RAII
     Mat3();
     explicit Mat3(std::array<T, 9> matrix);
@@ -31,9 +36,9 @@ public: // friend free functions
     // friend void clear(T value);
 
 public: // friend operators - defined in Mat3.inl
-    friend Mat3<T> operator *<> (Mat3<T> const & lhs, Mat3<T> const & rhs);
-    friend Vec3<T> operator *<> (Mat3<T> const & lhs, Vec3<T> const & rhs);
-    friend std::ostream & operator <<<> (std::ostream & lhs, Mat3<T> const & rhs);  
+    friend Mat3<T> operator *<> (Mat3<T> const & lhs, Mat3<T> const & rhs); // Mat3 * Mat3
+    friend Vec3<T> operator *<> (Mat3<T> const & lhs, Vec3<T> const & rhs); // Mat3 * Vec3
+    friend std::ostream & operator <<<> (std::ostream & lhs, Mat3<T> const & rhs); // std::cout << Mat3 
 
 private: // private operators
     float & operator [] (std::size_t index);

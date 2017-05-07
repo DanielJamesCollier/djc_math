@@ -102,30 +102,25 @@ createMat4RotationMatrix(Vec3<T> const & rotation) {
     T zSin(std::sin(rotation.z));
     T zCos(std::cos(rotation.z));
 
-    // @perf : change this to Mat3 then put into Mat4 on return
-
-    Mat4<T> rotX(std::array<T, 16>{{
-        1,    0,       0,        0,
-        0,    xCos,    -xSin,    0,
-        0,    xSin,    xCos,     0,
-        0,    0,       0,        1
+    Mat3<T> rotX(std::array<T, 9>{{
+        1,    0,       0,    
+        0,    xCos,    -xSin,
+        0,    xSin,    xCos
     }});
 
-    Mat4<T> rotY(std::array<T, 16>{{
-        yCos,     0,    ySin,    0,
-        0,        1,    0,       0,
-        -ySin,    0,    yCos,    0,
-        0,        0,    0,       1
+    Mat3<T> rotY(std::array<T, 9>{{
+        yCos,     0,    ySin,
+        0,        1,    0,
+        -ySin,    0,    yCos
     }});
 
-    Mat4<T> rotZ(std::array<T, 16>{{
-        zCos,    -zSin,  0,    0,
-        zSin,    zCos,   0,    0,
-        0,       0,      1,    0,
-        0,       0,      0,    1
+    Mat3<T> rotZ(std::array<T, 9>{{
+        zCos,    -zSin,  0,
+        zSin,    zCos,   0,
+        0,       0,      1
     }});
 
-    return rotX * rotY * rotZ;
+    return Mat4<T>((rotX * rotY * rotZ), static_cast<T>(1));
 }
 
 //------------------------------------------------------------
@@ -189,7 +184,7 @@ createMat4ProjectionMatrix(T fov, T aspect, T near, T far) {
          0,     0,     sZ,    sB,
          0,     0,     sA,    0
     }});
-    
+
     // most basic projection matrix - projecs Vec4 to [z]:-1 plane
     // return Mat4<T>(std::array<T, 16>{{
     //       1, 0,  0, 0,
