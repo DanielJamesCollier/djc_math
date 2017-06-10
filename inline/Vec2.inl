@@ -200,4 +200,19 @@ operator << (std::ostream & lhs, Vec2<T> const & rhs) {
     return lhs << "Vec2(" << rhs.x << ", " << rhs.y << ")";
 }
 
+// free functions
+
+//------------------------------------------------------------
+template<typename T> Vec2<T>
+normalise(Vec2<T> const & vec) {
+    T length = std::sqrt((vec.x * vec.x) + (vec.y * vec.y));
+    return Vec2<T>(vec.x / length, vec.y / length);
+}
+
+//------------------------------------------------------------
+template<typename T> T
+dot(Vec2<T> const & lhs, Vec2<T> const & rhs) {
+    return (lhs.x * rhs.x) + (lhs.y * rhs.y);
+}
+
 } /* namespace djc_math */

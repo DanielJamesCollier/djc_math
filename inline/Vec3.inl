@@ -244,5 +244,20 @@ operator << (std::ostream & lhs, Vec3<T> const & rhs) {
     return lhs;
 }
 
+// free functions
+
+//------------------------------------------------------------
+template<typename T> Vec4<T>
+normalise(Vec4<T> const & vec) {
+    T length = std::sqrt((vec.x * vec.x) + (vec.y * vec.y) + (vec.z * vec.z) + (vec.w * vec.w));
+    return Vec4<T>(vec.x / length, vec.y / length, vec.z / length, vec.w / length);
+}
+
+//------------------------------------------------------------
+template<typename T> T
+dot(Vec4<T> const & lhs, Vec4<T> const & rhs) {
+    return (lhs.x * rhs.x) + (lhs.y * rhs.y) + (lhs.z * rhs.z) + (lhs.w * rhs.w);
+}
+
 
 } /* namespace djc_math */
