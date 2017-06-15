@@ -53,10 +53,10 @@ public: // free function operator overloads - defined in Vec3.inl
     // Vec3<T> operator * (T lhs, Vec3<T> const & rhs);
     // Vec3<T> operator / (T lhs, Vec3<T> const & rhs);
 
-    // Vec3<T> operator + (Vec3<T> const & lhs, float rhs);
-    // Vec3<T> operator - (Vec3<T> const & lhs, float rhs);
-    // Vec3<T> operator * (Vec3<T> const & lhs, float rhs);
-    // Vec3<T> operator / (Vec3<T> const & lhs, float rhs);
+    // Vec3<T> operator + (Vec3<T> const & lhs, T rhs);
+    // Vec3<T> operator - (Vec3<T> const & lhs, T rhs);
+    // Vec3<T> operator * (Vec3<T> const & lhs, T rhs);
+    // Vec3<T> operator / (Vec3<T> const & lhs, T rhs);
 
     // std::ostream & operator << (std::ostream & lhs, Vec3<T> const & rhs);  
 

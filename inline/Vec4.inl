@@ -221,25 +221,49 @@ operator / (Vec4<T> const & lhs, Vec4<T> const & rhs) {
 //------------------------------------------------------------
 template<typename T> Vec4<T>
 operator + (T lhs, Vec4<T> const & rhs) {
-    return Vec4<T>(lhs + rhs.x, lhs + rhs.y, lhs + rhs.z, lhs + rhs.z);
+    return Vec4<T>(lhs + rhs.x, lhs + rhs.y, lhs + rhs.z, lhs + rhs.w);
 }
 
 //------------------------------------------------------------
 template<typename T> Vec4<T>
 operator - (T lhs, Vec4<T> const & rhs) {
-    return Vec4<T>(lhs - rhs.x, lhs - rhs.y, lhs - rhs.z, lhs - rhs.z);
+    return Vec4<T>(lhs - rhs.x, lhs - rhs.y, lhs - rhs.z, lhs - rhs.w);
 }
 
 //------------------------------------------------------------
 template<typename T> Vec4<T>
 operator * (T lhs, Vec4<T> const & rhs) {
-    return Vec4<T>(lhs * rhs.x, lhs * rhs.y, lhs * rhs.z, lhs * rhs.z);
+    return Vec4<T>(lhs * rhs.x, lhs * rhs.y, lhs * rhs.z, lhs * rhs.w);
 }
 
 //------------------------------------------------------------
 template<typename T> Vec4<T>
 operator / (T lhs, Vec4<T> const & rhs) {
-    return Vec4<T>(lhs / rhs.x, lhs / rhs.y, lhs / rhs.z, lhs / rhs.z);
+    return Vec4<T>(lhs / rhs.x, lhs / rhs.y, lhs / rhs.z, lhs / rhs.w);
+}
+
+//------------------------------------------------------------
+template<typename T> Vec4<T>
+operator + (Vec4<T> const & lhs, T rhs) {
+    return Vec4<T>(lhs.x + rhs, lhs.y + rhs, lhs.z + rhs, lhs.w + rhs);
+}
+
+//------------------------------------------------------------
+template<typename T> Vec4<T>
+operator - (Vec4<T> const & lhs, T rhs) {
+    return Vec4<T>(lhs.x - rhs, lhs.y - rhs, lhs.z - rhs, lhs.w - rhs);
+}
+
+//------------------------------------------------------------
+template<typename T> Vec4<T>
+operator * (Vec4<T> const & lhs, T rhs) {
+    return Vec4<T>(lhs.x * rhs, lhs.y * rhs, lhs.z * rhs, lhs.w * rhs);
+}
+
+//------------------------------------------------------------
+template<typename T> Vec4<T>
+operator / (Vec4<T> const & lhs, T rhs) {
+    return Vec4<T>(lhs.x / rhs, lhs.y / rhs, lhs.z / rhs, lhs.w / rhs);
 }
 
 //------------------------------------------------------------
@@ -261,7 +285,7 @@ normalise(Vec4<T> const & vec) {
 //------------------------------------------------------------
 template<typename T> T
 dot(Vec4<T> const & lhs, Vec4<T> const & rhs) {
-    return (lhs.x * rhs.x) + (lhs.y * rhs.y) + (lhs.z * rhs.z) + (lhs.w * rhs.w);
+   return (lhs.x * rhs.x) + (lhs.y * rhs.y) + (lhs.z * rhs.z) + (lhs.w * rhs.w);
 }
 
 } /* namespace djc_math */

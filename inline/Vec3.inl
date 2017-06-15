@@ -249,14 +249,14 @@ operator << (std::ostream & lhs, Vec3<T> const & rhs) {
 //------------------------------------------------------------
 template<typename T> Vec3<T>
 normalise(Vec3<T> const & vec) {
-    T length = std::sqrt((vec.x * vec.x) + (vec.y * vec.y) + (vec.z * vec.z) + (vec.w * vec.w));
-    return Vec3<T>(vec.x / length, vec.y / length, vec.z / length, vec.w / length);
+    T length = std::sqrt((vec.x * vec.x) + (vec.y * vec.y) + (vec.z * vec.z));
+    return Vec3<T>(vec.x / length, vec.y / length, vec.z / length);
 }
 
 //------------------------------------------------------------
 template<typename T> T
 dot(Vec3<T> const & lhs, Vec3<T> const & rhs) {
-    return (lhs.x * rhs.x) + (lhs.y * rhs.y) + (lhs.z * rhs.z) + (lhs.w * rhs.w);
+    return (lhs.x * rhs.x) + (lhs.y * rhs.y) + (lhs.z * rhs.z);
 }
 
 

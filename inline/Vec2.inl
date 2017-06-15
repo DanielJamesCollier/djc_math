@@ -169,6 +169,11 @@ template<typename T> Vec2<T>
 operator * (T lhs, Vec2<T> const & rhs) {
     return Vec2<T>(lhs * rhs.x, lhs * rhs.y);
 }
+//------------------------------------------------------------
+template<typename T> Vec2<T>
+operator / (T lhs, Vec2<T> const & rhs) {
+    return Vec2<T>(lhs * rhs.x, lhs * rhs.y);
+}
 
 //------------------------------------------------------------
 template<typename T> Vec2<T>

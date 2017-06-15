@@ -47,16 +47,13 @@ public: // free function operator overloads - defined in Vec2.inl
     // Vec2<T> operator - (T lhs, Vec2<T> const & rhs);
     // Vec2<T> operator * (T lhs, Vec2<T> const & rhs);
     // Vec2<T> operator / (T lhs, Vec2<T> const & rhs);
-
-    // Vec2<T> operator + (Vec2<T> const & lhs, float rhs);
-    // Vec2<T> operator - (Vec2<T> const & lhs, float rhs);
-    // Vec2<T> operator * (Vec2<T> const & lhs, float rhs);
-    // Vec2<T> operator / (Vec2<T> const & lhs, float rhs);
+    
+    // Vec2<T> operator + (Vec2<T> const & lhs, T rhs);
+    // Vec2<T> operator - (Vec2<T> const & lhs, T rhs);
+    // Vec2<T> operator * (Vec2<T> const & lhs, T rhs);
+    // Vec2<T> operator / (Vec2<T> const & lhs, T rhs);
 
     // std::ostream & operator << (std::ostream & lhs, Vec2<T> const & rhs);  
-
-public: // free function operator overload for use with other classes
-    // Vec2<T> operator * (Mat2<T> const & rhs & lhs, Vec2<T> const & rhs); - defined in Mat2.inl
 
 public: // free functions
     // Vec2<T> normalise(Vec2<T> const & vec);

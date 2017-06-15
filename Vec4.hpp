@@ -71,10 +71,11 @@ public: // free function operator overloads - defined in Vec4.inl
     // Vec4<T> operator * (T lhs, Vec4<T> const & rhs);
     // Vec4<T> operator / (T lhs, Vec4<T> const & rhs);
 
-    // Vec4<T> operator + (Vec4<T> const & lhs, float rhs);
-    // Vec4<T> operator - (Vec4<T> const & lhs, float rhs);
-    // Vec4<T> operator * (Vec4<T> const & lhs, float rhs);
-    // Vec4<T> operator / (Vec4<T> const & lhs, float rhs);
+    // Vec4<T> operator + (Vec4<T> const & lhs, T rhs);
+    // Vec4<T> operator - (Vec4<T> const & lhs, T rhs);
+    // Vec4<T> operator * (Vec4<T> const & lhs, T rhs);
+    // Vec4<T> operator / (Vec4<T> const & lhs, T rhs);
+    //
     // std::ostream & operator << (std::ostream & lhs, Vec4<T> const & rhs);  
 
 public: // free function operator overload for use with other classes - defined in Vec34.inl
