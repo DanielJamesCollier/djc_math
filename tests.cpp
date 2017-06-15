@@ -211,7 +211,15 @@ void Transform_test() {
 }
 
 void Utils_tests() {
+    constexpr auto toRad = ::toRadians(90.0f);
+    auto rand01 = ::randFBetweenZeroOne();
+    auto randUC = ::randUCBetween0N255();
+    auto norm = ::normalise(24.6f, 0.0f, 1.0f);
+    auto lerp = ::lerp(0.0f, 100.0f, 50.0f);
+    auto clamp = ::clamp(100.0f, 10.0f, 50.0f);
 
+    Vec4f position (1.0, 1.0, 1.0, 5.0);
+    ::perspectiveDivide(position);
 }
 
 int main() {
