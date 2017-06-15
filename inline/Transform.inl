@@ -147,14 +147,14 @@ createMat4ModelMatrix(Vec3<T> const & position, Vec3<T> const & rotation, Vec3<T
 }
 
 //------------------------------------------------------------
-template<typename T, typename U> inline Mat4<U> // @todo : needs looking at
-createMat4OrthographicMatrix(U width, U height, T zNear, T zFar) { 
+template<typename T> inline Mat4<T> // @todo : needs looking at
+createMat4OrthographicMatrix(int width, int height, T zNear, T zFar) { 
     T a(1.0f / static_cast<T>(width));
     T b(1.0f / static_cast<T>(height));
     T c(-(2.0f / (zFar - zNear)));
     T d(-((zFar + zNear) / (zFar - zNear)));
 
-    return Mat4<U>(std::array<U, 16>{{
+    return Mat4<T>(std::array<T, 16>{{
         a,    0,    0,    0,
         0,    b,    0,    0,
         0,    0,    c,    0,

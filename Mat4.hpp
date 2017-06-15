@@ -32,7 +32,7 @@ public: // RAII
 public: // member - functions
     Mat3<T> toMat3() const;
 
-public: // public friend free functions
+public: // friend free functions - // @TODO: needs implementing
     // friend void clear();
     // friend void clear(T value);
 

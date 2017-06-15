@@ -150,6 +150,70 @@ void vec4_tests() {
     auto dot_free = ::dot(vec_one, vec_two);
 }
 
+void Mat3_tests() {
+    // construction
+    Mat3f mat_one;
+    Mat3f mat_two;
+
+    // friend free - // @TODO : clear() clear(T) need implementing 
+
+    // friend free operators
+    auto mult = mat_one * mat_two;
+    auto mult_vec4 = mat_one * Vec3f(1.0f);
+    std::cout << mat_one << std::endl;
+
+    // private operators - cant test
+    // ...
+}
+
+void Mat4_tests() {
+    // construction
+    Mat4f mat_one;
+    Mat4f mat_two;
+
+    // member functions
+    auto to_mat3 = mat_one.toMat3();
+
+    // friend free - // @TODO : clear() clear(T) need implementing 
+    
+
+    // friend free operators
+    auto mult = mat_one * mat_two;
+    auto mult_vec4 = mat_one * Vec4f(1.0f);
+    std::cout << mat_one << std::endl;
+
+    // private operators - cant test
+    // ...
+}
+
+void Transform_test() {
+    // mat3 
+
+    auto iden_mat3 = createMat3IdentityMatrix<float>();
+    auto rot_mat3 = createMat3RotationMatrix(Vec3f(1.0f));
+    
+    // mat4
+    auto iden_mat4 = createMat4IdentityMatrix<float>();
+    auto trans_mat4 = createMat4TranslationMatrix(Vec3f(1.0f));
+    auto rot_mat4 = createMat4RotationMatrix(Vec3f(1.0f));
+    auto scale_mat4 = createMat4ScaleMatrix(Vec3f(1.0f));
+    auto model_mat4 = createMat4ModelMatrix(Vec3f(0.0f), Vec3f(0.0f), Vec3f(1.0f)); 
+    auto ortho_mat4 = createMat4OrthographicMatrix(900, 600, 0.01f, 1000.0f);
+    auto proj_mat4 = createMat4ProjectionMatrix(toRadians(70.0f), 900.0f / 600.0f, 0.01f, 1000.0f);
+    auto view_mat4 = createMat4ViewMatrix(Vec3f(0), Vec3f(0), Vec3f(0,1,0));
+    auto bird_view_mat4 = createMat4BirdsEyeViewMatrix<float>();
+    auto screen_spaceTrans_mat4 = createMat4ScreenSpaceTransform(900.0f / 2.0f, 600.0f / 2.0f);
+    
+    // other
+    Vec4f position(1.0, 1.0f, 1.0f, 1.0f);
+     ::transform(position, trans_mat4);
+    auto rotate_mat = ::rotate(90.0f, Vec3f(0,1,0));
+}
+
+void Utils_tests() {
+
+}
+
 int main() {
 
     // vector tests
