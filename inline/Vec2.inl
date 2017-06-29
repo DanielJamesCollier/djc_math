@@ -4,15 +4,17 @@ namespace djc_math {
 
 //------------------------------------------------------------
 template<typename T>
-Vec2<T>::Vec2(T all) 
-:   x(all)
-,   y(all)
+constexpr
+Vec2<T>::Vec2(T _xy) 
+:   x(_xy)
+,   y(_xy)
 {
     // empty
 }
 
 //------------------------------------------------------------
 template<typename T>
+constexpr
 Vec2<T>::Vec2(T _x, T _y) 
 :   x(_x)
 ,   y(_y)
@@ -29,7 +31,8 @@ Vec2<T>::length() const {
 }
 
 //------------------------------------------------------------
-template<typename T> T
+template<typename T> 
+constexpr T
 Vec2<T>::length2() const {
     return x * x + y * y;
 }
@@ -43,7 +46,8 @@ Vec2<T>::normalise() {
 }
 
 //------------------------------------------------------------
-template<typename T> T
+template<typename T> 
+constexpr T
 Vec2<T>::dot(Vec2<T> const & vec) {
     return x * vec.x + y * vec.y;
 }
@@ -51,19 +55,22 @@ Vec2<T>::dot(Vec2<T> const & vec) {
 // member - operator overloads
 
 //------------------------------------------------------------
-template<typename T> Vec2<T> 
+template<typename T> 
+constexpr Vec2<T> 
 Vec2<T>::operator + () const {
     return Vec2<T>(x, y);
 }
 
 //------------------------------------------------------------
-template<typename T> Vec2<T> 
+template<typename T> 
+constexpr Vec2<T> 
 Vec2<T>::operator - () const {
     return Vec2<T>(-x, -y);
 }
 
 //------------------------------------------------------------
-template<typename T> Vec2<T> &
+template<typename T>
+Vec2<T> &
 Vec2<T>::operator += (Vec2<T> const & rhs) {
     x += rhs.x;
     y += rhs.y;
@@ -71,7 +78,8 @@ Vec2<T>::operator += (Vec2<T> const & rhs) {
 }
 
 //------------------------------------------------------------
-template<typename T> Vec2<T> &
+template<typename T> 
+Vec2<T> &
 Vec2<T>::operator -= (Vec2<T> const & rhs) {
     x -= rhs.x;
     y -= rhs.y;
@@ -79,7 +87,8 @@ Vec2<T>::operator -= (Vec2<T> const & rhs) {
 }
 
 //------------------------------------------------------------
-template<typename T> Vec2<T> &
+template<typename T> 
+Vec2<T> & 
 Vec2<T>::operator *= (Vec2<T> const & rhs) {
     x *= rhs.x;
     y *= rhs.y;
@@ -87,7 +96,8 @@ Vec2<T>::operator *= (Vec2<T> const & rhs) {
 }
 
 //------------------------------------------------------------
-template<typename T> Vec2<T> &
+template<typename T> 
+Vec2<T> &
 Vec2<T>::operator /= (Vec2<T> const & rhs) {
     x /= rhs.x;
     y /= rhs.y;
@@ -95,7 +105,8 @@ Vec2<T>::operator /= (Vec2<T> const & rhs) {
 }
 
 //------------------------------------------------------------
-template<typename T> Vec2<T> &
+template<typename T>
+Vec2<T> &
 Vec2<T>::operator += (T rhs) {
     x += rhs;
     y += rhs;
@@ -103,7 +114,8 @@ Vec2<T>::operator += (T rhs) {
 }
 
 //------------------------------------------------------------
-template<typename T> Vec2<T> &
+template<typename T> 
+Vec2<T> &
 Vec2<T>::operator -= (T rhs) {
     x -= rhs;
     y -= rhs;
@@ -111,7 +123,8 @@ Vec2<T>::operator -= (T rhs) {
 }
 
 //------------------------------------------------------------
-template<typename T> Vec2<T> &
+template<typename T> 
+Vec2<T> &
 Vec2<T>::operator *= (T rhs) {
     x *= rhs;
     y *= rhs;
@@ -119,7 +132,8 @@ Vec2<T>::operator *= (T rhs) {
 }
 
 //------------------------------------------------------------
-template<typename T> Vec2<T> &
+template<typename T> 
+Vec2<T> &
 Vec2<T>::operator /= (T rhs) {
     x /= rhs;
     y /= rhs;
@@ -129,72 +143,84 @@ Vec2<T>::operator /= (T rhs) {
 // free function operator overloads
 
 //------------------------------------------------------------
-template<typename T> Vec2<T>
+template<typename T> 
+constexpr Vec2<T>
 operator + (Vec2<T> const & lhs, Vec2<T> const & rhs) {
     return Vec2<T>(lhs.x + rhs.x, lhs.y + rhs.y);
 }
 
 //------------------------------------------------------------
-template<typename T> Vec2<T>
+template<typename T> 
+constexpr Vec2<T>
 operator - (Vec2<T> const & lhs, Vec2<T> const & rhs) {
     return Vec2<T>(lhs.x - rhs.x, lhs.y - rhs.y);
 }
 
 //------------------------------------------------------------
-template<typename T> Vec2<T>
+template<typename T> 
+constexpr Vec2<T>
 operator * (Vec2<T> const & lhs, Vec2<T> const & rhs) {
     return Vec2<T>(lhs.x * rhs.x, lhs.y * rhs.y);
 }
 
 //------------------------------------------------------------
-template<typename T> Vec2<T>
+template<typename T> 
+constexpr Vec2<T>
 operator / (Vec2<T> const & lhs, Vec2<T> const & rhs) {
     return Vec2<T>(lhs.x / rhs.x, lhs.y / rhs.y);
 }
 
 //------------------------------------------------------------
-template<typename T> Vec2<T>
+template<typename T> 
+constexpr Vec2<T>
 operator + (T lhs, Vec2<T> const & rhs) {
     return Vec2<T>(lhs + rhs.x, lhs + rhs.y);
 }
 
 //------------------------------------------------------------
-template<typename T> Vec2<T>
+template<typename T> 
+constexpr Vec2<T>
 operator - (T lhs, Vec2<T> const & rhs) {
     return Vec2<T>(lhs - rhs.x, lhs - rhs.y);
 }
 
 //------------------------------------------------------------
-template<typename T> Vec2<T>
+template<typename T> 
+constexpr Vec2<T>
 operator * (T lhs, Vec2<T> const & rhs) {
     return Vec2<T>(lhs * rhs.x, lhs * rhs.y);
 }
 //------------------------------------------------------------
-template<typename T> Vec2<T>
+template<typename T> 
+constexpr Vec2<T>
 operator / (T lhs, Vec2<T> const & rhs) {
     return Vec2<T>(lhs * rhs.x, lhs * rhs.y);
 }
 
 //------------------------------------------------------------
-template<typename T> Vec2<T>
+template<typename T> 
+constexpr Vec2<T>
 operator + (Vec2<T> const & lhs, T rhs) {
     return Vec2<T>(lhs.x + rhs, lhs.y + rhs);
 }
 
 //------------------------------------------------------------
-template<typename T> Vec2<T>
+template<typename T> 
+constexpr Vec2<T>
 operator - (Vec2<T> const & lhs, T rhs) {
     return Vec2<T>(lhs.x - rhs, lhs.y - rhs);
 }
 
 //------------------------------------------------------------
-template<typename T> Vec2<T>
+template<typename T> 
+constexpr Vec2<T>
 operator * (Vec2<T> const & lhs, T rhs) {
     return Vec2<T>(lhs.x * rhs, lhs.y * rhs);
 }
 
 //------------------------------------------------------------
-template<typename T> Vec2<T>
+template<typename T> 
+constexpr Vec2<T>
 operator / (Vec2<T> const & lhs, T rhs) {
     return Vec2<T>(lhs.x / rhs, lhs.y / rhs);
 }
@@ -215,7 +241,8 @@ normalise(Vec2<T> const & vec) {
 }
 
 //------------------------------------------------------------
-template<typename T> T
+template<typename T> 
+constexpr T
 dot(Vec2<T> const & lhs, Vec2<T> const & rhs) {
     return (lhs.x * rhs.x) + (lhs.y * rhs.y);
 }

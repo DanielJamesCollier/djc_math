@@ -12,19 +12,20 @@ template<typename T = float>
 class Vec2 final {
     static_assert(std::is_integral<T>::value || std::is_floating_point<T>::value, "T must be intergral or floating point");
 public: // RAII
-    explicit Vec2(T all = T());
-    Vec2(T _x, T _y);
+    constexpr explicit Vec2(T _xy = T());
+    constexpr Vec2(T _x, T _y);
+    constexpr Vec2(Vec2<T> const & _xy) = default;
     ~Vec2() = default;
 
-public: // member - functions
+public: // members - functions
      T length() const;
-     T length2() const;
+     constexpr T length2() const;
      void normalise();
-     T dot(Vec2<T> const & vec);
+     constexpr T dot(Vec2<T> const & vec);
 
-public: // member - operator overloads
-    Vec2<T>   operator + () const;
-    Vec2<T>   operator - () const;
+public: // members - operator overloads   
+    constexpr Vec2<T> operator + () const;
+    constexpr Vec2<T> operator - () const;
     
     Vec2<T> & operator += (Vec2<T> const & rhs);
     Vec2<T> & operator -= (Vec2<T> const & rhs);
@@ -36,28 +37,27 @@ public: // member - operator overloads
     Vec2<T> & operator *= (T rhs);
     Vec2<T> & operator /= (T rhs);
 
+public: // free functions - operator overloads 
+    // constexpr Vec2<T> operator + (Vec2<T> const & lhs, Vec2<T> const & rhs);
+    // constexpr Vec2<T> operator - (Vec2<T> const & lhs, Vec2<T> const & rhs);
+    // constexpr Vec2<T> operator * (Vec2<T> const & lhs, Vec2<T> const & rhs);
+    // constexpr Vec2<T> operator / (Vec2<T> const & lhs, Vec2<T> const & rhs);
 
-public: // free function operator overloads - defined in Vec2.inl
-    // Vec2<T> operator + (Vec2<T> const & lhs, Vec2<T> const & rhs);
-    // Vec2<T> operator - (Vec2<T> const & lhs, Vec2<T> const & rhs);
-    // Vec2<T> operator * (Vec2<T> const & lhs, Vec2<T> const & rhs);
-    // Vec2<T> operator / (Vec2<T> const & lhs, Vec2<T> const & rhs);
-
-    // Vec2<T> operator + (T lhs, Vec2<T> const & rhs);
-    // Vec2<T> operator - (T lhs, Vec2<T> const & rhs);
-    // Vec2<T> operator * (T lhs, Vec2<T> const & rhs);
-    // Vec2<T> operator / (T lhs, Vec2<T> const & rhs);
+    // constexpr Vec2<T> operator + (T lhs, Vec2<T> const & rhs);
+    // constexpr Vec2<T> operator - (T lhs, Vec2<T> const & rhs);
+    // constexpr Vec2<T> operator * (T lhs, Vec2<T> const & rhs);
+    // constexpr Vec2<T> operator / (T lhs, Vec2<T> const & rhs);
     
-    // Vec2<T> operator + (Vec2<T> const & lhs, T rhs);
-    // Vec2<T> operator - (Vec2<T> const & lhs, T rhs);
-    // Vec2<T> operator * (Vec2<T> const & lhs, T rhs);
-    // Vec2<T> operator / (Vec2<T> const & lhs, T rhs);
+    // constexpr Vec2<T> operator + (Vec2<T> const & lhs, T rhs);
+    // constexpr Vec2<T> operator - (Vec2<T> const & lhs, T rhs);
+    // constexpr Vec2<T> operator * (Vec2<T> const & lhs, T rhs);
+    // constexpr Vec2<T> operator / (Vec2<T> const & lhs, T rhs);
 
     // std::ostream & operator << (std::ostream & lhs, Vec2<T> const & rhs);  
 
 public: // free functions
     // Vec2<T> normalise(Vec2<T> const & vec);
-    // T dot(Vec2<T> const & lhs, Vec2<T> const & rhs);
+    // constexpr T dot(Vec2<T> const & lhs, Vec2<T> const & rhs);
 
 public:
     T x;

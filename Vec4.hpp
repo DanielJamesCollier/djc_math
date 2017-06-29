@@ -16,26 +16,29 @@ template<typename T = float>
 class Vec4 final {
     static_assert(std::is_integral<T>::value || std::is_floating_point<T>::value, "T must be intergral or floating point");
 public: // RAII
-    explicit Vec4(T all = T());
-    Vec4(T _x, T _y, T _z, T _w);
-    Vec4(Vec2<T> const & vec, T _z, T _w);
-    Vec4(Vec2<T> const & vecXY, Vec2<T> const & vecZW);
-    Vec4(Vec3<T> const & vec, T _w);
+    constexpr explicit Vec4(T _xyzw = T());
+    constexpr Vec4(T _x, T _y, T _z, T _w);
+    constexpr Vec4(Vec2<T> const & _xy, T _z, T _w);
+    constexpr Vec4(T _x, T _y, Vec2<T> const & _zw);
+    constexpr Vec4(Vec2<T> const & _xy, Vec2<T> const & _zw);
+    constexpr Vec4(Vec3<T> const & _xyz, T _w);
+    constexpr Vec4(T _x, Vec3<T> const & _yzw);
+    constexpr Vec4(Vec4<T> const & _rhs) = default;
     ~Vec4() = default;
 
 public: // member - functions
     T length() const;
-    T length2() const;
+    constexpr T length2() const;
     void normalise();
-    T dot(Vec4<T> const & vec) const;
+    constexpr T dot(Vec4<T> const & vec) const;
+    
     // for cross cast to Vec3
-    Vec2<T> toVec2() const;
-    Vec3<T> toVec3() const;
+    constexpr Vec2<T> toVec2() const;
+    constexpr Vec3<T> toVec3() const;
 
 public: // member - operator overloads
-
-    Vec4<T> operator + () const;
-    Vec4<T> operator - () const;
+    constexpr Vec4<T> operator + () const;
+    constexpr Vec4<T> operator - () const;
 
     Vec4<T> & operator += (Vec4<T> const & rhs);
     Vec4<T> & operator -= (Vec4<T> const & rhs);
@@ -47,6 +50,8 @@ public: // member - operator overloads
     Vec4<T> & operator *= (T rhs);
     Vec4<T> & operator /= (T rhs);
 
+// random function
+    // @todo: remove this garbage
     T operator [] (int index) {
         switch(index) {
             case 0: return x; break;
@@ -61,21 +66,21 @@ public: // member - operator overloads
     }
 
 public: // free function operator overloads - defined in Vec4.inl
-    // Vec4<T> operator + (Vec4<T> const & lhs, Vec4<T> const & rhs);
-    // Vec4<T> operator - (Vec4<T> const & lhs, Vec4<T> const & rhs);
-    // Vec4<T> operator * (Vec4<T> const & lhs, Vec4<T> const & rhs);
-    // Vec4<T> operator / (Vec4<T> const & lhs, Vec4<T> const & rhs);
+    //  constexpr Vec4<T> operator + (Vec4<T> const & lhs, Vec4<T> const & rhs);
+    //  constexpr Vec4<T> operator - (Vec4<T> const & lhs, Vec4<T> const & rhs);
+    //  constexpr Vec4<T> operator * (Vec4<T> const & lhs, Vec4<T> const & rhs);
+    //  constexpr Vec4<T> operator / (Vec4<T> const & lhs, Vec4<T> const & rhs);
 
-    // Vec4<T> operator + (T lhs, Vec4<T> const & rhs);
-    // Vec4<T> operator - (T lhs, Vec4<T> const & rhs);
-    // Vec4<T> operator * (T lhs, Vec4<T> const & rhs);
-    // Vec4<T> operator / (T lhs, Vec4<T> const & rhs);
+    //  constexpr Vec4<T> operator + (T lhs, Vec4<T> const & rhs);
+    //  constexpr Vec4<T> operator - (T lhs, Vec4<T> const & rhs);
+    //  constexpr Vec4<T> operator * (T lhs, Vec4<T> const & rhs);
+    //  constexpr Vec4<T> operator / (T lhs, Vec4<T> const & rhs);
 
-    // Vec4<T> operator + (Vec4<T> const & lhs, T rhs);
-    // Vec4<T> operator - (Vec4<T> const & lhs, T rhs);
-    // Vec4<T> operator * (Vec4<T> const & lhs, T rhs);
-    // Vec4<T> operator / (Vec4<T> const & lhs, T rhs);
-    //
+    //  constexpr Vec4<T> operator + (Vec4<T> const & lhs, T rhs);
+    //  constexpr Vec4<T> operator - (Vec4<T> const & lhs, T rhs);
+    //  constexpr Vec4<T> operator * (Vec4<T> const & lhs, T rhs);
+    //  constexpr Vec4<T> operator / (Vec4<T> const & lhs, T rhs);
+
     // std::ostream & operator << (std::ostream & lhs, Vec4<T> const & rhs);  
 
 public: // free function operator overload for use with other classes - defined in Vec34.inl
@@ -83,7 +88,7 @@ public: // free function operator overload for use with other classes - defined 
 
 public: // free functions
     // Vec4<T> normalise(Vec4<T> const & vec);
-    // T dot(Vec4<T> const & lhs, Vec4<T> const & rhs);
+    // constexpr T dot(Vec4<T> const & lhs, Vec4<T> const & rhs);
 
 public: // public data
     T x;

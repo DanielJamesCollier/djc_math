@@ -2,12 +2,16 @@ namespace djc_math {
 
 //------------------------------------------------------------
 template<typename T>
-Mat4<T>::Mat4() {
-    m_matrix.fill(T());
+constexpr
+Mat4<T>::Mat4() 
+:   m_matrix() // value initialise the array
+{
+    // empty
 }
 
 //------------------------------------------------------------
 template<typename T>
+constexpr
 Mat4<T>::Mat4(std::array<T, 16> const & matrix) 
 : m_matrix(matrix)
 {
@@ -16,6 +20,7 @@ Mat4<T>::Mat4(std::array<T, 16> const & matrix)
 
 //------------------------------------------------------------
 template<typename T> 
+constexpr
 Mat4<T>::Mat4(Mat3<T> const & matrix, T lastVal) 
 :   m_matrix(std::array<T, 16>{{
         matrix[0], matrix[1], matrix[2], 0,
@@ -27,7 +32,8 @@ Mat4<T>::Mat4(Mat3<T> const & matrix, T lastVal)
 }
 
 //------------------------------------------------------------
-template<typename T> Mat3<T>
+template<typename T> 
+constexpr Mat3<T>
 Mat4<T>::toMat3() const {
     return Mat3<T>(std::array<T, 9> {{
         m_matrix[0], m_matrix[1], m_matrix[2],
@@ -49,7 +55,8 @@ Mat4<T>::toMat3() const {
 // }
 
 //------------------------------------------------------------
-template<typename T> /* friend */ Mat4<T> 
+template<typename T> /* friend */ 
+constexpr Mat4<T> 
 operator * (Mat4<T> const & lhs, Mat4<T> const & rhs) {
     //----------------------    
     // [0 ]  [1 ]  [2 ] [3 ]  
@@ -84,7 +91,8 @@ operator * (Mat4<T> const & lhs, Mat4<T> const & rhs) {
 }
 
 //------------------------------------------------------------
-template<typename T> /* friend */ Vec4<T> 
+template<typename T> /* friend */ 
+constexpr Vec4<T> 
 operator * (Mat4<T> const & lhs, Vec4<T> const & rhs) {
     return Vec4<T>(
         /*[x]*/ (lhs[ 0] * rhs.x) + (lhs[ 1] * rhs.y) + (lhs[ 2] * rhs.z) + (lhs[ 3] * rhs.w),
@@ -95,7 +103,8 @@ operator * (Mat4<T> const & lhs, Vec4<T> const & rhs) {
 }
 
 //------------------------------------------------------------
-template<typename T> /* friend */ std::ostream & 
+template<typename T> /* friend */
+std::ostream & 
 operator << (std::ostream & lhs, Mat4<T> const & rhs) {
     lhs << "Mat4\n-----------------\n";
     for (int x = 0; x < 4; x++) {
@@ -109,13 +118,15 @@ operator << (std::ostream & lhs, Mat4<T> const & rhs) {
 }
 
 //------------------------------------------------------------
-template<typename T> float & 
+template<typename T>
+constexpr T & 
 Mat4<T>::operator [] (std::size_t index) {
     return m_matrix[index];
 }
 
 //------------------------------------------------------------
-template<typename T> float const & 
+template<typename T> 
+constexpr T const & 
 Mat4<T>::operator [] (std::size_t index) const {
     return m_matrix[index];
 }

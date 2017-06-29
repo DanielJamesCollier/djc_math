@@ -15,22 +15,24 @@ template<typename T = float>
 class Vec3 final {
     static_assert(std::is_integral<T>::value || std::is_floating_point<T>::value, "T must be intergral or floating point");
 public: // RAII
-    explicit Vec3(T all = T());
-    Vec3(T _x, T _y, T _z);
-    Vec3(Vec2<T> const & vec, T _z);
+    constexpr explicit Vec3(T _xyz = T());
+    constexpr Vec3(T _x, T _y, T _z);
+    constexpr Vec3(Vec2<T> const & _xy, T _z);
+    constexpr Vec3(T _x, Vec2<T> const & _yz);
+    constexpr Vec3(Vec3<T> const & _xyz) = default;
     ~Vec3() = default;
 
 public: // member - functions
     T length() const;
-    T length2() const;
+    constexpr T length2() const;
     void normalise();
-    T dot(Vec3<T> const & vec) const;
-    Vec3<T> cross(Vec3<T> const & vec) const;
-    Vec2<T> toVec2() const;
+    constexpr T dot(Vec3<T> const & vec) const;
+    constexpr Vec3<T> cross(Vec3<T> const & vec) const;
+    constexpr Vec2<T> toVec2() const;
 
 public:  // member - operator overloads
-    Vec3<T> operator + () const;
-    Vec3<T> operator - () const;
+    constexpr Vec3<T> operator + () const;
+    constexpr Vec3<T> operator - () const;
 
     Vec3<T> & operator += (Vec3<T> const & rhs);
     Vec3<T> & operator -= (Vec3<T> const & rhs);
@@ -43,29 +45,29 @@ public:  // member - operator overloads
     Vec3<T> & operator /= (T rhs);
 
 public: // free function operator overloads - defined in Vec3.inl
-    // Vec3<T> operator + (Vec3<T> const & lhs, Vec3<T> const & rhs);
-    // Vec3<T> operator - (Vec3<T> const & lhs, Vec3<T> const & rhs);
-    // Vec3<T> operator * (Vec3<T> const & lhs, Vec3<T> const & rhs);
-    // Vec3<T> operator / (Vec3<T> const & lhs, Vec3<T> const & rhs);
+    // constexpr Vec3<T> operator + (Vec3<T> const & lhs, Vec3<T> const & rhs);
+    // constexpr Vec3<T> operator - (Vec3<T> const & lhs, Vec3<T> const & rhs);
+    // constexpr Vec3<T> operator * (Vec3<T> const & lhs, Vec3<T> const & rhs);
+    // constexpr Vec3<T> operator / (Vec3<T> const & lhs, Vec3<T> const & rhs);
 
-    // Vec3<T> operator + (T lhs, Vec3<T> const & rhs);
-    // Vec3<T> operator - (T lhs, Vec3<T> const & rhs);
-    // Vec3<T> operator * (T lhs, Vec3<T> const & rhs);
-    // Vec3<T> operator / (T lhs, Vec3<T> const & rhs);
+    // constexpr Vec3<T> operator + (T lhs, Vec3<T> const & rhs);
+    // constexpr Vec3<T> operator - (T lhs, Vec3<T> const & rhs);
+    // constexpr Vec3<T> operator * (T lhs, Vec3<T> const & rhs);
+    // constexpr Vec3<T> operator / (T lhs, Vec3<T> const & rhs);
 
-    // Vec3<T> operator + (Vec3<T> const & lhs, T rhs);
-    // Vec3<T> operator - (Vec3<T> const & lhs, T rhs);
-    // Vec3<T> operator * (Vec3<T> const & lhs, T rhs);
-    // Vec3<T> operator / (Vec3<T> const & lhs, T rhs);
+    // constexpr Vec3<T> operator + (Vec3<T> const & lhs, T rhs);
+    // constexpr Vec3<T> operator - (Vec3<T> const & lhs, T rhs);
+    // constexpr Vec3<T> operator * (Vec3<T> const & lhs, T rhs);
+    // constexpr Vec3<T> operator / (Vec3<T> const & lhs, T rhs);
 
     // std::ostream & operator << (std::ostream & lhs, Vec3<T> const & rhs);  
 
-public: // free function operator overload for use with other classes - defined in Vec3.inl
-    // Vec3<T> operator * (Mat3<T> const & lhs, Vec3<T> const & rhs); - defined in Mat3.inl
+public: // free function operator overload for use with other classes
+    // constexpr Vec3<T> operator * (Mat3<T> const & lhs, Vec3<T> const & rhs); // defined in Mat3.inl
 
 public: // free functions
     // Vec3<T> normalise(Vec3<T> const & vec);
-    // T dot(Vec3<T> const & lhs, Vec3<T> const & rhs);
+    // constexpr T dot(Vec3<T> const & lhs, Vec3<T> const & rhs);
 
 public: // public data
     T x;

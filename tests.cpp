@@ -4,153 +4,349 @@
 using namespace djc_math;
 
 void vec2_tests() {
-    Vec2f vec_one(6, 5);
-    Vec2f vec_two(4, 6);
+    /* Runtime */
+    // -----------------------------------
     
-    // member functions
-    auto len = vec_one.length();
-    auto len2 = vec_one.length();
-    
-    vec_one.normalise();
-    
-    auto dot = vec_one.dot(vec_two);
-    
-    // operator overloads - members
-    +vec_one;
-    -vec_one;
+    // constructors
+    //
+        Vec2f vec2_default;
+        Vec2f vec2_explicit(5, 4);
+        Vec2f vec2_copy(vec2_default);
+    //
 
-    vec_one += vec_two;
-    vec_one -= vec_two;
-    vec_one *= vec_two;
-    vec_one /= vec_two;
+    // members
+    {   
+        auto len  = vec2_default.length();
+        auto len2 = vec2_default.length2();
+        
+        vec2_default.normalise();
+    
+        auto dot  = vec2_default.dot(vec2_explicit);
+    }
 
-    vec_one += 1.0f;
-    vec_one -= 1.0f;
-    vec_one *= 1.0f;
-    vec_one /= 1.0f;
+    // members - operator overloads
+    {
+        auto pos = +vec2_default;
+        auto neg = -vec2_default;
 
-    // operator overloads - free funcitons
-    auto add = vec_one + vec_two;
-    auto sub = vec_one - vec_two;
-    auto mul = vec_one * vec_two;
-    auto div = vec_one / vec_two;   
+        vec2_default += vec2_explicit;
+        vec2_default -= vec2_explicit;
+        vec2_default *= vec2_explicit;
+        vec2_default /= vec2_explicit;
+
+        vec2_default += 1.0f;
+        vec2_default -= 1.0f;
+        vec2_default *= 1.0f;
+        vec2_default /= 1.0f;
+    }
     
-    auto addF = 1.0f + vec_one;
-    auto subF = 1.0f - vec_two;
-    auto mulF = 1.0f * vec_one;
-    auto divF = 1.0f / vec_one;
+    // free functions - operator overloads
+    {
+        auto add = vec2_default + vec2_default;
+        auto sub = vec2_default - vec2_default;
+        auto mul = vec2_default * vec2_default;
+        auto div = vec2_default / vec2_default;   
     
-    auto addFF = vec_one + 1.0f;
-    auto subFF = vec_one - 1.0f;
-    auto mulFF = vec_one * 1.0f;
-    auto divFF = vec_one / 1.0f;
+        auto addF = 1.0f + vec2_default;
+        auto subF = 1.0f - vec2_default;
+        auto mulF = 1.0f * vec2_default;
+        auto divF = 1.0f / vec2_default;
     
-    std::cout << vec_one << std::endl;
+        auto addFF = vec2_default + 1.0f;
+        auto subFF = vec2_default - 1.0f;
+        auto mulFF = vec2_default * 1.0f;
+        auto divFF = vec2_default / 1.0f;
     
+        std::cout << vec2_default << std::endl;
+    }
+
     // free functions
-    ::normalise(vec_one);
-    ::dot(vec_one, vec_two);
- 
+    {
+        ::normalise(vec2_default);
+        auto dot_free = ::dot(vec2_default, vec2_default);
+    }
+
+    // CONSTEXPR
+    // -----------------------------------
+    
+    // constructors
+    //
+        constexpr Vec2f constexpr1(1.0, 1.0);
+        constexpr Vec2f constexpr2(2.0, 2.0);
+    //
+
+    constexpr Vec2f constexpr_add(constexpr1 + constexpr2);
+    constexpr Vec2f constexpr_min(constexpr1 - constexpr2);
+    constexpr Vec2f constexpr_mul(constexpr1 * constexpr2);
+    constexpr Vec2f constexpr_div(constexpr1 / constexpr2);
+   
+    constexpr Vec2f constexpr_add_float(constexpr1 + 1.0f);    
+    constexpr Vec2f constexpr_min_float(constexpr1 - 1.0f);
+    constexpr Vec2f constexpr_mul_float(constexpr1 * 1.0f);
+    constexpr Vec2f constexpr_div_float(constexpr1 / 1.0f);
+    
+    constexpr Vec2f constexpr_copy(constexpr1);
 }
 
 void vec3_tests() {
-    // construction
-    Vec3f vec_one(4, 5, 6);
-    Vec3f vec_two(8, 8, 4);
+    /* Runtime */ 
+    // -----------------------------------
+    
+    // constructors //
+    //
+        Vec3f vec3_default;
+        Vec3f vec3_explicit(4, 5, 6);
+        Vec3f vec3_vec2_float(Vec2f(1.0f, 1.0), 1.0);
+        Vec3f vec3_float_vec2(1.0f, Vec2f(1.0f, 1.0f));
+        Vec3f vec3_copy(vec3_default);
+    //
 
     // member functions
-    auto len = vec_one.length();
-    auto len2 = vec_one.length2();
-    
-    vec_one.normalise();
-    
-    auto dot = vec_one.dot(vec_two);
-    auto cross = vec_one.cross(vec_two); 
-    
-    auto to_vec2 = vec_one.toVec2();
-   
-    // free functino operator overloads
-    auto add = vec_one + vec_two;
-    auto sub = vec_one - vec_two;
-    auto mul = vec_one * vec_two;
-    auto div = vec_one / vec_two;
-    
-    auto addF = 1.0f + vec_one;
-    auto subnF = 1.0f - vec_one;
-    auto mulF = 1.0f * vec_one;
-    auto divF = 1.0f / vec_one;
+    {   
+        auto len     = vec3_explicit.length();
+        auto len2    = vec3_explicit.length2();
+       
+        vec3_explicit.normalise();
+        
+        auto dot     = vec3_explicit.dot(vec3_vec2_float);
+        auto cross   = vec3_explicit.cross(vec3_vec2_float); 
+        auto to_vec2 = vec3_explicit.toVec2();
+    }
 
-    auto addFF = vec_one + 1.0f;
-    auto subFF = vec_one - 1.0f;
-    auto mulFF = vec_one * 1.0f;
-    auto divFF = vec_one / 1.0f;
+    // member operator overloads
+    {
+        auto pos     = +vec3_explicit;
+        auto neg     = -vec3_explicit;
+        
+        pos += neg;
+        pos -= neg;
+        pos *= neg;
+        pos /= neg;
+
+        pos += 1.0f;
+        pos -= 1.0f;
+        pos *= 1.0f;
+        pos /= 1.0f;
+    }
+
+    // free function operator overloads
+    {   
+        auto add   = vec3_explicit + vec3_explicit;
+        auto sub   = vec3_explicit - vec3_explicit;
+        auto mul   = vec3_explicit * vec3_explicit;
+        auto div   = vec3_explicit / vec3_explicit;
     
-    std::cout << vec_one << std::endl;
+        auto addF  = 1.0f + vec3_explicit;
+        auto subnF = 1.0f - vec3_explicit;
+        auto mulF  = 1.0f * vec3_explicit;
+        auto divF  = 1.0f / vec3_explicit;
+
+        auto addFF = vec3_explicit + 1.0f;
+        auto subFF = vec3_explicit - 1.0f;
+        auto mulFF = vec3_explicit * 1.0f;
+        auto divFF = vec3_explicit / 1.0f;
+    
+        std::cout << vec3_explicit << std::endl;
+    }
+       
+    // free function operator overload for use with other classes
+    {  
+        auto matrix_test = Mat3f() * vec3_explicit;
+    }
+    
+    // free functions
+    {   
+        ::normalise(vec3_explicit);
+        auto dot_free = ::dot(vec3_explicit, vec3_default);
+    }
+    
+    /* constexpr */
+    // -----------------------------------
+
+    // constructors
+    //
+        constexpr Vec3f constexpr_default;
+        constexpr Vec3f constexpr_explicit(1.0, 1.0, 1.0);
+        constexpr Vec3f constexpr_vec2_float(Vec2f(1.0, 1.0), 1.0);
+        constexpr Vec3f constexpr_copy(constexpr_default);
+    //
+
+    // members
+    {
+        constexpr auto constexpr_pos     = +constexpr_default;
+        constexpr auto constexpr_neg     = -constexpr_default;
+        constexpr auto constexpr_length2 = constexpr_default.length2();
+        constexpr auto constexpr_dot     = constexpr_default.dot(constexpr_explicit); 
+        constexpr auto constexpr_cross   = constexpr_default.cross(constexpr_explicit);
+        constexpr auto constexpr_toVec2  = constexpr_default.toVec2();
+    }
+
+    // free functions - operator overloads
+    {
+        constexpr auto constexpr_add = constexpr_default + constexpr_explicit;
+        constexpr auto constexpr_min = constexpr_default - constexpr_explicit;
+        constexpr auto constexpr_mul = constexpr_default * constexpr_explicit;
+        constexpr auto constexpr_div = constexpr_default / constexpr_explicit;
+    
+        constexpr auto constexpr_add_float = constexpr_default + 1.0f; 
+        constexpr auto constexpr_min_float = constexpr_default - 1.0f; 
+        constexpr auto constexpr_mul_float = constexpr_default * 1.0f; 
+        constexpr auto constexpr_div_float = constexpr_default / 1.0f; 
+    
+        constexpr auto constexpr_add_float_vec = 2.0f + constexpr_explicit; 
+        constexpr auto constexpr_min_float_vec = 2.0f - constexpr_explicit;
+        constexpr auto constexpr_mul_float_vec = 2.0f * constexpr_explicit;
+        constexpr auto constexpr_div_float_vec = 2.0f / constexpr_explicit;
+    }
 
     // free function operator overload for use with other classes
-    auto matrix_test = Mat3f() * vec_one;
+    {  
+        auto matrix_test = Mat3f() * vec3_explicit;
+    }
 
     // free functions
-    ::normalise(vec_one);
-    auto dot_free = ::dot(vec_one, vec_two);
+    {
+        constexpr auto constexpr_free_dot = ::dot(constexpr_explicit, constexpr_vec2_float);
+    }
 
 }
 
 void vec4_tests() {
-    Vec4f vec_one(1,1,1,1);
-    Vec4f vec_two(2,2,2,2);
+    /* Runtime */ 
+    // -----------------------------------
+    {   
+        // constructors //
+        //
+            Vec4f vec4_default;
+            Vec4f vec4_explicit(4, 5, 6, 7);
+            Vec4f vec4_vec2_float_float(Vec2f(1.0f, 1.0), 1.0, 1.0);
+            Vec4f vec4_float_float_vec2(1.0, 1.0, Vec2f(1.0, 1.0));
+            Vec4f vec4_vec2_vec2(Vec2f(1.0f, 1.0f), Vec2f(1.0f, 1.0f));
+            Vec4f vec4_vec3_float(Vec3f(1.0, 1.0, 1.0), 1.0f);
+            Vec4f vec4_float_vec3(1.0f, Vec3f(1.0, 1.0, 1.0));
+            Vec4f vec4_copy(vec4_default);
+        //
+
+        // member functions
+        {   
+            auto len     = vec4_explicit.length();
+            auto len2    = vec4_explicit.length2();
+           
+            vec4_explicit.normalise();
+            
+            auto dot     = vec4_explicit.dot(vec4_vec2_float_float);
+            auto to_vec2 = vec4_explicit.toVec2();
+            auto to_vec3 = vec4_explicit.toVec3();
+        }
+
+        // member operator overloads
+        {
+            auto pos     = +vec4_explicit;
+            auto neg     = -vec4_explicit;
+            
+            pos += neg;
+            pos -= neg;
+            pos *= neg;
+            pos /= neg;
+        
+            pos += 1.0f;
+            pos -= 1.0f;
+            pos *= 1.0f;
+            pos /= 1.0f; 
+        }
+
+        // free function operator overloads
+        {   
+            auto add   = vec4_explicit + vec4_explicit;
+            auto sub   = vec4_explicit - vec4_explicit;
+            auto mul   = vec4_explicit * vec4_explicit;
+            auto div   = vec4_explicit / vec4_explicit;
+        
+            auto addF  = 1.0f + vec4_explicit;
+            auto subnF = 1.0f - vec4_explicit;
+            auto mulF  = 1.0f * vec4_explicit;
+            auto divF  = 1.0f / vec4_explicit;
+
+            auto addFF = vec4_explicit + 1.0f;
+            auto subFF = vec4_explicit - 1.0f;
+            auto mulFF = vec4_explicit * 1.0f;
+            auto divFF = vec4_explicit / 1.0f;
+        
+            std::cout << vec4_explicit << std::endl;
+        }
+           
+        // free function operator overload for use with other classes
+        {  
+            auto matrix_test = Mat4f() * vec4_explicit;
+        }
+        
+        // free functions
+        {   
+            ::normalise(vec4_explicit);
+            auto dot_free = ::dot(vec4_explicit, vec4_default);
+        }
+    }
     
-    // member functions
-    auto len = vec_one.length();
-    auto len2 = vec_one.length2();
+    /* constexpr */
+    // -----------------------------------
+    {
+        // constructors //
+        //
+            constexpr Vec4f vec4_default;
+            constexpr Vec4f vec4_explicit(4, 5, 6, 7);
+            constexpr Vec4f vec4_vec2_float_float(Vec2f(1.0f, 1.0), 1.0, 1.0);
+            constexpr Vec4f vec4_vec2_vec2(Vec2f(1.0f, 1.0f), Vec2f(1.0f, 1.0f));
+            constexpr Vec4f vec4_vec3_float(Vec3f(1.0, 1.0, 1.0), 1.0f);
+            constexpr Vec4f vec4_copy(vec4_default);
+        //
+
+        // member functions
+        {   
+            constexpr auto len2    = vec4_explicit.length2();
+            constexpr auto dot     = vec4_explicit.dot(vec4_vec2_float_float);
+            constexpr auto to_vec2 = vec4_explicit.toVec2();
+            constexpr auto to_vec3 = vec4_explicit.toVec3();
+         }
+
+        // member operator overloads
+        {
+            constexpr auto pos     = +vec4_explicit;
+            constexpr auto neg     = -vec4_explicit;
+        }   
+
+        // free function operator overloads
+        {   
+            constexpr auto add   = vec4_explicit + vec4_explicit;
+            constexpr auto sub   = vec4_explicit - vec4_explicit;
+            constexpr auto mul   = vec4_explicit * vec4_explicit;
+            constexpr auto div   = vec4_explicit / vec4_explicit;
     
-    vec_one.normalise();
+            constexpr auto addF  = 1.0f + vec4_explicit;
+            constexpr auto subnF = 1.0f - vec4_explicit;
+            constexpr auto mulF  = 1.0f * vec4_explicit;
+            constexpr auto divF  = 1.0f / vec4_explicit;
 
-    auto dot = vec_one.dot(vec_two);
-    auto to_vec2 = vec_one.toVec2();
-    auto to_vec3 = vec_one.toVec3();
+            constexpr auto addFF = vec4_explicit + 1.0f;
+            constexpr auto subFF = vec4_explicit - 1.0f;
+            constexpr auto mulFF = vec4_explicit * 1.0f;
+            constexpr auto divFF = vec4_explicit / 1.0f;
     
-    // member operator overloads
-    auto pos = +vec_one;
-    auto neg = -vec_one;
-
-    vec_one += vec_two;
-    vec_one -= vec_two;
-    vec_one *= vec_two;
-    vec_one /= vec_two;
-
-    vec_one += 1.0f;
-    vec_one -= 1.0f;
-    vec_one /= 1.0f;
-    vec_one *= 1.0f;
-
-    // free function operator overloads
-    auto add = vec_one + vec_two;
-    auto sub = vec_one - vec_two;
-    auto mul = vec_one * vec_two;
-    auto div = vec_one / vec_two;
-
-    auto addF = 1.0f + vec_two;
-    auto subF = 1.0f - vec_two;
-    auto mulF = 1.0f * vec_two;
-    auto divF = 1.0f / vec_two;
-
-    auto addFF = vec_two + 1.0f;
-    auto subFF = vec_two - 1.0f;
-    auto mulFF = vec_two * 1.0f;
-    auto divFF = vec_two / 1.0f;
-
-    std::cout << vec_one << std::endl;
-
-    // free function operator overloads for use with other classes
-    auto matrix_test = Mat4f() * vec_one;
-
-    // free functions
-    ::normalise(vec_one);
-    auto dot_free = ::dot(vec_one, vec_two);
+            std::cout << vec4_explicit << std::endl;
+         }
+       
+        // free function operator overload for use with other classes
+        {  
+            constexpr auto matrix_test = Mat4f() * vec4_explicit;
+        }
+        
+        // free functions
+        {   
+            constexpr auto dot_free = ::dot(vec4_explicit, vec4_default);
+        }
+    }
 }
 
-void Mat3_tests() {
+void mat3_tests() {
     // construction
     Mat3f mat_one;
     Mat3f mat_two;
@@ -166,7 +362,7 @@ void Mat3_tests() {
     // ...
 }
 
-void Mat4_tests() {
+void mat4_tests() {
     // construction
     Mat4f mat_one;
     Mat4f mat_two;
@@ -186,37 +382,36 @@ void Mat4_tests() {
     // ...
 }
 
-void Transform_test() {
+void transform_tests() {
     // mat3 
-
-    auto iden_mat3 = createMat3IdentityMatrix<float>();
+    constexpr auto iden_mat3 = createMat3IdentityMatrix<float>();
     auto rot_mat3 = createMat3RotationMatrix(Vec3f(1.0f));
     
     // mat4
-    auto iden_mat4 = createMat4IdentityMatrix<float>();
-    auto trans_mat4 = createMat4TranslationMatrix(Vec3f(1.0f));
+    constexpr auto iden_mat4 = createMat4IdentityMatrix<float>();
+    constexpr auto trans_mat4 = createMat4TranslationMatrix(Vec3f(1.0f));
     auto rot_mat4 = createMat4RotationMatrix(Vec3f(1.0f));
-    auto scale_mat4 = createMat4ScaleMatrix(Vec3f(1.0f));
+    constexpr auto scale_mat4 = createMat4ScaleMatrix(Vec3f(1.0f));
     auto model_mat4 = createMat4ModelMatrix(Vec3f(0.0f), Vec3f(0.0f), Vec3f(1.0f)); 
-    auto ortho_mat4 = createMat4OrthographicMatrix(900, 600, 0.01f, 1000.0f);
+    constexpr auto ortho_mat4 = createMat4OrthographicMatrix(900, 600, 0.01f, 1000.0f);
     auto proj_mat4 = createMat4ProjectionMatrix(toRadians(70.0f), 900.0f / 600.0f, 0.01f, 1000.0f);
-    auto view_mat4 = createMat4ViewMatrix(Vec3f(0), Vec3f(0), Vec3f(0,1,0));
-    auto bird_view_mat4 = createMat4BirdsEyeViewMatrix<float>();
-    auto screen_spaceTrans_mat4 = createMat4ScreenSpaceTransform(900.0f / 2.0f, 600.0f / 2.0f);
+    constexpr auto view_mat4 = createMat4ViewMatrix(Vec3f(0), Vec3f(0), Vec3f(0,1,0));
+    constexpr auto bird_view_mat4 = createMat4BirdsEyeViewMatrix<float>();
+    constexpr auto screen_spaceTrans_mat4 = createMat4ScreenSpaceTransform(90.0f / 2.0f, 600.0f / 2.0f);
     
     // other
     Vec4f position(1.0, 1.0f, 1.0f, 1.0f);
-     ::transform(position, trans_mat4);
+    ::transform(position, trans_mat4);
     auto rotate_mat = ::rotate(90.0f, Vec3f(0,1,0));
 }
 
-void Utils_tests() {
+void utils_tests() {
     constexpr auto toRad = ::toRadians(90.0f);
     auto rand01 = ::randFBetweenZeroOne();
     auto randUC = ::randUCBetween0N255();
     auto norm = ::normalise(24.6f, 0.0f, 1.0f);
-    auto lerp = ::lerp(0.0f, 100.0f, 50.0f);
-    auto clamp = ::clamp(100.0f, 10.0f, 50.0f);
+    constexpr auto lerp = ::lerp(0.0f, 100.0f, 50.0f);
+    constexpr auto clamp = ::clamp(100.0f, 10.0f, 50.0f);
 
     Vec4f position (1.0, 1.0, 1.0, 5.0);
     ::perspectiveDivide(position);
@@ -228,8 +423,14 @@ int main() {
     vec2_tests();
     vec3_tests();
     vec4_tests(); 
-
+    
     // matrix tests
+    mat3_tests();
+    mat4_tests(); 
+
+    // other
+    transform_tests();
+    utils_tests();
 
     return 0;
 }

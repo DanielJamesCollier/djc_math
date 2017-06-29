@@ -5,7 +5,8 @@ namespace djc_math {
 //-------------------
 
 //------------------------------------------------------------
-template<typename T> inline Mat3<T>
+template<typename T> 
+constexpr inline Mat3<T>
 createMat3IdentityMatrix() {
     static_assert(std::is_floating_point<T>::value || std::is_integral<T>::value, 
                   "createMat3IdentityMatrix() only accepts floating point, and integral values");
@@ -18,7 +19,8 @@ createMat3IdentityMatrix() {
 }
 
 //------------------------------------------------------------
-template<typename T> inline Mat3<T>
+template<typename T> 
+inline Mat3<T>
 createMat3RotationMatrix(Vec3<T> const & rotation) {
      static_assert(std::is_floating_point<T>::value,
                   "createMat3RotationMatrix() only accepts floating point values");
@@ -60,7 +62,8 @@ createMat3RotationMatrix(Vec3<T> const & rotation) {
 //-------------------
 
 //------------------------------------------------------------
-template<typename T> inline Mat4<T>
+template<typename T> 
+constexpr inline Mat4<T>
 createMat4IdentityMatrix() {
     static_assert(std::is_floating_point<T>::value || std::is_integral<T>::value, 
                   "createMat4IdentityMatrix() only accepts floating point, and integral values");
@@ -74,7 +77,8 @@ createMat4IdentityMatrix() {
 }
 
 //------------------------------------------------------------
-template<typename T> inline Mat4<T>
+template<typename T> 
+constexpr inline Mat4<T>
 createMat4TranslationMatrix(Vec3<T> const & vec) {
     static_assert(std::is_floating_point<T>::value || std::is_integral<T>::value, 
                   "createMat4TranslationMatrix() only accepts floating point, and integral values");    
@@ -88,7 +92,8 @@ createMat4TranslationMatrix(Vec3<T> const & vec) {
 }
 
 //------------------------------------------------------------
-template<typename T> inline Mat4<T>
+template<typename T> 
+inline Mat4<T>
 createMat4RotationMatrix(Vec3<T> const & rotation) {
      static_assert(std::is_floating_point<T>::value,
                   "createMat4RotationMatrix() only accepts floating point values"); 
@@ -124,7 +129,8 @@ createMat4RotationMatrix(Vec3<T> const & rotation) {
 }
 
 //------------------------------------------------------------
-template<typename T> inline Mat4<T>
+template<typename T> 
+constexpr inline Mat4<T>
 createMat4ScaleMatrix(Vec3<T> const & vec) {
     static_assert(std::is_floating_point<T>::value || std::is_integral<T>::value, 
                 "createMat4ScaleMatrix() only accepts floating point, and integral values"); 
@@ -138,7 +144,8 @@ createMat4ScaleMatrix(Vec3<T> const & vec) {
 }
 
 //------------------------------------------------------------
-template<typename T> inline Mat4<T>
+template<typename T> 
+inline Mat4<T>
 createMat4ModelMatrix(Vec3<T> const & position, Vec3<T> const & rotation, Vec3<T> const & scale) {
     Mat4<T> _translation = createMat4TranslationMatrix<T>(position);
     Mat4<T> _rotation    = createMat4RotationMatrix<T>(rotation);
@@ -147,7 +154,8 @@ createMat4ModelMatrix(Vec3<T> const & position, Vec3<T> const & rotation, Vec3<T
 }
 
 //------------------------------------------------------------
-template<typename T> inline Mat4<T> // @todo : needs looking at
+template<typename T> 
+constexpr inline Mat4<T> // @todo : needs looking at
 createMat4OrthographicMatrix(int width, int height, T zNear, T zFar) { 
     T a(1.0f / static_cast<T>(width));
     T b(1.0f / static_cast<T>(height));
@@ -163,7 +171,8 @@ createMat4OrthographicMatrix(int width, int height, T zNear, T zFar) {
 }
 
 //------------------------------------------------------------
-template<typename T> inline Mat4<T>
+template<typename T> 
+inline Mat4<T>
 createMat4ProjectionMatrix(T fov, T aspect, T near, T far) {
     static_assert(std::is_floating_point<T>::value, "createMat4ProjectionMatrix only accepts floating point values");
 
@@ -195,7 +204,8 @@ createMat4ProjectionMatrix(T fov, T aspect, T near, T far) {
 }
 
 //------------------------------------------------------------
-template<typename T> inline Mat4<T> 
+template<typename T> 
+constexpr inline Mat4<T> 
 createMat4ViewMatrix(Vec3<T> const & eye, Vec3<T> const & centre, Vec3<T> const & up) {
 
     Vec3<T> forward(0, 0,-1);
@@ -207,11 +217,11 @@ createMat4ViewMatrix(Vec3<T> const & eye, Vec3<T> const & centre, Vec3<T> const 
            -forward.x,    -forward.y,    -forward.z, -eye.z,
            0,             0,              0,          1
     }});
-
 }
 
-//----------------------w--------------------------------------
-template<typename T> inline Mat4<T>
+//------------------------------------------------------------
+template<typename T>
+constexpr inline Mat4<T>
 createMat4BirdsEyeViewMatrix() {
     return Mat4<T>(std::array<T, 16> {{
         1,    0,    0,     0,
@@ -222,7 +232,8 @@ createMat4BirdsEyeViewMatrix() {
 }
 
 //------------------------------------------------------------
-template<typename T> inline Mat4<T>
+template<typename T> 
+constexpr inline Mat4<T>
 createMat4ScreenSpaceTransform(T halfWidth, T halfHeight) {
     return Mat4<T>(std::array<T, 16>{{ 
           halfWidth,    0,              0,    0,
@@ -248,7 +259,8 @@ setMat4Identity(Mat4<T> & matrix) {
 //-------------------//
 
 //------------------------------------------------------------
-template<typename T> inline void
+template<typename T> 
+inline void
 transform(Vec4<T> & vec, Mat4<T> const & transformation) {
     vec = transformation * vec;
 }

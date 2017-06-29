@@ -18,11 +18,13 @@ namespace djc_math {
 
 // create new //
 
-template<typename T> inline Mat3<T>
+template<typename T> 
+constexpr inline Mat3<T>
 createMat3IdentityMatrix();
 
-template<typename T> inline Mat3<T>
-createMat3RotationMatrix(Vec3<T> const & vec);
+template<typename T> 
+inline Mat3<T>
+createRotationMatrix(Vec3<T> const & vec);
 
 //-------------------//
 /*      Mat4        */
@@ -30,50 +32,64 @@ createMat3RotationMatrix(Vec3<T> const & vec);
 
 // create new //
 
-template<typename T> inline Mat4<T> 
+template<typename T> 
+constexpr inline Mat4<T> 
 createMat4IdentityMatrix();
 
-template<typename T> inline Mat4<T>
+template<typename T>
+constexpr inline Mat4<T>
 createMat4TranslationMatrix(Vec3<T> const & vec);
 
-template<typename T> inline Mat4<T>
+template<typename T> 
+inline Mat4<T>
 createMat4RotationMatrix(Vec3<T> const & vec);
 
-template<typename T> inline Mat4<T>
+template<typename T> 
+constexpr inline Mat4<T>
 createMat4ScaleMatrix(Vec3<T> const & vec);
 
-template<typename T> inline Mat4<T>
+template<typename T> 
+inline Mat4<T>
 createMat4ModelMatrix(Vec3<T> const & position, Vec3<T> const & rotation, Vec3<T> const & scale);
 
-template<typename T> inline Mat4<T>
+template<typename T> 
+constexpr inline Mat4<T>
 createMat4OrthographicMatrix(int width, int  height, T zNear, T zFar);
 
-template<typename T> inline Mat4<T>
+template<typename T> 
+inline Mat4<T>
 createMat4ProjectionMatrix(T fov, T aspect, T zNear, T zFar);
 
-template<typename T, typename U> inline Mat4<T>
+template<typename T, typename U> 
+inline Mat4<T>
 createMat4ProjectionMatrix(T fov, U width, U height, T zNear, T zFar);
 
-template<typename T> inline Mat4<T>
+template<typename T> 
+constexpr inline Mat4<T>
 createMat4ViewMatrix(Vec3<T> const & eye, Vec3<T> const & centre, Vec3<T> const & up);
 
-template<typename T> inline Mat4<T>
+template<typename T> 
+constexpr inline Mat4<T>
 createMat4BirdsEyeViewMatrix();
 
-template<typename T> inline Mat4<T>
+template<typename T> 
+constexpr inline Mat4<T>
 createMat4ScreenSpaceTransform(T halfWifth, T halfHeight);
 
 //-------------------//
 /*      Other        */
 //-------------------//
 
-template<typename T> inline void
+template<typename T> 
+inline void
 transform(Vec4<T> & vec, Mat4<T> const & transformation);
 
-template<typename T> inline Mat3<T>
+template<typename T> 
+inline Mat3<T>
 rotate(T angle, Vec3<T> const & axis);
 
-template<typename T> inline Mat4<T>
+template<typename T> 
+inline Mat4<T>
 rotate(T angle, Vec4<T> const & axis);
 
 } /* namespace djc_math */

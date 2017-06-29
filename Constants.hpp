@@ -3,11 +3,14 @@
 
 namespace djc_math {
 
-template<class T>
-inline constexpr T pi = T(3.1415926535897932385); 
+template<typename T> 
+constexpr T pi = 3.14159265358979323846264338327;
 
-template<typename T>
-inline constexpr T halfPi = T(1.57079632679);
+template<typename T> 
+constexpr T two_pi = 6.28318530717958647692528676656;
+
+template<typename T> 
+constexpr T half_pi = pi<T> * 0.5;
 
 } /* namespace djc_math */
 #endif /* Constants_hpp */

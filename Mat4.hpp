@@ -15,8 +15,8 @@ namespace djc_math {
 
 // template forward declarations
 template<typename T> class Mat4;
-template<typename T> Mat4<T> operator * (Mat4<T> const & lhs, Mat4<T> const & rhs);
-template<typename T> Vec4<T> operator * (Mat4<T> const & lhs, Vec4<T> const & rhs);
+template<typename T> constexpr Mat4<T> operator * (Mat4<T> const & lhs, Mat4<T> const & rhs);
+template<typename T> constexpr Vec4<T> operator * (Mat4<T> const & lhs, Vec4<T> const & rhs);
 template<typename T> std::ostream & operator << (std::ostream & lhs, Mat4<T> const & rhs);
 
 template<typename T = float>
@@ -24,26 +24,26 @@ class Mat4 final {
     static_assert(std::is_integral<T>::value || std::is_floating_point<T>::value, "T must be intergral or floating point");
     static_assert(std::is_nothrow_move_constructible<T>::value, "T must be no throw move constructable");
 public: // RAII
-    Mat4();
-    explicit Mat4(std::array<T, 16> const & matrix);
-    explicit Mat4(Mat3<T> const & matrix, T lastVal);
+    constexpr Mat4();
+    constexpr explicit Mat4(std::array<T, 16> const & matrix);
+    constexpr Mat4(Mat3<T> const & matrix, T lastVal);
     ~Mat4() = default;
 
 public: // member - functions
-    Mat3<T> toMat3() const;
+    constexpr Mat3<T> toMat3() const;
 
 public: // friend free functions - // @TODO: needs implementing
     // friend void clear();
     // friend void clear(T value);
 
 public: // friend free operators - defined in Mat4.inl
-    friend Mat4<T> operator *<> (Mat4<T> const & lhs, Mat4<T> const & rhs);
-    friend Vec4<T> operator *<> (Mat4<T> const & lhs, Vec4<T> const & rhs);
+    friend constexpr Mat4<T> operator *<> (Mat4<T> const & lhs, Mat4<T> const & rhs);
+    friend constexpr Vec4<T> operator *<> (Mat4<T> const & lhs, Vec4<T> const & rhs);
     friend std::ostream & operator <<<> (std::ostream & lhs, Mat4<T> const & rhs);  
 
 private: // private operators
-    float & operator [] (std::size_t index);
-    float const & operator [] (std::size_t index) const;
+    constexpr T & operator [] (std::size_t index);
+    constexpr T const & operator [] (std::size_t index) const;
 
 private: // private data
     std::array<T, 16> m_matrix;

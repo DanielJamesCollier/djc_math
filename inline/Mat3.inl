@@ -2,19 +2,23 @@ namespace djc_math {
 
 //------------------------------------------------------------
 template<typename T>
-Mat3<T>::Mat3() {
-    m_matrix.fill(T());
+constexpr
+Mat3<T>::Mat3() 
+:   m_matrix()
+{
+    // empty
 }
 
 //------------------------------------------------------------
 template<typename T>
+constexpr
 Mat3<T>::Mat3(std::array<T, 9> matrix)
 : m_matrix(matrix) 
 {
     // empty
 }
 
-// //------------------------------------------------------------
+//------------------------------------------------------------
 // template<typename T> void
 // clear() {
 //     m_matrix.fill(T());
@@ -27,7 +31,8 @@ Mat3<T>::Mat3(std::array<T, 9> matrix)
 // }
 
 //------------------------------------------------------------
-template<typename T> /* friend */ Mat3<T> 
+template<typename T> /* friend */ 
+constexpr Mat3<T> 
 operator * (Mat3<T> const & lhs, Mat3<T> const & rhs) {
     //-------------------- 
     //   [0]  [1]  [2] 
@@ -53,7 +58,8 @@ operator * (Mat3<T> const & lhs, Mat3<T> const & rhs) {
 }
 
 //------------------------------------------------------------
-template<typename T> Vec3<T>
+template<typename T> 
+constexpr Vec3<T>
 operator * (Mat3<T> const & lhs, Vec3<T> const & rhs) {
     return Vec3<T>(
         /*[x]*/ (lhs[0] * rhs.x) + (lhs[1] * rhs.y) + (lhs[2] * rhs.z),
@@ -77,13 +83,15 @@ operator << (std::ostream & lhs, Mat3<T> const & rhs) {
 }
 
 //------------------------------------------------------------
-template<typename T> float & 
+template<typename T> 
+constexpr T & 
 Mat3<T>::operator [] (std::size_t index) {
     return m_matrix[index];
 }
 
 //------------------------------------------------------------
-template<typename T> float const & 
+template<typename T> 
+constexpr T const & 
 Mat3<T>::operator [] (std::size_t index) const {
     return m_matrix[index];
 }

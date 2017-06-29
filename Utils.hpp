@@ -10,7 +10,8 @@
 
 namespace djc_math {
 
-template<typename T> inline constexpr T 
+template<typename T> 
+constexpr inline T 
 toRadians(T degrees);
 
 inline float 
@@ -19,17 +20,20 @@ randFBetweenZeroOne();
 inline unsigned char 
 randUCBetween0N255();
 
-inline float
+constexpr inline float
 normalise(float valToNormalise, float min, float max);
 
 template <typename T>
-inline T lerp(T v0, T v1, float t);
+constexpr inline T 
+lerp(T v0, T v1, float t);
 
 template<typename T>
-inline T clamp(T v, T low, T hi);
+constexpr inline T 
+clamp(T v, T low, T hi);
 
 template<typename T>
-inline void perspectiveDivide(Vec4<T> & vec);
+inline void
+perspectiveDivide(Vec4<T> & vec);
 
 } /* namespace djc_math */
 #include "inline/Utils.inl"
