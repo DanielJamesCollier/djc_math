@@ -33,6 +33,13 @@ lerp(T v0, T v1, float t) {
 }
 
 //------------------------------------------------------------
+template <typename T>
+constexpr inline T
+lerp(T v0, T v1, double t) {
+    return (T(1) - t) * v0 + t * v1;
+}
+
+//------------------------------------------------------------
 template<typename T>
 constexpr inline T 
 clamp(T v, T low, T hi) {
