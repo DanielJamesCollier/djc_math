@@ -226,10 +226,12 @@ operator / (Vec2<T> const & lhs, T rhs) {
 }
 
 //------------------------------------------------------------
+#   if defined(DJC_MATH_STD_IOSTREAM)
 template<typename T> std::ostream &
 operator << (std::ostream & lhs, Vec2<T> const & rhs) {
     return lhs << "Vec2(" << rhs.x << ", " << rhs.y << ")";
 }
+#   endif
 
 // free functions
 

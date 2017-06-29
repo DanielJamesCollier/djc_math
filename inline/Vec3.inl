@@ -277,6 +277,7 @@ operator / (Vec3<T> const & lhs, T rhs) {
 }
 
 //------------------------------------------------------------
+#   if defined(DJC_MATH_STD_IOSTREAM)
 template<typename T> std::ostream &
 operator << (std::ostream & lhs, Vec3<T> const & rhs) {
     lhs << "Vec3\n-----------------\n";
@@ -284,6 +285,7 @@ operator << (std::ostream & lhs, Vec3<T> const & rhs) {
     lhs << "-----------------\n";
     return lhs;
 }
+#   endif
 
 // free functions
 

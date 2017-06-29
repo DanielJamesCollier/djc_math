@@ -356,6 +356,7 @@ void mat3_tests() {
     // friend free operators
     auto mult = mat_one * mat_two;
     auto mult_vec4 = mat_one * Vec3f(1.0f);
+    
     std::cout << mat_one << std::endl;
 
     // private operators - cant test

@@ -324,11 +324,13 @@ operator / (Vec4<T> const & lhs, T rhs) {
 }
 
 //------------------------------------------------------------
+#   if defined(DJC_MATH_STD_IOSTREAM)
 template<typename T> std::ostream &
 operator << (std::ostream & lhs, Vec4<T> const & rhs) {
     lhs << "Vec4(" << rhs.x << ", " << rhs.y << ", " << rhs.z << ", " << rhs.w << ")";
     return lhs;
 }
+#   endif
 
 // free functions
 

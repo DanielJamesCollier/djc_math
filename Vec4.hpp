@@ -1,18 +1,21 @@
 #ifndef Vec4_hpp
 #define Vec4_hpp
 
-// std
-#include <cmath>
-#include <iostream>
-#include <type_traits>
-
 // my
 #include "Vec2.hpp"
 #include "Vec3.hpp"
+#include "Config.hpp"
+
+// std
+#include <cmath>
+#   if defined(DJC_MATH_STD_IOSTREAM)
+#include <iostream>
+#   endif
+#include <type_traits>
 
 namespace djc_math {
 
-template<typename T = float>
+template<typename T = DJC_MATH_DEFAULT_TYPE>
 class Vec4 final {
     static_assert(std::is_integral<T>::value || std::is_floating_point<T>::value, "T must be intergral or floating point");
 public: // RAII
@@ -80,8 +83,10 @@ public: // free function operator overloads - defined in Vec4.inl
     //  constexpr Vec4<T> operator - (Vec4<T> const & lhs, T rhs);
     //  constexpr Vec4<T> operator * (Vec4<T> const & lhs, T rhs);
     //  constexpr Vec4<T> operator / (Vec4<T> const & lhs, T rhs);
-
-    // std::ostream & operator << (std::ostream & lhs, Vec4<T> const & rhs);  
+    
+    // #    if defined(DJC_MATH_STD_IOSTREAM)
+    //  std::ostream & operator << (std::ostream & lhs, Vec4<T> const & rhs);  
+    // #    endif
 
 public: // free function operator overload for use with other classes - defined in Vec34.inl
     // Vec4<T> operator * (Mat4<T> const & rhs & lhs, Vec4<T> const & rhs); - defined in Mat4.inl

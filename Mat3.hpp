@@ -1,13 +1,17 @@
 #ifndef Mat3_hpp
 #define Mat3_hpp
 
-// std
-#include <array>
-#include <iostream>
-#include <cstddef> // std::size_t
-
 // my 
 #include "Vec3.hpp"
+#include "Config.hpp"
+
+// std
+#include <array>
+#   if defined(DJC_MATH_STD_IOSTREAM)
+#include <iostream>
+#   endif
+#include <cstddef> // std::size_t
+#include <type_traits>
 
 namespace djc_math {
 
@@ -15,9 +19,11 @@ namespace djc_math {
 template<typename T> class Mat3;
 template<typename T> constexpr Mat3<T> operator * (Mat3<T> const & lhs, Mat3<T> const & rhs);
 template<typename T> constexpr Vec3<T> operator * (Mat3<T> const & lhs, Vec3<T> const & rhs);
+#   if defined(DJC_MATH_STD_IOSTREAM)
 template<typename T> std::ostream & operator << (std::ostream & lhs, Mat3<T> const & rhs);
+#   endif
 
-template<typename T = float>
+template<typename T = DJC_MATH_DEFAULT_TYPE>
 class Mat3 final {
     static_assert(std::is_integral<T>::value || std::is_floating_point<T>::value, "T must be intergral or floating point");
     static_assert(std::is_nothrow_move_constructible<T>::value, "T must be no throw move constructable");
@@ -38,7 +44,10 @@ public: // friend free functions
 public: // friend operators - defined in Mat3.inl
     friend Mat3<T> constexpr operator *<> (Mat3<T> const & lhs, Mat3<T> const & rhs); // Mat3 * Mat3
     friend Vec3<T> constexpr operator *<> (Mat3<T> const & lhs, Vec3<T> const & rhs); // Mat3 * Vec3
+    
+    #   if defined(DJC_MATH_STD_IOSTREAM)    
     friend std::ostream & operator <<<> (std::ostream & lhs, Mat3<T> const & rhs); // std::cout << Mat3 
+    #   endif
 
 private: // private operators
     constexpr T & operator [] (std::size_t index);

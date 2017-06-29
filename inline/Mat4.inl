@@ -103,6 +103,7 @@ operator * (Mat4<T> const & lhs, Vec4<T> const & rhs) {
 }
 
 //------------------------------------------------------------
+#   if defined(DJC_MATH_STD_IOSTREAM)
 template<typename T> /* friend */
 std::ostream & 
 operator << (std::ostream & lhs, Mat4<T> const & rhs) {
@@ -116,6 +117,7 @@ operator << (std::ostream & lhs, Mat4<T> const & rhs) {
     lhs << "-----------------";
     return lhs;
 }
+#   endif
 
 //------------------------------------------------------------
 template<typename T>

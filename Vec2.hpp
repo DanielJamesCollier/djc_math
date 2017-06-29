@@ -1,14 +1,19 @@
 #ifndef Vec2_hpp
 #define Vec2_hpp
 
+// my
+#include "Config.hpp"
+
 // std
 #include <cmath>
+#   if defined(DJC_MATH_STD_IOSTREAM)
 #include <iostream>
+#   endif
 #include <type_traits>
 
 namespace djc_math {
 
-template<typename T = float>
+template<typename T = DJC_MATH_DEFAULT_TYPE>
 class Vec2 final {
     static_assert(std::is_integral<T>::value || std::is_floating_point<T>::value, "T must be intergral or floating point");
 public: // RAII
@@ -52,8 +57,10 @@ public: // free functions - operator overloads
     // constexpr Vec2<T> operator - (Vec2<T> const & lhs, T rhs);
     // constexpr Vec2<T> operator * (Vec2<T> const & lhs, T rhs);
     // constexpr Vec2<T> operator / (Vec2<T> const & lhs, T rhs);
-
+    
+    // #    if _defined(DJC_MATH_STD_IOSTREAM)
     // std::ostream & operator << (std::ostream & lhs, Vec2<T> const & rhs);  
+    // #    endif
 
 public: // free functions
     // Vec2<T> normalise(Vec2<T> const & vec);
