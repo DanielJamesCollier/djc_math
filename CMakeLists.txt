@@ -9,13 +9,4 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wall")
 set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -Wall")
 
-find_library(SDL_FRAMEWORK SDL2)
-
-if (NOT SDL_FRAMEWORK)
-     message(FATAL_ERROR "SDL2 not found")
-endif()
-
-    add_executable(${PROJECT_NAME} ./tests.cpp)
-
-    target_link_libraries(${PROJECT_NAME}
-                          ${SDL_FRAMEWORK})
+add_executable(${PROJECT_NAME} ./tests.cpp)
