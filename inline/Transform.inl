@@ -1,17 +1,14 @@
-namespace djc_math {
+namespace djc::math {
 
-//-------------------
-/*      Mat3       */
-//-------------------
-
+//                        mat3                              // 
 //------------------------------------------------------------
 template<typename T> 
-constexpr inline Mat3<T>
-createMat3IdentityMatrix() {
+constexpr mat3<T>
+create_mat3_identity_matrix() noexcept { 
     static_assert(std::is_floating_point<T>::value || std::is_integral<T>::value, 
-                  "createMat3IdentityMatrix() only accepts floating point, and integral values");
+                  "rcreate_mat3_identity_matrix() only accepts floating point, and integral values");
 
-    return Mat3<T>(std::array<T, 9> {{ 
+    return mat3<T>(std::array<T, 9> {{ 
         1,  0,  0,
         0,  1,  0,
         0,  0,  1
@@ -20,10 +17,10 @@ createMat3IdentityMatrix() {
 
 //------------------------------------------------------------
 template<typename T> 
-inline Mat3<T>
-createMat3RotationMatrix(Vec3<T> const & rotation) {
+mat3<T>
+create_mat3_rotation_matrix(vec3<T> const & rotation) noexcept {
      static_assert(std::is_floating_point<T>::value,
-                  "createMat3RotationMatrix() only accepts floating point values");
+                  "ccreate_mat3_rotation_matrix() only accepts floating point values");
 
     T xSin = std::sin(rotation.x);
     T xCos = std::cos(rotation.x);
@@ -34,19 +31,19 @@ createMat3RotationMatrix(Vec3<T> const & rotation) {
     T zSin = std::sin(rotation.z);
     T zCos = std::cos(rotation.z);
     
-    Mat3<T> rotX(std::array<T, 9> {{
+    mat3<T> rotX(std::array<T, 9> {{
         1,    0,       0,
         0,    xCos,    -xSin,
         0,    xSin,    xCos,
     }});
 
-    Mat3<T> rotY(std::array<T, 9>{{
+    mat3<T> rotY(std::array<T, 9>{{
         yCos,    0,    ySin,
         0,       1,    0,
         -ySin,   0,    yCos
     }});
 
-    Mat3<T> rotZ(std::array<T, 9>{{
+    mat3<T> rotZ(std::array<T, 9>{{
         zCos,    -zSin,   0,
         zSin,    zCos,    0,
         0,       0,       1
@@ -55,20 +52,15 @@ createMat3RotationMatrix(Vec3<T> const & rotation) {
     return rotX * rotY * rotZ;
 }
 
-// use existing
-
-//-------------------
-/*      Mat4       */
-//-------------------
-
+//                        mat4                              // 
 //------------------------------------------------------------
 template<typename T> 
-constexpr inline Mat4<T>
-createMat4IdentityMatrix() {
+constexpr mat4<T>
+create_mat4_identity_matrix() noexcept {
     static_assert(std::is_floating_point<T>::value || std::is_integral<T>::value, 
-                  "createMat4IdentityMatrix() only accepts floating point, and integral values");
+                  "create_mat4_identity_matrix() only accepts floating point, and integral values");
 
-    return Mat4<T>(std::array<T, 16>{{
+    return mat4<T>(std::array<T, 16>{{
         1,    0,    0,    0,
         0,    1,    0,    0,
         0,    0,    1,    0,
@@ -78,12 +70,12 @@ createMat4IdentityMatrix() {
 
 //------------------------------------------------------------
 template<typename T> 
-constexpr inline Mat4<T>
-createMat4TranslationMatrix(Vec3<T> const & vec) {
+constexpr mat4<T> 
+create_mat4_translation_matrix(vec3<T> const & vec) noexcept {
     static_assert(std::is_floating_point<T>::value || std::is_integral<T>::value, 
-                  "createMat4TranslationMatrix() only accepts floating point, and integral values");    
+                  "create_mat4_translation_matrix() only accepts floating point, and integral values");    
 
-    return Mat4<T>(std::array<T, 16>{{
+    return mat4<T>(std::array<T, 16>{{
         1,    0,    0,    vec.x,
         0,    1,    0,    vec.y,
         0,    0,    1,    vec.z,
@@ -93,10 +85,10 @@ createMat4TranslationMatrix(Vec3<T> const & vec) {
 
 //------------------------------------------------------------
 template<typename T> 
-inline Mat4<T>
-createMat4RotationMatrix(Vec3<T> const & rotation) {
+mat4<T>
+create_mat4_rotation_matrix(vec3<T> const & rotation) noexcept {
      static_assert(std::is_floating_point<T>::value,
-                  "createMat4RotationMatrix() only accepts floating point values"); 
+                  "create_mat4_rotation_matrix() only accepts floating point values"); 
 
     T xSin(std::sin(rotation.x));
     T xCos(std::cos(rotation.x));
@@ -107,35 +99,35 @@ createMat4RotationMatrix(Vec3<T> const & rotation) {
     T zSin(std::sin(rotation.z));
     T zCos(std::cos(rotation.z));
 
-    Mat3<T> rotX(std::array<T, 9>{{
+    mat3<T> rotX(std::array<T, 9>{{
         1,    0,       0,    
         0,    xCos,    -xSin,
         0,    xSin,    xCos
     }});
 
-    Mat3<T> rotY(std::array<T, 9>{{
+    mat3<T> rotY(std::array<T, 9>{{
         yCos,     0,    ySin,
         0,        1,    0,
         -ySin,    0,    yCos
     }});
 
-    Mat3<T> rotZ(std::array<T, 9>{{
+    mat3<T> rotZ(std::array<T, 9>{{
         zCos,    -zSin,  0,
         zSin,    zCos,   0,
         0,       0,      1
     }});
 
-    return Mat4<T>((rotX * rotY * rotZ), static_cast<T>(1));
+    return mat4<T>((rotX * rotY * rotZ), static_cast<T>(1));
 }
 
 //------------------------------------------------------------
 template<typename T> 
-constexpr inline Mat4<T>
-createMat4ScaleMatrix(Vec3<T> const & vec) {
+constexpr mat4<T>
+create_mat4_scale_matrix(vec3<T> const & vec) noexcept {
     static_assert(std::is_floating_point<T>::value || std::is_integral<T>::value, 
-                "createMat4ScaleMatrix() only accepts floating point, and integral values"); 
+                "create_mat4_scale_matrix() only accepts floating point, and integral values"); 
 
-     return Mat4<T>(std::array<T, 16>{{
+     return mat4<T>(std::array<T, 16>{{
         vec.x,    0,        0,        0,
         0,        vec.y,    0,        0,
         0,        0,        vec.z,    0,
@@ -145,24 +137,24 @@ createMat4ScaleMatrix(Vec3<T> const & vec) {
 
 //------------------------------------------------------------
 template<typename T> 
-inline Mat4<T>
-createMat4ModelMatrix(Vec3<T> const & position, Vec3<T> const & rotation, Vec3<T> const & scale) {
-    Mat4<T> _translation = createMat4TranslationMatrix<T>(position);
-    Mat4<T> _rotation    = createMat4RotationMatrix<T>(rotation);
-    Mat4<T> _scale       = createMat4ScaleMatrix<T>(scale);
+mat4<T>
+create_mat4_model_matrix(vec3<T> const & position, vec3<T> const & rotation, vec3<T> const & scale) noexcept {
+    mat4<T> _translation {create_mat4_translation_matrix<T>(position)};
+    mat4<T> _rotation    {create_mat4_rotation_matrix<T>(rotation)};
+    mat4<T> _scale       {create_mat4_scale_matrix<T>(scale)};
     return _translation * _rotation * _scale;
 }
 
 //------------------------------------------------------------
 template<typename T> 
-constexpr inline Mat4<T> // @todo : needs looking at
-createMat4OrthographicMatrix(int width, int height, T zNear, T zFar) { 
-    T a(1.0f / static_cast<T>(width));
-    T b(1.0f / static_cast<T>(height));
-    T c(-(2.0f / (zFar - zNear)));
+constexpr mat4<T> // @todo : needs looking at
+create_mat4_orthographic_matrix(int width, int height, T zNear, T zFar) noexcept { 
+    T a(1.0 / static_cast<T>(width));
+    T b(1.0 / static_cast<T>(height));
+    T c(-(2.0 / (zFar - zNear)));
     T d(-((zFar + zNear) / (zFar - zNear)));
 
-    return Mat4<T>(std::array<T, 16>{{
+    return mat4<T>(std::array<T, 16>{{
         a,    0,    0,    0,
         0,    b,    0,    0,
         0,    0,    c,    0,
@@ -172,9 +164,9 @@ createMat4OrthographicMatrix(int width, int height, T zNear, T zFar) {
 
 //------------------------------------------------------------
 template<typename T> 
-inline Mat4<T>
-createMat4ProjectionMatrix(T fov, T aspect, T near, T far) {
-    static_assert(std::is_floating_point<T>::value, "createMat4ProjectionMatrix only accepts floating point values");
+mat4<T>
+create_mat4_projection_matrix(T fov, T aspect, T near, T far) noexcept {
+    static_assert(std::is_floating_point<T>::value, "createmat4ProjectionMatrix only accepts floating point values");
 
     T const rad = fov;
     T const tanHalfFovy = std::tan(rad / static_cast<T>(2));
@@ -187,31 +179,22 @@ createMat4ProjectionMatrix(T fov, T aspect, T near, T far) {
     
     T zero(static_cast<T>(0));
 
-    return Mat4<T>(std::array<T, 16>{{
+    return mat4<T>(std::array<T, 16>{{
          sX,    0,     0,     0,
          0,     sY,    0,     0,
          0,     0,     sZ,    sB,
          0,     0,     sA,    0
     }});
-
-    // most basic projection matrix - projecs Vec4 to [z]:-1 plane
-    // return Mat4<T>(std::array<T, 16>{{
-    //       1, 0,  0, 0,
-    //       0, 1,  0, 0,
-    //       0, 0,  1, 0,
-    //       0, 0, -1, 0
-    // }});
 }
 
 //------------------------------------------------------------
 template<typename T> 
-constexpr inline Mat4<T> 
-createMat4ViewMatrix(Vec3<T> const & eye, Vec3<T> const & centre, Vec3<T> const & up) {
+constexpr mat4<T> 
+create_mat4_view_matrix(vec3<T> const & eye, vec3<T> const & centre, vec3<T> const & up) noexcept {
+    vec3<T> forward(0, 0, -1);
+    vec3<T> right(1, 0, 0);
 
-    Vec3<T> forward(0, 0,-1);
-    Vec3<T> right(1, 0, 0);
-
-    return Mat4<T>(std::array<T, 16>{{
+    return mat4<T>(std::array<T, 16>{{
            right.x,       right.y,       right.z,    -eye.x,
            up.x,          up.y,          up.z,       -eye.y,
            -forward.x,    -forward.y,    -forward.z, -eye.z,
@@ -221,9 +204,9 @@ createMat4ViewMatrix(Vec3<T> const & eye, Vec3<T> const & centre, Vec3<T> const 
 
 //------------------------------------------------------------
 template<typename T>
-constexpr inline Mat4<T>
-createMat4BirdsEyeViewMatrix() {
-    return Mat4<T>(std::array<T, 16> {{
+constexpr mat4<T>
+create_mat4_birds_eye_view_matrix() noexcept {
+    return mat4<T>(std::array<T, 16> {{
         1,    0,    0,     0,
         0,    0,    -1,    0,
         0,    1,    0,     0,
@@ -233,48 +216,39 @@ createMat4BirdsEyeViewMatrix() {
 
 //------------------------------------------------------------
 template<typename T> 
-constexpr inline Mat4<T>
-createMat4ScreenSpaceTransform(T halfWidth, T halfHeight) {
-    return Mat4<T>(std::array<T, 16>{{ 
-          halfWidth,    0,              0,    0,
-          0,            -halfHeight,    0,    0,
-          0,            0,              1,    0,
-          halfWidth,    halfHeight,     0,    1
+constexpr mat4<T>
+create_mat4_screenspace_transform(T half_width, T half_height) noexcept {
+    T hw {half_width};
+    T hh {half_height};
+
+    return mat4<T>(std::array<T, 16>{{ 
+         hw,    0,      0,    0,
+         0,     -hh,    0,    0,
+         0,     0,      1,    0,
+         hw,    hh,     0,    1
     }});
 }
 
-//------------------------------------------------------------
-template<typename T> inline void 
-setMat4Identity(Mat4<T> & matrix) {
-    matrix = Mat4<T>(std::array<T, 16>{{ 
-        1,    0,    0,    0,
-        0,    1,    0,    0,
-        0,    0,    1,    0,
-        0,    0,    0,    1
-    }});
-}
-
-//-------------------//
-/*      Other        */
-//-------------------//
-
+//                    Vector operations                     // 
 //------------------------------------------------------------
 template<typename T> 
-inline void
-transform(Vec4<T> & vec, Mat4<T> const & transformation) {
+void
+transform(vec4<T> & vec, mat4<T> const & transformation) {
     vec = transformation * vec;
 }
 
 //------------------------------------------------------------
-template<typename T> inline Mat3<T>
-rotate(T angle, Vec3<T> const & axis) {
-    return createMat3RotationMatrix<T>(axis * angle);
+template<typename T>
+mat3<T>
+rotate(T angle, vec3<T> const & axis) noexcept {
+    return create_mat3_rotation_matrix<T>(axis * angle);
 }
 
 //------------------------------------------------------------
-template<typename T> inline Mat4<T>
-rotate(T angle, Vec4<T> const & axis) {
-    return createMat4RotationMatrix<T>(axis * angle);
+template<typename T> 
+mat4<T>
+rotate(T angle, vec4<T> const & axis) noexcept {
+    return create_mat4_rotation_matrix<T>(axis * angle);
 }
 
-} /* namespace djc_math */
+} // namespace djc::math 

@@ -1,47 +1,48 @@
-namespace djc_math {
+namespace djc::math {
 
 //------------------------------------------------------------
 template<typename T> 
-inline constexpr T 
-toRadians(T degrees) {
+constexpr T 
+to_radians(T degrees) {
     return (degrees * pi<T>) / T(180);
 }
 
 //------------------------------------------------------------
 inline float 
-randFBetweenZeroOne() {
+rand_float_between_zero_one() {
     return (double)rand() / ((double)RAND_MAX + 1);
 }
 
+// @todo: remove this
 //------------------------------------------------------------
 inline unsigned char 
-randUCBetween0N255() {
-    return static_cast<unsigned char>(rand()%(255 + 1));
+rand_UC_between_0_N_255() {
+    return static_cast<unsigned char>(std::rand() % (255 + 1));
 }
 
 //------------------------------------------------------------
-constexpr inline float
+constexpr float
 normalise(float valToNormalise, float min, float max) {
     return (valToNormalise - min) / (max - min);
 }
 
 //------------------------------------------------------------
 template <typename T>
-constexpr inline T
+constexpr T
 lerp(T v0, T v1, float t) {
     return (T(1) - t) * v0 + t * v1;
 }
 
 //------------------------------------------------------------
 template <typename T>
-constexpr inline T
+constexpr T
 lerp(T v0, T v1, double t) {
     return (T(1) - t) * v0 + t * v1;
 }
 
 //------------------------------------------------------------
 template<typename T>
-constexpr inline T 
+constexpr T 
 clamp(T v, T low, T hi) {
     if(v < low) {
         return low;
@@ -51,14 +52,16 @@ clamp(T v, T low, T hi) {
     return v;
 }
 
+// @todo: remove ? probably should be in client code of path tracer
 //------------------------------------------------------------
 template<typename T>
-inline void
-perspectiveDivide(Vec4<T> & vec) {
+void
+perspective_divide(vec4<T> & vec) {
     vec.x /= vec.w;
     vec.y /= vec.w;
     vec.z /= vec.w;
   //vec.w /= vec.w  // do not do this because we need w info retained for persp texture mapper
 }
 
-} /* namespace djc_math */
+} // namespace djc::math 
+

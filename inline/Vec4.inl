@@ -1,10 +1,10 @@
-// included at the bottom of Vec4.hpp
-namespace djc_math {
+namespace djc::math {
 
+//                         RAII                             // 
 //------------------------------------------------------------
 template<typename T>
 constexpr
-Vec4<T>::Vec4(T _xyzw) 
+vec4<T>::vec4(T _xyzw) noexcept 
 :   x(_xyzw)
 ,   y(_xyzw)
 ,   z(_xyzw)
@@ -16,7 +16,7 @@ Vec4<T>::Vec4(T _xyzw)
 //------------------------------------------------------------
 template<typename T>
 constexpr
-Vec4<T>::Vec4(T _x, T _y, T _z, T _w) 
+vec4<T>::vec4(T _x, T _y, T _z, T _w) noexcept 
 :   x(_x)
 ,   y(_y)
 ,   z(_z)
@@ -28,7 +28,7 @@ Vec4<T>::Vec4(T _x, T _y, T _z, T _w)
 //------------------------------------------------------------
 template<typename T>
 constexpr
-Vec4<T>::Vec4(Vec2<T> const & _xy, T _z, T _w)
+vec4<T>::vec4(vec2<T> const & _xy, T _z, T _w) noexcept
 :   x(_xy.x)
 ,   y(_xy.y)
 ,   z(_z)
@@ -40,7 +40,7 @@ Vec4<T>::Vec4(Vec2<T> const & _xy, T _z, T _w)
 //------------------------------------------------------------
 template<typename T>
 constexpr
-Vec4<T>::Vec4(T _x, T _y, Vec2<T> const & _zw) 
+vec4<T>::vec4(T _x, T _y, vec2<T> const & _zw) noexcept 
 :   x(_x)
 ,   y(_y)
 ,   z(_zw.x)
@@ -52,7 +52,7 @@ Vec4<T>::Vec4(T _x, T _y, Vec2<T> const & _zw)
 //------------------------------------------------------------
 template<typename T>
 constexpr
-Vec4<T>::Vec4(Vec2<T> const & _xy, Vec2<T> const & _zw)
+vec4<T>::vec4(vec2<T> const & _xy, vec2<T> const & _zw) noexcept
 :   x(_xy.x)
 ,   y(_xy.y)
 ,   z(_zw.x)
@@ -64,7 +64,7 @@ Vec4<T>::Vec4(Vec2<T> const & _xy, Vec2<T> const & _zw)
 //------------------------------------------------------------
 template<typename T>
 constexpr
-Vec4<T>::Vec4(Vec3<T> const & _xyz, T _w) 
+vec4<T>::vec4(vec3<T> const & _xyz, T _w) noexcept  
 :   x(_xyz.x)
 ,   y(_xyz.y)
 ,   z(_xyz.z)
@@ -76,7 +76,7 @@ Vec4<T>::Vec4(Vec3<T> const & _xyz, T _w)
 //------------------------------------------------------------
 template<typename T>
 constexpr
-Vec4<T>::Vec4(T _x, Vec3<T> const & _yzw) 
+vec4<T>::vec4(T _x, vec3<T> const & _yzw) noexcept
 :   x(_x)
 ,   y(_yzw.x)
 ,   z(_yzw.y)
@@ -85,26 +85,25 @@ Vec4<T>::Vec4(T _x, Vec3<T> const & _yzw)
     // empty
 }
 
-// member - functions
-
+//                       functions                         // 
 //------------------------------------------------------------
 template<typename T>
 T
-Vec4<T>::length() const {
+vec4<T>::length() const noexcept(false) {
     return std::sqrt(x * x + y * y + z * z + w * w);
 }
 
 //------------------------------------------------------------
 template<typename T> 
 constexpr T
-Vec4<T>::length2() const {
+vec4<T>::length2() const noexcept {
     return x * x + y * y + z * z + w * w;
 }
 
 //------------------------------------------------------------
 template<typename T>
 void
-Vec4<T>::normalise() {
+vec4<T>::normalise() noexcept(false) {
     T length = std::sqrt(x * x + y * y + z * z + w * w);
     x /= length;
     y /= length;
@@ -115,44 +114,43 @@ Vec4<T>::normalise() {
 //------------------------------------------------------------
 template<typename T> 
 constexpr T
-Vec4<T>::dot(Vec4<T> const & vec) const {
+vec4<T>::dot(vec4<T> const & vec) const noexcept {
      return x * vec.x + y * vec.y + z * vec.z + w * vec.w;
 }
 
 //------------------------------------------------------------
 template<typename T> 
-constexpr Vec2<T>
-Vec4<T>::toVec2() const {
-    return Vec2<T>(x, y);
+constexpr vec2<T>
+vec4<T>::to_vec2() const noexcept {
+    return vec2<T>(x, y);
 }
 
 //------------------------------------------------------------
 template<typename T> 
-constexpr Vec3<T>
-Vec4<T>::toVec3() const {
-    return Vec3<T>(x, y, z);
+constexpr vec3<T>
+vec4<T>::to_vec3() const noexcept {
+    return vec3<T>(x, y, z);
 }
 
-// member - operator overloads
-
+//                   operator overloads                     // 
 //------------------------------------------------------------
 template<typename T> 
-constexpr Vec4<T>
-Vec4<T>::operator + () const {
-    return Vec4<T>(x, y, z, w);
-}
-
-//------------------------------------------------------------
-template<typename T> 
-constexpr Vec4<T>
-Vec4<T>::operator - () const {
-    return Vec4<T>(-x, -y, -z, -w);
+constexpr vec4<T>
+vec4<T>::operator + () const noexcept {
+    return vec4<T>(x, y, z, w);
 }
 
 //------------------------------------------------------------
 template<typename T> 
-Vec4<T> &
-Vec4<T>::operator += (Vec4<T> const & rhs) {
+constexpr vec4<T>
+vec4<T>::operator - () const noexcept {
+    return vec4<T>(-x, -y, -z, -w);
+}
+
+//------------------------------------------------------------
+template<typename T> 
+vec4<T> &
+vec4<T>::operator += (vec4<T> const & rhs) noexcept {
     x += rhs.x;
     y += rhs.y;
     z += rhs.z;
@@ -162,8 +160,8 @@ Vec4<T>::operator += (Vec4<T> const & rhs) {
 
 //------------------------------------------------------------
 template<typename T> 
-Vec4<T> &
-Vec4<T>::operator -= (Vec4<T> const & rhs) {
+vec4<T> &
+vec4<T>::operator -= (vec4<T> const & rhs) noexcept {
     x -= rhs.x;
     y -= rhs.y;
     z -= rhs.z;
@@ -173,8 +171,8 @@ Vec4<T>::operator -= (Vec4<T> const & rhs) {
 
 //------------------------------------------------------------
 template<typename T> 
-Vec4<T> &
-Vec4<T>::operator *= (Vec4<T> const & rhs) {
+vec4<T> &
+vec4<T>::operator *= (vec4<T> const & rhs) noexcept {
     x *= rhs.x;
     y *= rhs.y;
     z *= rhs.z;
@@ -184,8 +182,8 @@ Vec4<T>::operator *= (Vec4<T> const & rhs) {
 
 //------------------------------------------------------------
 template<typename T> 
-Vec4<T> &
-Vec4<T>::operator /= (Vec4<T> const & rhs) {
+vec4<T> &
+vec4<T>::operator /= (vec4<T> const & rhs) noexcept {
     x /= rhs.x;
     y /= rhs.y;
     z /= rhs.z;
@@ -195,8 +193,8 @@ Vec4<T>::operator /= (Vec4<T> const & rhs) {
 
 //------------------------------------------------------------
 template<typename T> 
-Vec4<T> &
-Vec4<T>::operator += (T rhs) {
+vec4<T> &
+vec4<T>::operator += (T rhs) noexcept {
     x += rhs;
     y += rhs;
     z += rhs;
@@ -206,8 +204,8 @@ Vec4<T>::operator += (T rhs) {
 
 //------------------------------------------------------------
 template<typename T> 
-Vec4<T> &
-Vec4<T>::operator -= (T rhs) {
+vec4<T> &
+vec4<T>::operator -= (T rhs) noexcept {
     x -= rhs;
     y -= rhs;
     z -= rhs;
@@ -217,8 +215,8 @@ Vec4<T>::operator -= (T rhs) {
 
 //------------------------------------------------------------
 template<typename T> 
-Vec4<T> &
-Vec4<T>::operator *= (T rhs) {
+vec4<T> &
+vec4<T>::operator *= (T rhs) noexcept {
     x *= rhs;
     y *= rhs;
     z *= rhs;
@@ -228,8 +226,8 @@ Vec4<T>::operator *= (T rhs) {
 
 //------------------------------------------------------------
 template<typename T> 
-Vec4<T> &
-Vec4<T>::operator /= (T rhs) {
+vec4<T> &
+vec4<T>::operator /= (T rhs) noexcept {
     x /= rhs;
     y /= rhs;
     z /= rhs;
@@ -237,115 +235,113 @@ Vec4<T>::operator /= (T rhs) {
     return *this;
 }
 
-// free function operator overloads
-
+//                  free function operators                 // 
 //------------------------------------------------------------
 template<typename T> 
-constexpr Vec4<T> 
-operator + (Vec4<T> const & lhs, Vec4<T> const & rhs) {
-    return Vec4<T>(lhs.x + rhs.x, lhs.y + rhs.y, lhs.z + rhs.z, lhs.w + rhs.w);
+constexpr vec4<T> 
+operator + (vec4<T> const & lhs, vec4<T> const & rhs) noexcept {
+    return vec4<T>(lhs.x + rhs.x, lhs.y + rhs.y, lhs.z + rhs.z, lhs.w + rhs.w);
 }
 
 //------------------------------------------------------------
 template<typename T>
-constexpr Vec4<T> 
-operator - (Vec4<T> const & lhs, Vec4<T> const & rhs) {
-    return Vec4<T>(lhs.x - rhs.x, lhs.y - rhs.y, lhs.z - rhs.z, lhs.w - rhs.w);
+constexpr vec4<T> 
+operator - (vec4<T> const & lhs, vec4<T> const & rhs) noexcept {
+    return vec4<T>(lhs.x - rhs.x, lhs.y - rhs.y, lhs.z - rhs.z, lhs.w - rhs.w);
 }
 
 //------------------------------------------------------------
 template<typename T> 
-constexpr Vec4<T> 
-operator * (Vec4<T> const & lhs, Vec4<T> const & rhs) {
-    return Vec4<T>(lhs.x * rhs.x, lhs.y * rhs.y, lhs.z * rhs.z, lhs.w * rhs.w);
+constexpr vec4<T> 
+operator * (vec4<T> const & lhs, vec4<T> const & rhs) noexcept {
+    return vec4<T>(lhs.x * rhs.x, lhs.y * rhs.y, lhs.z * rhs.z, lhs.w * rhs.w);
 }
 
 //------------------------------------------------------------
 template<typename T> 
-constexpr Vec4<T> 
-operator / (Vec4<T> const & lhs, Vec4<T> const & rhs) {
-    return Vec4<T>(lhs.x / rhs.x, lhs.y / rhs.y, lhs.z / rhs.z, lhs.w / rhs.w);
+constexpr vec4<T> 
+operator / (vec4<T> const & lhs, vec4<T> const & rhs) noexcept {
+    return vec4<T>(lhs.x / rhs.x, lhs.y / rhs.y, lhs.z / rhs.z, lhs.w / rhs.w);
 }
 
 //------------------------------------------------------------
 template<typename T> 
-constexpr Vec4<T>
-operator + (T lhs, Vec4<T> const & rhs) {
-    return Vec4<T>(lhs + rhs.x, lhs + rhs.y, lhs + rhs.z, lhs + rhs.w);
+constexpr vec4<T>
+operator + (T lhs, vec4<T> const & rhs) noexcept {
+    return vec4<T>(lhs + rhs.x, lhs + rhs.y, lhs + rhs.z, lhs + rhs.w);
 }
 
 //------------------------------------------------------------
 template<typename T> 
-constexpr Vec4<T>
-operator - (T lhs, Vec4<T> const & rhs) {
-    return Vec4<T>(lhs - rhs.x, lhs - rhs.y, lhs - rhs.z, lhs - rhs.w);
+constexpr vec4<T>
+operator - (T lhs, vec4<T> const & rhs) noexcept {
+    return vec4<T>(lhs - rhs.x, lhs - rhs.y, lhs - rhs.z, lhs - rhs.w);
 }
 
 //------------------------------------------------------------
 template<typename T> 
-constexpr Vec4<T>
-operator * (T lhs, Vec4<T> const & rhs) {
-    return Vec4<T>(lhs * rhs.x, lhs * rhs.y, lhs * rhs.z, lhs * rhs.w);
+constexpr vec4<T>
+operator * (T lhs, vec4<T> const & rhs) noexcept { 
+    return vec4<T>(lhs * rhs.x, lhs * rhs.y, lhs * rhs.z, lhs * rhs.w);
 }
 
 //------------------------------------------------------------
 template<typename T> 
-constexpr Vec4<T>
-operator / (T lhs, Vec4<T> const & rhs) {
-    return Vec4<T>(lhs / rhs.x, lhs / rhs.y, lhs / rhs.z, lhs / rhs.w);
+constexpr vec4<T>
+operator / (T lhs, vec4<T> const & rhs) noexcept {
+    return vec4<T>(lhs / rhs.x, lhs / rhs.y, lhs / rhs.z, lhs / rhs.w);
 }
 
 //------------------------------------------------------------
 template<typename T> 
-constexpr Vec4<T>
-operator + (Vec4<T> const & lhs, T rhs) {
-    return Vec4<T>(lhs.x + rhs, lhs.y + rhs, lhs.z + rhs, lhs.w + rhs);
+constexpr vec4<T>
+operator + (vec4<T> const & lhs, T rhs) noexcept {
+    return vec4<T>(lhs.x + rhs, lhs.y + rhs, lhs.z + rhs, lhs.w + rhs);
 }
 
 //------------------------------------------------------------
 template<typename T> 
-constexpr Vec4<T>
-operator - (Vec4<T> const & lhs, T rhs) {
-    return Vec4<T>(lhs.x - rhs, lhs.y - rhs, lhs.z - rhs, lhs.w - rhs);
+constexpr vec4<T>
+operator - (vec4<T> const & lhs, T rhs) noexcept {
+    return vec4<T>(lhs.x - rhs, lhs.y - rhs, lhs.z - rhs, lhs.w - rhs);
 }
 
 //------------------------------------------------------------
 template<typename T> 
-constexpr Vec4<T>
-operator * (Vec4<T> const & lhs, T rhs) {
-    return Vec4<T>(lhs.x * rhs, lhs.y * rhs, lhs.z * rhs, lhs.w * rhs);
+constexpr vec4<T>
+operator * (vec4<T> const & lhs, T rhs) noexcept {
+    return vec4<T>(lhs.x * rhs, lhs.y * rhs, lhs.z * rhs, lhs.w * rhs);
 }
 
 //------------------------------------------------------------
 template<typename T> 
-constexpr Vec4<T>
-operator / (Vec4<T> const & lhs, T rhs) {
-    return Vec4<T>(lhs.x / rhs, lhs.y / rhs, lhs.z / rhs, lhs.w / rhs);
+constexpr vec4<T>
+operator / (vec4<T> const & lhs, T rhs) noexcept {
+    return vec4<T>(lhs.x / rhs, lhs.y / rhs, lhs.z / rhs, lhs.w / rhs);
 }
 
 //------------------------------------------------------------
 #   if defined(DJC_MATH_STD_IOSTREAM)
 template<typename T> std::ostream &
-operator << (std::ostream & lhs, Vec4<T> const & rhs) {
-    lhs << "Vec4(" << rhs.x << ", " << rhs.y << ", " << rhs.z << ", " << rhs.w << ")";
+operator << (std::ostream & lhs, vec4<T> const & rhs) {
+    lhs << "vec4(" << rhs.x << ", " << rhs.y << ", " << rhs.z << ", " << rhs.w << ")";
     return lhs;
 }
 #   endif
 
-// free functions
-
+//                     free functions                       //
 //------------------------------------------------------------
-template<typename T> Vec4<T>
-normalise(Vec4<T> const & vec) {
+template<typename T> vec4<T>
+normalise(vec4<T> const & vec) noexcept(false) {
     T length = std::sqrt((vec.x * vec.x) + (vec.y * vec.y) + (vec.z * vec.z) + (vec.w * vec.w));
-    return Vec4<T>(vec.x / length, vec.y / length, vec.z / length, vec.w / length);
+    return vec4<T>(vec.x / length, vec.y / length, vec.z / length, vec.w / length);
 }
 
 //------------------------------------------------------------
 template<typename T> 
 constexpr T
-dot(Vec4<T> const & lhs, Vec4<T> const & rhs) {
+dot(vec4<T> const & lhs, vec4<T> const & rhs) noexcept {
    return (lhs.x * rhs.x) + (lhs.y * rhs.y) + (lhs.z * rhs.z) + (lhs.w * rhs.w);
 }
 
-} /* namespace djc_math */
+} // namespace djc::math 

@@ -1,11 +1,11 @@
-namespace djc_math {
+namespace djc::math {
 
 // RAII
 
 //------------------------------------------------------------
 template<typename T> 
 constexpr
- Vec3<T>::Vec3(T _xyz) 
+vec3<T>::vec3(T _xyz) noexcept 
 :   x(_xyz)
 ,   y(_xyz)
 ,   z(_xyz) 
@@ -16,7 +16,7 @@ constexpr
 //------------------------------------------------------------
 template<typename T>
 constexpr
-Vec3<T>::Vec3(T _x, T _y, T _z) 
+vec3<T>::vec3(T _x, T _y, T _z) noexcept 
 : x(_x)
 , y(_y)
 , z(_z)
@@ -27,7 +27,7 @@ Vec3<T>::Vec3(T _x, T _y, T _z)
 //------------------------------------------------------------
 template<typename T>
 constexpr
-Vec3<T>::Vec3(Vec2<T> const & _xy, T _z) 
+vec3<T>::vec3(vec2<T> const & _xy, T _z) noexcept 
 : x(_xy.x)
 , y(_xy.y)
 , z(_z)
@@ -38,7 +38,7 @@ Vec3<T>::Vec3(Vec2<T> const & _xy, T _z)
 //------------------------------------------------------------
 template<typename T>
 constexpr 
-Vec3<T>::Vec3(T _x, Vec2<T> const & _yz) 
+vec3<T>::vec3(T _x, vec2<T> const & _yz) noexcept
 :   x(_x)
 ,   y(_yz.x)
 ,   z(_yz.y)
@@ -50,21 +50,21 @@ Vec3<T>::Vec3(T _x, Vec2<T> const & _yz)
 //------------------------------------------------------------
 template<typename T> 
 T
-Vec3<T>::length() const {
+vec3<T>::length() const noexcept(false) {
     return std::sqrt(x * x + y * y + z * z);
 }
 
 //------------------------------------------------------------
 template<typename T> 
 T constexpr
-Vec3<T>::length2() const {
+vec3<T>::length2() const noexcept {
     return x * x + y * y + z * z;
 }
 
 //------------------------------------------------------------
 template<typename T> 
 void
-Vec3<T>::normalise() {
+vec3<T>::normalise() noexcept(false) {
     T length = std::sqrt(x * x + y * y + z * z);
     x /= length;
     y /= length;
@@ -74,46 +74,46 @@ Vec3<T>::normalise() {
 //------------------------------------------------------------
 template<typename T> 
 constexpr T
-Vec3<T>::dot(Vec3<T> const & vec) const {
+vec3<T>::dot(vec3<T> const & vec) const noexcept {
     return x * vec.x + y * vec.y + z * vec.z;
 }
 
 //------------------------------------------------------------
 template<typename T> 
-constexpr Vec3<T>
-Vec3<T>::cross(Vec3<T> const & vec) const {
-    return Vec3<T>((y * vec.z) - (z * vec.y),
+constexpr vec3<T>
+vec3<T>::cross(vec3<T> const & vec) const noexcept {
+    return vec3<T>((y * vec.z) - (z * vec.y),
                    (z * vec.x) - (x * vec.z),
                    (x * vec.y) - (y * vec.x));
 }
 
 //------------------------------------------------------------
 template<typename T> 
-constexpr Vec2<T>
-Vec3<T>::toVec2() const {
-    return Vec2<T>(x, y);
+constexpr vec2<T>
+vec3<T>::to_vec2() const noexcept {
+    return vec2<T>(x, y);
 }
 
 // member - operator overloads
 
 //------------------------------------------------------------
 template<typename T>
-constexpr Vec3<T>
-Vec3<T>::operator + () const {
-    return Vec3<T>(x, y, z);
+constexpr vec3<T>
+vec3<T>::operator + () const noexcept {
+    return vec3<T>(x, y, z);
 }
 
 //------------------------------------------------------------
 template<typename T>
-constexpr Vec3<T>
-Vec3<T>::operator - () const {
-    return Vec3<T>(-x, -y, -z);
+constexpr vec3<T>
+vec3<T>::operator - () const noexcept {
+    return vec3<T>(-x, -y, -z);
 }
 
 //------------------------------------------------------------
 template<typename T> 
-Vec3<T> &
-Vec3<T>::operator += (Vec3<T> const & rhs) {
+vec3<T> &
+vec3<T>::operator += (vec3<T> const & rhs) noexcept {
     x += rhs.x;
     y += rhs.y;
     z += rhs.z;
@@ -122,8 +122,8 @@ Vec3<T>::operator += (Vec3<T> const & rhs) {
 
 //------------------------------------------------------------
 template<typename T>
-Vec3<T> &
-Vec3<T>::operator -= (Vec3<T> const & rhs) {
+vec3<T> &
+vec3<T>::operator -= (vec3<T> const & rhs) noexcept {
     x -= rhs.x;
     y -= rhs.y;
     z -= rhs.z;
@@ -132,8 +132,8 @@ Vec3<T>::operator -= (Vec3<T> const & rhs) {
 
 //------------------------------------------------------------
 template<typename T>
-Vec3<T> &
-Vec3<T>::operator *= (Vec3<T> const & rhs) {
+vec3<T> &
+vec3<T>::operator *= (vec3<T> const & rhs) noexcept {
     x *= rhs.x;
     y *= rhs.y;
     z *= rhs.z;
@@ -142,8 +142,8 @@ Vec3<T>::operator *= (Vec3<T> const & rhs) {
 
 //------------------------------------------------------------
 template<typename T> 
-Vec3<T> &
-Vec3<T>::operator /= (Vec3<T> const & rhs) {
+vec3<T> &
+vec3<T>::operator /= (vec3<T> const & rhs) noexcept {
     x /= rhs.x;
     y /= rhs.y;
     z /= rhs.z;
@@ -152,8 +152,8 @@ Vec3<T>::operator /= (Vec3<T> const & rhs) {
 
 //------------------------------------------------------------
 template<typename T> 
-Vec3<T> &
-Vec3<T>::operator += (T rhs) {
+vec3<T> &
+vec3<T>::operator += (T rhs) noexcept {
     x += rhs;
     y += rhs;
     z += rhs;
@@ -162,8 +162,8 @@ Vec3<T>::operator += (T rhs) {
 
 //------------------------------------------------------------
 template<typename T> 
-Vec3<T> &
-Vec3<T>::operator -= (T rhs) {
+vec3<T> &
+vec3<T>::operator -= (T rhs) noexcept {
     x -= rhs;
     y -= rhs;
     z -= rhs;
@@ -172,8 +172,8 @@ Vec3<T>::operator -= (T rhs) {
 
 //------------------------------------------------------------
 template<typename T> 
-Vec3<T> &
-Vec3<T>::operator *= (T rhs) {
+vec3<T> &
+vec3<T>::operator *= (T rhs) noexcept{
     x *= rhs;
     y *= rhs;
     z *= rhs;
@@ -182,8 +182,8 @@ Vec3<T>::operator *= (T rhs) {
 
 //------------------------------------------------------------
 template<typename T> 
-Vec3<T> &
-Vec3<T>::operator /= (T rhs) {
+vec3<T> &
+vec3<T>::operator /= (T rhs) noexcept {
     x /= rhs;
     y /= rhs;
     z /= rhs;
@@ -194,94 +194,94 @@ Vec3<T>::operator /= (T rhs) {
 
 //------------------------------------------------------------
 template<typename T> 
-constexpr Vec3<T>
-operator + (Vec3<T> const & lhs, Vec3<T> const & rhs) {
-    return Vec3<T>(lhs.x + rhs.x, lhs.y + rhs.y, lhs.z + rhs.z);
+constexpr vec3<T>
+operator + (vec3<T> const & lhs, vec3<T> const & rhs) noexcept {
+    return vec3<T>(lhs.x + rhs.x, lhs.y + rhs.y, lhs.z + rhs.z);
 }
 
 //------------------------------------------------------------
 template<typename T> 
-constexpr Vec3<T>
-operator - (Vec3<T> const & lhs, Vec3<T> const & rhs) {
-    return Vec3<T>(lhs.x - rhs.x, lhs.y - rhs.y, lhs.z - rhs.z);
+constexpr vec3<T>
+operator - (vec3<T> const & lhs, vec3<T> const & rhs) noexcept {
+    return vec3<T>(lhs.x - rhs.x, lhs.y - rhs.y, lhs.z - rhs.z);
 }
 
 //------------------------------------------------------------
 template<typename T> 
-constexpr Vec3<T>
-operator * (Vec3<T> const & lhs, Vec3<T> const & rhs) {
-    return Vec3<T>(lhs.x * rhs.x, lhs.y * rhs.y, lhs.z * rhs.z);
+constexpr vec3<T>
+operator * (vec3<T> const & lhs, vec3<T> const & rhs) noexcept {
+    return vec3<T>(lhs.x * rhs.x, lhs.y * rhs.y, lhs.z * rhs.z);
 }
 
 //------------------------------------------------------------
 template<typename T> 
-constexpr Vec3<T>
-operator / (Vec3<T> const & lhs, Vec3<T> const & rhs) {
-    return Vec3<T>(lhs.x / rhs.x, lhs.y / rhs.y, lhs.z / rhs.z);
+constexpr vec3<T>
+operator / (vec3<T> const & lhs, vec3<T> const & rhs) noexcept {
+    return vec3<T>(lhs.x / rhs.x, lhs.y / rhs.y, lhs.z / rhs.z);
 }
 
 //------------------------------------------------------------
 template<typename T> 
-constexpr Vec3<T>
-operator + (T const lhs, Vec3<T> const & rhs) {
-    return Vec3<T>(lhs + rhs.x, lhs + rhs.y, lhs + rhs.z);
+constexpr vec3<T>
+operator + (T const lhs, vec3<T> const & rhs) noexcept {
+    return vec3<T>(lhs + rhs.x, lhs + rhs.y, lhs + rhs.z);
 }
 
 //------------------------------------------------------------
 template<typename T> 
-constexpr Vec3<T>
-operator - (T const lhs, Vec3<T> const & rhs) {
-    return Vec3<T>(lhs - rhs.x, lhs - rhs.y, lhs - rhs.z);
+constexpr vec3<T>
+operator - (T const lhs, vec3<T> const & rhs) noexcept {
+    return vec3<T>(lhs - rhs.x, lhs - rhs.y, lhs - rhs.z);
 }
 
 //------------------------------------------------------------
 template<typename T> 
-constexpr Vec3<T>
-operator * (T const lhs, Vec3<T> const & rhs) {
-    return Vec3<T>(lhs * rhs.x, lhs * rhs.y, lhs * rhs.z);
+constexpr vec3<T>
+operator * (T const lhs, vec3<T> const & rhs) noexcept {
+    return vec3<T>(lhs * rhs.x, lhs * rhs.y, lhs * rhs.z);
 }
 
 //------------------------------------------------------------
 template<typename T> 
-constexpr Vec3<T>
-operator / (T const lhs, Vec3<T> const & rhs) {
-    return Vec3<T>(lhs / rhs.x, lhs / rhs.y, lhs / rhs.z);
+constexpr vec3<T>
+operator / (T const lhs, vec3<T> const & rhs) noexcept {
+    return vec3<T>(lhs / rhs.x, lhs / rhs.y, lhs / rhs.z);
 }
 
 //------------------------------------------------------------
 template<typename T> 
-constexpr Vec3<T>
-operator + (Vec3<T> const & lhs, T rhs) {
-    return Vec3<T>(lhs.x + rhs, lhs.y + rhs, lhs.z + rhs);
+constexpr vec3<T>
+operator + (vec3<T> const & lhs, T rhs) noexcept {
+    return vec3<T>(lhs.x + rhs, lhs.y + rhs, lhs.z + rhs);
 }
 
 //------------------------------------------------------------
 template<typename T> 
-constexpr Vec3<T>
-operator - (Vec3<T> const & lhs, T rhs) {
-    return Vec3<T>(lhs.x - rhs, lhs.y - rhs, lhs.z - rhs);
+constexpr vec3<T>
+operator - (vec3<T> const & lhs, T rhs) noexcept {
+    return vec3<T>(lhs.x - rhs, lhs.y - rhs, lhs.z - rhs);
 }
 
 //------------------------------------------------------------
 template<typename T> 
-constexpr Vec3<T>
-operator * (Vec3<T> const & lhs, T rhs) {
-    return Vec3<T>(lhs.x * rhs, lhs.y * rhs, lhs.z * rhs);
+constexpr vec3<T>
+operator * (vec3<T> const & lhs, T rhs) noexcept {
+    return vec3<T>(lhs.x * rhs, lhs.y * rhs, lhs.z * rhs);
 }
 
 //------------------------------------------------------------
 template<typename T> 
-constexpr Vec3<T>
-operator / (Vec3<T> const & lhs, T rhs) {
-    return Vec3<T>(lhs.x / rhs, lhs.y / rhs, lhs.z / rhs);
+constexpr vec3<T>
+operator / (vec3<T> const & lhs, T rhs) noexcept {
+    return vec3<T>(lhs.x / rhs, lhs.y / rhs, lhs.z / rhs);
 }
 
 //------------------------------------------------------------
 #   if defined(DJC_MATH_STD_IOSTREAM)
 template<typename T> std::ostream &
-operator << (std::ostream & lhs, Vec3<T> const & rhs) {
-    lhs << "Vec3\n-----------------\n";
-    lhs << "Vec3(" << rhs.x << ", " << rhs.y << ", " << rhs.z << ")\n";
+operator << (std::ostream & lhs, vec3<T> const & rhs) {
+    lhs << "vec3\n-----------------\n";
+    lhs << "vec3(" << rhs.x << ", " << rhs.y << ", " << rhs.z << ")\n";
     lhs << "-----------------\n";
     return lhs;
 }
@@ -290,17 +290,18 @@ operator << (std::ostream & lhs, Vec3<T> const & rhs) {
 // free functions
 
 //------------------------------------------------------------
-template<typename T> Vec3<T>
-normalise(Vec3<T> const & vec) {
+template<typename T> 
+vec3<T>
+normalise(vec3<T> const & vec) noexcept(false) {
     T length = std::sqrt((vec.x * vec.x) + (vec.y * vec.y) + (vec.z * vec.z));
-    return Vec3<T>(vec.x / length, vec.y / length, vec.z / length);
+    return vec3<T>(vec.x / length, vec.y / length, vec.z / length);
 }
 
 //------------------------------------------------------------
 template<typename T> 
 constexpr T 
-dot(Vec3<T> const & lhs, Vec3<T> const & rhs) {
+dot(vec3<T> const & lhs, vec3<T> const & rhs) noexcept {
     return (lhs.x * rhs.x) + (lhs.y * rhs.y) + (lhs.z * rhs.z);
 }
 
-} /* namespace djc_math */
+} // namespace djc::math 

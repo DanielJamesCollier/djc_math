@@ -1,90 +1,140 @@
-#ifndef Vec3_hpp
-#define Vec3_hpp
+#ifndef vec3_hpp
+#define vec3_hpp
 
 // my
-#include "Vec2.hpp"
-#include "Config.hpp"
+#include "vec2.hpp"
+#include "config.hpp"
 
 // std
-#include <cmath>
+#include <cmath> // std::sqrt
 #   if defined(DJC_MATH_STD_IOSTREAM)
-#include <iostream>
+#include <iostream> // std::ostream
 #   endif
-#include <type_traits>
+#include <type_traits> // std::is_intergra<T> - std::is_floating_point<T>
 
-namespace djc_math {
+namespace djc::math {
 
 template<typename T = DJC_MATH_DEFAULT_TYPE>
-class Vec3 final {
+class vec3 final {
     static_assert(std::is_integral<T>::value || std::is_floating_point<T>::value, "T must be intergral or floating point");
-public: // RAII
-    constexpr explicit Vec3(T _xyz = T());
-    constexpr Vec3(T _x, T _y, T _z);
-    constexpr Vec3(Vec2<T> const & _xy, T _z);
-    constexpr Vec3(T _x, Vec2<T> const & _yz);
-    constexpr Vec3(Vec3<T> const & _xyz) = default;
-    ~Vec3() = default;
+public:
+//                         RAII                             // 
+//------------------------------------------------------------
+    constexpr explicit vec3(T _xyz = T()) noexcept;
+    constexpr vec3(T _x, T _y, T _z) noexcept;
+    constexpr vec3(vec2<T> const & _xy, T _z) noexcept;
+    constexpr vec3(T _x, vec2<T> const & _yz) noexcept;
+    constexpr vec3(vec3<T> const & _xyz) noexcept = default;
+    ~vec3() noexcept = default;
 
-public: // member - functions
-    T length() const;
-    constexpr T length2() const;
-    void normalise();
-    constexpr T dot(Vec3<T> const & vec) const;
-    constexpr Vec3<T> cross(Vec3<T> const & vec) const;
-    constexpr Vec2<T> toVec2() const;
+//                       functions                         // 
+//------------------------------------------------------------
+    T length() const noexcept(false);
+    constexpr T length2() const noexcept;
+    void normalise() noexcept(false);
+    constexpr T dot(vec3<T> const & vec) const noexcept;
+    constexpr vec3<T> cross(vec3<T> const & vec) const noexcept;
+    constexpr vec2<T> to_vec2() const noexcept;
 
-public:  // member - operator overloads
-    constexpr Vec3<T> operator + () const;
-    constexpr Vec3<T> operator - () const;
+//                   operator overloads                     // 
+//------------------------------------------------------------
+    constexpr vec3<T> operator + () const noexcept;
+    constexpr vec3<T> operator - () const noexcept;
 
-    Vec3<T> & operator += (Vec3<T> const & rhs);
-    Vec3<T> & operator -= (Vec3<T> const & rhs);
-    Vec3<T> & operator *= (Vec3<T> const & rhs);
-    Vec3<T> & operator /= (Vec3<T> const & rhs);
+    vec3<T> & operator += (vec3<T> const & rhs) noexcept;
+    vec3<T> & operator -= (vec3<T> const & rhs) noexcept;
+    vec3<T> & operator *= (vec3<T> const & rhs) noexcept;
+    vec3<T> & operator /= (vec3<T> const & rhs) noexcept;
 
-    Vec3<T> & operator += (T rhs);
-    Vec3<T> & operator -= (T rhs);
-    Vec3<T> & operator *= (T rhs);
-    Vec3<T> & operator /= (T rhs);
+    vec3<T> & operator += (T rhs) noexcept;
+    vec3<T> & operator -= (T rhs) noexcept;
+    vec3<T> & operator *= (T rhs) noexcept;
+    vec3<T> & operator /= (T rhs) noexcept;
 
-public: // free function operator overloads - defined in Vec3.inl
-    // constexpr Vec3<T> operator + (Vec3<T> const & lhs, Vec3<T> const & rhs);
-    // constexpr Vec3<T> operator - (Vec3<T> const & lhs, Vec3<T> const & rhs);
-    // constexpr Vec3<T> operator * (Vec3<T> const & lhs, Vec3<T> const & rhs);
-    // constexpr Vec3<T> operator / (Vec3<T> const & lhs, Vec3<T> const & rhs);
-
-    // constexpr Vec3<T> operator + (T lhs, Vec3<T> const & rhs);
-    // constexpr Vec3<T> operator - (T lhs, Vec3<T> const & rhs);
-    // constexpr Vec3<T> operator * (T lhs, Vec3<T> const & rhs);
-    // constexpr Vec3<T> operator / (T lhs, Vec3<T> const & rhs);
-
-    // constexpr Vec3<T> operator + (Vec3<T> const & lhs, T rhs);
-    // constexpr Vec3<T> operator - (Vec3<T> const & lhs, T rhs);
-    // constexpr Vec3<T> operator * (Vec3<T> const & lhs, T rhs);
-    // constexpr Vec3<T> operator / (Vec3<T> const & lhs, T rhs);
-    
-    // #    if defined(DJC_MATH_STD_IOSTREAM)
-    // std::ostream & operator << (std::ostream & lhs, Vec3<T> const & rhs);  
-    // #    endif
-
-public: // free function operator overload for use with other classes
-    // constexpr Vec3<T> operator * (Mat3<T> const & lhs, Vec3<T> const & rhs); // defined in Mat3.inl
-
-public: // free functions
-    // Vec3<T> normalise(Vec3<T> const & vec);
-    // constexpr T dot(Vec3<T> const & lhs, Vec3<T> const & rhs);
-
-public: // public data
+//                         data                             // 
+//------------------------------------------------------------
     T x;
     T y;
     T z;
-};
+}; // class vec3
 
-// for ease of use in C++ 14 - in C++ 17 class templates can be deduced
-using Vec3i = Vec3<int>;
-using Vec3f = Vec3<float>;
-using Vec3d = Vec3<double>;
 
-} /* namespace djc_math */
-#include "inline/Vec3.inl"
-#endif /* Vec3_hpp */
+//                  free function operators                 // 
+//------------------------------------------------------------
+template<typename T>
+constexpr vec3<T> operator + (vec3<T> const & lhs, vec3<T> const & rhs) noexcept;
+
+//------------------------------------------------------------
+template<typename T>
+constexpr vec3<T> operator - (vec3<T> const & lhs, vec3<T> const & rhs) noexcept;
+
+//------------------------------------------------------------
+template<typename T>
+constexpr vec3<T> operator * (vec3<T> const & lhs, vec3<T> const & rhs) noexcept;
+
+//------------------------------------------------------------
+template<typename T>
+constexpr vec3<T> operator / (vec3<T> const & lhs, vec3<T> const & rhs) noexcept;
+
+//------------------------------------------------------------
+template<typename T>
+constexpr vec3<T> operator + (T lhs, vec3<T> const & rhs) noexcept;
+
+//------------------------------------------------------------
+template<typename T>
+constexpr vec3<T> operator - (T lhs, vec3<T> const & rhs) noexcept;
+
+//------------------------------------------------------------
+template<typename T>
+constexpr vec3<T> operator * (T lhs, vec3<T> const & rhs) noexcept;
+
+//------------------------------------------------------------
+template<typename T>
+constexpr vec3<T> operator / (T lhs, vec3<T> const & rhs) noexcept;
+
+//------------------------------------------------------------
+template<typename T>
+constexpr vec3<T> operator + (vec3<T> const & lhs, T rhs) noexcept;
+
+//------------------------------------------------------------
+template<typename T>
+constexpr vec3<T> operator - (vec3<T> const & lhs, T rhs) noexcept;
+
+//------------------------------------------------------------
+template<typename T>
+constexpr vec3<T> operator * (vec3<T> const & lhs, T rhs) noexcept;
+
+//------------------------------------------------------------
+template<typename T>
+constexpr vec3<T> operator / (vec3<T> const & lhs, T rhs) noexcept;
+   
+//------------------------------------------------------------
+#    if defined(DJC_MATH_STD_IOSTREAM)
+template<typename T>
+std::ostream & operator << (std::ostream & lhs, vec3<T> const & rhs);  
+#    endif
+ 
+// @todo: think about where this should go
+//------------------------------------------------------------
+//template<typename T>
+//constexpr vec3<T> operator * (Mat3<T> const & lhs, vec3<T> const & rhs); // defined in Mat3.inl
+
+//                     free functions                       //
+//------------------------------------------------------------
+template<typename T>
+vec3<T> normalise(vec3<T> const & vec) noexcept(false);
+
+//------------------------------------------------------------
+template<typename T>
+constexpr T dot(vec3<T> const & lhs, vec3<T> const & rhs) noexcept;
+
+//            type alias - for use in client code           // 
+//------------------------------------------------------------
+using vec3i = vec3<int>;
+using vec3f = vec3<float>;
+using vec3d = vec3<double>;
+
+} // namespace djc::math 
+
+#include "inline/vec3.inl"
+#endif /* vec3_hpp */

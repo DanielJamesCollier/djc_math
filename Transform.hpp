@@ -1,98 +1,97 @@
-#ifndef Transform_hpp
-#define Transform_hpp
+#ifndef transform_hpp
+#define transform_hpp
+
+// my
+#include "vec3.hpp"
+#include "mat3.hpp"
+#include "mat4.hpp"
 
 // std
 #include <array>
-#include <cmath>
+#include <cmath> // std::sqrt - std::sin - std::cos - std::tan
 
-// my
-#include "Vec3.hpp"
-#include "Mat3.hpp"
-#include "Mat4.hpp"
+namespace djc::math {
 
-namespace djc_math {
-
-//-----------------//
-/*      Mat3       */
-//-----------------//
-
-// create new //
-
+//                        mat3                              // 
+//------------------------------------------------------------
 template<typename T> 
-constexpr inline Mat3<T>
-createMat3IdentityMatrix();
+constexpr mat3<T>
+create_mat3_identity_matrix() noexcept;
 
+//------------------------------------------------------------
 template<typename T> 
-inline Mat3<T>
-createRotationMatrix(Vec3<T> const & vec);
+mat3<T>
+create_mat3_rotation_matrix(vec3<T> const & vec) noexcept;
 
-//-------------------//
-/*      Mat4        */
-//-------------------//
-
-// create new //
-
+//                        mat4                              // 
+//------------------------------------------------------------
 template<typename T> 
-constexpr inline Mat4<T> 
-createMat4IdentityMatrix();
+constexpr mat4<T> 
+create_mat4_identity_matrix() noexcept;
 
+//------------------------------------------------------------
 template<typename T>
-constexpr inline Mat4<T>
-createMat4TranslationMatrix(Vec3<T> const & vec);
+constexpr mat4<T>
+create_mat4_translation_matrix(vec3<T> const & vec) noexcept;
 
+//------------------------------------------------------------
 template<typename T> 
-inline Mat4<T>
-createMat4RotationMatrix(Vec3<T> const & vec);
+mat4<T>
+create_mat4_rotation_matrix(vec3<T> const & vec) noexcept;
 
+//------------------------------------------------------------
 template<typename T> 
-constexpr inline Mat4<T>
-createMat4ScaleMatrix(Vec3<T> const & vec);
+constexpr mat4<T>
+create_mat4_scale_matrix(vec3<T> const & vec) noexcept;
 
+//------------------------------------------------------------
 template<typename T> 
-inline Mat4<T>
-createMat4ModelMatrix(Vec3<T> const & position, Vec3<T> const & rotation, Vec3<T> const & scale);
+mat4<T>
+create_mat4_model_matrix(vec3<T> const & position, vec3<T> const & rotation, vec3<T> const & scale) noexcept;
 
+//------------------------------------------------------------
 template<typename T> 
-constexpr inline Mat4<T>
-createMat4OrthographicMatrix(int width, int  height, T zNear, T zFar);
+constexpr mat4<T>
+create_mat4_orthographic_matrix(int width, int  height, T zNear, T zFar) noexcept;
 
+//------------------------------------------------------------
 template<typename T> 
-inline Mat4<T>
-createMat4ProjectionMatrix(T fov, T aspect, T zNear, T zFar);
+mat4<T>
+create_mat4_projection_matrix(T fov, T aspect, T zNear, T zFar) noexcept;
 
-template<typename T, typename U> 
-inline Mat4<T>
-createMat4ProjectionMatrix(T fov, U width, U height, T zNear, T zFar);
-
+//------------------------------------------------------------
 template<typename T> 
-constexpr inline Mat4<T>
-createMat4ViewMatrix(Vec3<T> const & eye, Vec3<T> const & centre, Vec3<T> const & up);
+constexpr mat4<T>
+create_mat4_view_matrix(vec3<T> const & eye, vec3<T> const & centre, vec3<T> const & up) noexcept;
 
+//------------------------------------------------------------
 template<typename T> 
-constexpr inline Mat4<T>
-createMat4BirdsEyeViewMatrix();
+constexpr mat4<T>
+create_mat4_birds_eye_view_matrix() noexcept;
 
+//------------------------------------------------------------
 template<typename T> 
-constexpr inline Mat4<T>
-createMat4ScreenSpaceTransform(T halfWifth, T halfHeight);
+constexpr mat4<T>
+create_mat4_screenspace_transform(int half_width, int half_height) noexcept;
 
-//-------------------//
-/*      Other        */
-//-------------------//
-
+//                    Vector operations                     // 
+//------------------------------------------------------------
 template<typename T> 
-inline void
-transform(Vec4<T> & vec, Mat4<T> const & transformation);
+void
+transform(vec4<T> & vec, mat4<T> const & transformation);
 
+//------------------------------------------------------------
 template<typename T> 
-inline Mat3<T>
-rotate(T angle, Vec3<T> const & axis);
+mat3<T>
+rotate(T angle, vec3<T> const & axis) noexcept;
 
+//------------------------------------------------------------
 template<typename T> 
-inline Mat4<T>
-rotate(T angle, Vec4<T> const & axis);
+mat4<T>
+rotate(T angle, vec4<T> const & axis) noexcept;
 
-} /* namespace djc_math */
-#include "inline/Transform.inl"
-#endif /* Transform_hpp */
+} // namespace djc::math 
+
+#include "inline/transform.inl"
+#endif /* transform_hpp */
 

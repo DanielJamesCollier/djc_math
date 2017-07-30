@@ -1,10 +1,11 @@
-namespace djc_math {
+namespace djc::math {
 
+//                         RAII                             // 
 //------------------------------------------------------------
 template<typename T>
 constexpr
-Mat3<T>::Mat3() 
-:   m_matrix()
+mat3<T>::mat3() noexcept 
+:   m_matrix{}
 {
     // empty
 }
@@ -12,35 +13,18 @@ Mat3<T>::Mat3()
 //------------------------------------------------------------
 template<typename T>
 constexpr
-Mat3<T>::Mat3(std::array<T, 9> matrix)
+mat3<T>::mat3(std::array<T, 9> matrix) noexcept
 : m_matrix(matrix) 
 {
     // empty
 }
 
+//                 friend free operators                    // 
 //------------------------------------------------------------
-// template<typename T> void
-// clear() {
-//     m_matrix.fill(T());
-// }
-
-// //------------------------------------------------------------
-// template<typename T> void
-// clear(T value) {
-//     m_matrix.fill(value);
-// }
-
-//------------------------------------------------------------
-template<typename T> /* friend */ 
-constexpr Mat3<T> 
-operator * (Mat3<T> const & lhs, Mat3<T> const & rhs) {
-    //-------------------- 
-    //   [0]  [1]  [2] 
-    //   [3]  [4]  [5]   
-    //   [6]  [7]  [8] 
-    //---------------------
-    
-    return Mat3<T>(std::array<T, 9>{{
+template<typename T> 
+constexpr mat3<T> 
+operator * (mat3<T> const & lhs, mat3<T> const & rhs) {
+    return mat3<T>(std::array<T, 9>{{
         ///////
         /*[0]*/ (lhs[0] * rhs[0]) + (lhs[1] * rhs[3]) + (lhs[2] * rhs[6]),
         /*[1]*/ (lhs[0] * rhs[1]) + (lhs[1] * rhs[4]) + (lhs[2] * rhs[7]),
@@ -59,9 +43,9 @@ operator * (Mat3<T> const & lhs, Mat3<T> const & rhs) {
 
 //------------------------------------------------------------
 template<typename T> 
-constexpr Vec3<T>
-operator * (Mat3<T> const & lhs, Vec3<T> const & rhs) {
-    return Vec3<T>(
+constexpr vec3<T>
+operator * (mat3<T> const & lhs, vec3<T> const & rhs) {
+    return vec3<T>(
         /*[x]*/ (lhs[0] * rhs.x) + (lhs[1] * rhs.y) + (lhs[2] * rhs.z),
         /*[y]*/ (lhs[3] * rhs.x) + (lhs[4] * rhs.y) + (lhs[5] * rhs.z),
         /*[z]*/ (lhs[6] * rhs.x) + (lhs[7] * rhs.y) + (lhs[8] * rhs.z));
@@ -69,10 +53,11 @@ operator * (Mat3<T> const & lhs, Vec3<T> const & rhs) {
 
 //------------------------------------------------------------
 #   if defined(DJC_MATH_STD_IOSTREAM)
-template<typename T> /* friend */ std::ostream & 
-operator << (std::ostream & lhs, Mat3<T> const & rhs) {
+template<typename T> 
+std::ostream & 
+operator << (std::ostream & lhs, mat3<T> const & rhs) {
 
-    lhs << " Mat3\n-----------------\n";
+    lhs << " mat3\n-----------------\n";
     for (int x = 0; x < 3; x++) {
         for (int y = 0; y < 3; y++) {
                 lhs << "[" << rhs.m_matrix[3 * x + y] << "] "; 
@@ -84,18 +69,19 @@ operator << (std::ostream & lhs, Mat3<T> const & rhs) {
 }
 #   endif
 
+//                 [private] - operators                    // 
 //------------------------------------------------------------
 template<typename T> 
 constexpr T & 
-Mat3<T>::operator [] (std::size_t index) {
+mat3<T>::operator [] (std::size_t index) noexcept {
     return m_matrix[index];
 }
 
 //------------------------------------------------------------
 template<typename T> 
 constexpr T const & 
-Mat3<T>::operator [] (std::size_t index) const {
+mat3<T>::operator [] (std::size_t index) const noexcept {
     return m_matrix[index];
 }
 
-} /* namespace djc_math */
+} // namespace djc::math 

@@ -1,44 +1,54 @@
-#ifndef MathsUtils_hpp
-#define MathsUtils_hpp
+#ifndef utils_hpp
+#define utils_hpp
 
 // my
-#include "Vec4.hpp"
-#include "Constants.hpp"
+#include "vec4.hpp"
+#include "constants.hpp" // pi<T>
 
 // std
-#include <cstdlib> 
+#include <cstdlib> // std::rand()
+#include <limits> // std::numeric_limits<double>::quiet_NaN() - std::numeric_limits<double>::infinity()
 
-namespace djc_math {
+namespace djc::math {
 
+//------------------------------------------------------------
 template<typename T> 
-constexpr inline T 
-toRadians(T degrees);
+constexpr T 
+to_radians(T degrees);
 
+//------------------------------------------------------------
 inline float 
-randFBetweenZeroOne();
+rand_float_between_zero_one();
 
+//------------------------------------------------------------
 inline unsigned char 
-randUCBetween0N255();
+rand_UC_Between_0_N_255();
 
-constexpr inline float
+//------------------------------------------------------------
+constexpr float
 normalise(float valToNormalise, float min, float max);
 
+//------------------------------------------------------------
 template <typename T>
-constexpr inline T 
+constexpr T 
 lerp(T v0, T v1, float t);
 
+//------------------------------------------------------------
 template <typename T>
-constexpr inline T 
+constexpr T 
 lerp(T v0, T v1, double t);
 
+//------------------------------------------------------------
 template<typename T>
-constexpr inline T 
+constexpr T 
 clamp(T v, T low, T hi);
 
+//------------------------------------------------------------
 template<typename T>
-inline void
-perspectiveDivide(Vec4<T> & vec);
+void
+perspective_divide(vec4<T> & vec);
 
-} /* namespace djc_math */
-#include "inline/Utils.inl"
-#endif /* MathsUtils_hpp */
+} // namespace djc::math 
+
+#include "inline/utils.inl"
+#endif /* utils_hpp */

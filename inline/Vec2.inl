@@ -1,11 +1,10 @@
-namespace djc_math {
+namespace djc::math {
 
-// RAII
-
+//                         RAII                             // 
 //------------------------------------------------------------
 template<typename T>
 constexpr
-Vec2<T>::Vec2(T _xy) 
+vec2<T>::vec2(T _xy) noexcept 
 :   x(_xy)
 ,   y(_xy)
 {
@@ -15,31 +14,33 @@ Vec2<T>::Vec2(T _xy)
 //------------------------------------------------------------
 template<typename T>
 constexpr
-Vec2<T>::Vec2(T _x, T _y) 
+vec2<T>::vec2(T _x, T _y) noexcept 
 :   x(_x)
 ,   y(_y)
 {
     // empty
 }
 
-// member - functions
 
+//                       functions                         // 
 //------------------------------------------------------------
-template<typename T> T
-Vec2<T>::length() const {
+template<typename T>
+T
+vec2<T>::length() const noexcept(false) {
     return std::sqrt(x * x + y * y);
 }
 
 //------------------------------------------------------------
 template<typename T> 
 constexpr T
-Vec2<T>::length2() const {
+vec2<T>::length2() const noexcept {
     return x * x + y * y;
 }
 
 //------------------------------------------------------------
-template<typename T> void
-Vec2<T>::normalise() {
+template<typename T> 
+void
+vec2<T>::normalise() noexcept(false) {
     T length = std::sqrt(x * x + y * y);
     x /= length;
     y /= length;
@@ -48,30 +49,29 @@ Vec2<T>::normalise() {
 //------------------------------------------------------------
 template<typename T> 
 constexpr T
-Vec2<T>::dot(Vec2<T> const & vec) {
+vec2<T>::dot(vec2<T> const & vec) const noexcept {
     return x * vec.x + y * vec.y;
 }
 
-// member - operator overloads
-
+//                   operator overloads                     // 
 //------------------------------------------------------------
 template<typename T> 
-constexpr Vec2<T> 
-Vec2<T>::operator + () const {
-    return Vec2<T>(x, y);
+constexpr vec2<T> 
+vec2<T>::operator + () const noexcept {
+    return vec2<T>(x, y);
 }
 
 //------------------------------------------------------------
 template<typename T> 
-constexpr Vec2<T> 
-Vec2<T>::operator - () const {
-    return Vec2<T>(-x, -y);
+constexpr vec2<T> 
+vec2<T>::operator - () const noexcept {
+    return vec2<T>(-x, -y);
 }
 
 //------------------------------------------------------------
 template<typename T>
-Vec2<T> &
-Vec2<T>::operator += (Vec2<T> const & rhs) {
+vec2<T> &
+vec2<T>::operator += (vec2<T> const & rhs) noexcept {
     x += rhs.x;
     y += rhs.y;
     return *this;
@@ -79,8 +79,8 @@ Vec2<T>::operator += (Vec2<T> const & rhs) {
 
 //------------------------------------------------------------
 template<typename T> 
-Vec2<T> &
-Vec2<T>::operator -= (Vec2<T> const & rhs) {
+vec2<T> &
+vec2<T>::operator -= (vec2<T> const & rhs) noexcept {
     x -= rhs.x;
     y -= rhs.y;
     return *this;
@@ -88,8 +88,8 @@ Vec2<T>::operator -= (Vec2<T> const & rhs) {
 
 //------------------------------------------------------------
 template<typename T> 
-Vec2<T> & 
-Vec2<T>::operator *= (Vec2<T> const & rhs) {
+vec2<T> & 
+vec2<T>::operator *= (vec2<T> const & rhs) noexcept {
     x *= rhs.x;
     y *= rhs.y;
     return *this;
@@ -97,8 +97,8 @@ Vec2<T>::operator *= (Vec2<T> const & rhs) {
 
 //------------------------------------------------------------
 template<typename T> 
-Vec2<T> &
-Vec2<T>::operator /= (Vec2<T> const & rhs) {
+vec2<T> &
+vec2<T>::operator /= (vec2<T> const & rhs) noexcept {
     x /= rhs.x;
     y /= rhs.y;
     return *this;
@@ -106,8 +106,8 @@ Vec2<T>::operator /= (Vec2<T> const & rhs) {
 
 //------------------------------------------------------------
 template<typename T>
-Vec2<T> &
-Vec2<T>::operator += (T rhs) {
+vec2<T> &
+vec2<T>::operator += (T rhs) noexcept {
     x += rhs;
     y += rhs;
     return *this;
@@ -115,8 +115,8 @@ Vec2<T>::operator += (T rhs) {
 
 //------------------------------------------------------------
 template<typename T> 
-Vec2<T> &
-Vec2<T>::operator -= (T rhs) {
+vec2<T> &
+vec2<T>::operator -= (T rhs) noexcept {
     x -= rhs;
     y -= rhs;
     return *this;
@@ -124,8 +124,8 @@ Vec2<T>::operator -= (T rhs) {
 
 //------------------------------------------------------------
 template<typename T> 
-Vec2<T> &
-Vec2<T>::operator *= (T rhs) {
+vec2<T> &
+vec2<T>::operator *= (T rhs) noexcept {
     x *= rhs;
     y *= rhs;
     return *this;
@@ -133,120 +133,118 @@ Vec2<T>::operator *= (T rhs) {
 
 //------------------------------------------------------------
 template<typename T> 
-Vec2<T> &
-Vec2<T>::operator /= (T rhs) {
+vec2<T> &
+vec2<T>::operator /= (T rhs) noexcept {
     x /= rhs;
     y /= rhs;
     return *this;
 }
 
-// free function operator overloads
-
+//                  free function operators                 // 
 //------------------------------------------------------------
 template<typename T> 
-constexpr Vec2<T>
-operator + (Vec2<T> const & lhs, Vec2<T> const & rhs) {
-    return Vec2<T>(lhs.x + rhs.x, lhs.y + rhs.y);
+constexpr vec2<T>
+operator + (vec2<T> const & lhs, vec2<T> const & rhs) noexcept {
+    return vec2<T>(lhs.x + rhs.x, lhs.y + rhs.y);
 }
 
 //------------------------------------------------------------
 template<typename T> 
-constexpr Vec2<T>
-operator - (Vec2<T> const & lhs, Vec2<T> const & rhs) {
-    return Vec2<T>(lhs.x - rhs.x, lhs.y - rhs.y);
+constexpr vec2<T>
+operator - (vec2<T> const & lhs, vec2<T> const & rhs) noexcept {
+    return vec2<T>(lhs.x - rhs.x, lhs.y - rhs.y);
 }
 
 //------------------------------------------------------------
 template<typename T> 
-constexpr Vec2<T>
-operator * (Vec2<T> const & lhs, Vec2<T> const & rhs) {
-    return Vec2<T>(lhs.x * rhs.x, lhs.y * rhs.y);
+constexpr vec2<T>
+operator * (vec2<T> const & lhs, vec2<T> const & rhs) noexcept {
+    return vec2<T>(lhs.x * rhs.x, lhs.y * rhs.y);
 }
 
 //------------------------------------------------------------
 template<typename T> 
-constexpr Vec2<T>
-operator / (Vec2<T> const & lhs, Vec2<T> const & rhs) {
-    return Vec2<T>(lhs.x / rhs.x, lhs.y / rhs.y);
+constexpr vec2<T>
+operator / (vec2<T> const & lhs, vec2<T> const & rhs) noexcept {
+    return vec2<T>(lhs.x / rhs.x, lhs.y / rhs.y);
 }
 
 //------------------------------------------------------------
 template<typename T> 
-constexpr Vec2<T>
-operator + (T lhs, Vec2<T> const & rhs) {
-    return Vec2<T>(lhs + rhs.x, lhs + rhs.y);
+constexpr vec2<T>
+operator + (T lhs, vec2<T> const & rhs) noexcept {
+    return vec2<T>(lhs + rhs.x, lhs + rhs.y);
 }
 
 //------------------------------------------------------------
 template<typename T> 
-constexpr Vec2<T>
-operator - (T lhs, Vec2<T> const & rhs) {
-    return Vec2<T>(lhs - rhs.x, lhs - rhs.y);
+constexpr vec2<T>
+operator - (T lhs, vec2<T> const & rhs) noexcept {
+    return vec2<T>(lhs - rhs.x, lhs - rhs.y);
 }
 
 //------------------------------------------------------------
 template<typename T> 
-constexpr Vec2<T>
-operator * (T lhs, Vec2<T> const & rhs) {
-    return Vec2<T>(lhs * rhs.x, lhs * rhs.y);
+constexpr vec2<T>
+operator * (T lhs, vec2<T> const & rhs) noexcept {
+    return vec2<T>(lhs * rhs.x, lhs * rhs.y);
 }
 //------------------------------------------------------------
 template<typename T> 
-constexpr Vec2<T>
-operator / (T lhs, Vec2<T> const & rhs) {
-    return Vec2<T>(lhs * rhs.x, lhs * rhs.y);
-}
-
-//------------------------------------------------------------
-template<typename T> 
-constexpr Vec2<T>
-operator + (Vec2<T> const & lhs, T rhs) {
-    return Vec2<T>(lhs.x + rhs, lhs.y + rhs);
+constexpr vec2<T>
+operator / (T lhs, vec2<T> const & rhs) noexcept {
+    return vec2<T>(lhs * rhs.x, lhs * rhs.y);
 }
 
 //------------------------------------------------------------
 template<typename T> 
-constexpr Vec2<T>
-operator - (Vec2<T> const & lhs, T rhs) {
-    return Vec2<T>(lhs.x - rhs, lhs.y - rhs);
+constexpr vec2<T>
+operator + (vec2<T> const & lhs, T rhs) noexcept {
+    return vec2<T>(lhs.x + rhs, lhs.y + rhs);
 }
 
 //------------------------------------------------------------
 template<typename T> 
-constexpr Vec2<T>
-operator * (Vec2<T> const & lhs, T rhs) {
-    return Vec2<T>(lhs.x * rhs, lhs.y * rhs);
+constexpr vec2<T>
+operator - (vec2<T> const & lhs, T rhs) noexcept {
+    return vec2<T>(lhs.x - rhs, lhs.y - rhs);
 }
 
 //------------------------------------------------------------
 template<typename T> 
-constexpr Vec2<T>
-operator / (Vec2<T> const & lhs, T rhs) {
-    return Vec2<T>(lhs.x / rhs, lhs.y / rhs);
+constexpr vec2<T>
+operator * (vec2<T> const & lhs, T rhs) noexcept {
+    return vec2<T>(lhs.x * rhs, lhs.y * rhs);
+}
+
+//------------------------------------------------------------
+template<typename T> 
+constexpr vec2<T>
+operator / (vec2<T> const & lhs, T rhs) noexcept {
+    return vec2<T>(lhs.x / rhs, lhs.y / rhs);
 }
 
 //------------------------------------------------------------
 #   if defined(DJC_MATH_STD_IOSTREAM)
 template<typename T> std::ostream &
-operator << (std::ostream & lhs, Vec2<T> const & rhs) {
-    return lhs << "Vec2(" << rhs.x << ", " << rhs.y << ")";
+operator << (std::ostream & lhs, vec2<T> const & rhs) {
+    return lhs << "vec2(" << rhs.x << ", " << rhs.y << ")";
 }
 #   endif
 
-// free functions
-
+//                     free functions                       //
 //------------------------------------------------------------
-template<typename T> Vec2<T>
-normalise(Vec2<T> const & vec) {
+template<typename T> vec2<T>
+normalise(vec2<T> const & vec) noexcept(false) {
     T length = std::sqrt((vec.x * vec.x) + (vec.y * vec.y));
-    return Vec2<T>(vec.x / length, vec.y / length);
+    return vec2<T>(vec.x / length, vec.y / length);
 }
 
 //------------------------------------------------------------
 template<typename T> 
 constexpr T
-dot(Vec2<T> const & lhs, Vec2<T> const & rhs) {
+dot(vec2<T> const & lhs, vec2<T> const & rhs) noexcept {
     return (lhs.x * rhs.x) + (lhs.y * rhs.y);
 }
 
-} /* namespace djc_math */
+} // namespace djc::math 
