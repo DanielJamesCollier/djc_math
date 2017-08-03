@@ -52,16 +52,5 @@ clamp(T v, T low, T hi) {
     return v;
 }
 
-// @todo: remove ? probably should be in client code of path tracer
-//------------------------------------------------------------
-template<typename T>
-void
-perspective_divide(vec4<T> & vec) {
-    vec.x /= vec.w;
-    vec.y /= vec.w;
-    vec.z /= vec.w;
-  //vec.w /= vec.w  // do not do this because we need w info retained for persp texture mapper
-}
-
 } // namespace djc::math 
 

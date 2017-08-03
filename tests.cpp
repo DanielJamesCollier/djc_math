@@ -427,9 +427,6 @@ utils_tests() {
     auto norm = normalise(24.6f, 0.0f, 1.0f);
     constexpr auto lerp = ::lerp(0.0f, 100.0f, 50.0f);
     constexpr auto clamp = ::clamp(100.0f, 10.0f, 50.0f);
-
-    vec4f position (1.0, 1.0, 1.0, 5.0);
-    perspective_divide(position);
 }
 
 //------------------------------------------------------------

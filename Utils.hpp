@@ -2,12 +2,10 @@
 #define utils_hpp
 
 // my
-#include "vec4.hpp"
 #include "constants.hpp" // pi<T>
 
 // std
 #include <cstdlib> // std::rand()
-#include <limits> // std::numeric_limits<double>::quiet_NaN() - std::numeric_limits<double>::infinity()
 
 namespace djc::math {
 
@@ -42,11 +40,6 @@ lerp(T v0, T v1, double t);
 template<typename T>
 constexpr T 
 clamp(T v, T low, T hi);
-
-//------------------------------------------------------------
-template<typename T>
-void
-perspective_divide(vec4<T> & vec);
 
 } // namespace djc::math 
 

@@ -50,8 +50,30 @@ public:
 
 //                         data                             // 
 //------------------------------------------------------------
+#if   DJC_MATH_VEC_DATA == DJC_MATH_EXPLICIT 
     T x;
     T y;
+
+#elif DJC_MATH_VEC_DATA == DJC_MATH_ARRAY
+    T data[2];
+
+#elif DJC_MATH_VEC_DATA == DJC_MATH_UNION
+    union {
+        
+        T data[2];
+        
+        struct {
+            T x;
+            T y;
+        };
+        
+        struct {
+            T u;
+            T v;
+        };
+    };
+
+#endif
 
 }; // class vec2
 

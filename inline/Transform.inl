@@ -6,7 +6,7 @@ template<typename T>
 constexpr mat3<T>
 create_mat3_identity_matrix() noexcept { 
     static_assert(std::is_floating_point<T>::value || std::is_integral<T>::value, 
-                  "rcreate_mat3_identity_matrix() only accepts floating point, and integral values");
+                  "create_mat3_identity_matrix() only accepts floating point, and integral values");
 
     return mat3<T>(std::array<T, 9> {{ 
         1,  0,  0,
@@ -20,33 +20,33 @@ template<typename T>
 mat3<T>
 create_mat3_rotation_matrix(vec3<T> const & rotation) noexcept {
      static_assert(std::is_floating_point<T>::value,
-                  "ccreate_mat3_rotation_matrix() only accepts floating point values");
+                  "create_mat3_rotation_matrix() only accepts floating point values");
 
-    T xSin = std::sin(rotation.x);
-    T xCos = std::cos(rotation.x);
+    T x_sin {std::sin(rotation.DJC_X)};
+    T x_cos {std::cos(rotation.DJC_X)};
 
-    T ySin = std::sin(rotation.y);
-    T yCos = std::cos(rotation.y);
+    T y_sin {std::sin(rotation.DJC_Y)};
+    T y_cos {std::cos(rotation.DJC_Y)};
 
-    T zSin = std::sin(rotation.z);
-    T zCos = std::cos(rotation.z);
+    T z_sin {std::sin(rotation.DJC_Z)};
+    T z_cos {std::cos(rotation.DJC_Z)};
     
     mat3<T> rotX(std::array<T, 9> {{
-        1,    0,       0,
-        0,    xCos,    -xSin,
-        0,    xSin,    xCos,
+        1,    0,        0,
+        0,    x_cos,    -x_sin,
+        0,    x_sin,    x_cos,
     }});
 
     mat3<T> rotY(std::array<T, 9>{{
-        yCos,    0,    ySin,
-        0,       1,    0,
-        -ySin,   0,    yCos
+        y_cos,  0,    y_sin,
+        0,      1,    0,
+        -y_sin, 0,    y_cos
     }});
 
     mat3<T> rotZ(std::array<T, 9>{{
-        zCos,    -zSin,   0,
-        zSin,    zCos,    0,
-        0,       0,       1
+        z_cos,    -z_sin,   0,
+        z_sin,    z_cos,    0,
+        0,        0,        1
     }});
    
     return rotX * rotY * rotZ;
@@ -76,9 +76,9 @@ create_mat4_translation_matrix(vec3<T> const & vec) noexcept {
                   "create_mat4_translation_matrix() only accepts floating point, and integral values");    
 
     return mat4<T>(std::array<T, 16>{{
-        1,    0,    0,    vec.x,
-        0,    1,    0,    vec.y,
-        0,    0,    1,    vec.z,
+        1,    0,    0,    vec.DJC_X,
+        0,    1,    0,    vec.DJC_Y,
+        0,    0,    1,    vec.DJC_Z,
         0,    0,    0,    1
     }});
 }
@@ -90,31 +90,31 @@ create_mat4_rotation_matrix(vec3<T> const & rotation) noexcept {
      static_assert(std::is_floating_point<T>::value,
                   "create_mat4_rotation_matrix() only accepts floating point values"); 
 
-    T xSin(std::sin(rotation.x));
-    T xCos(std::cos(rotation.x));
+    T x_sin {std::sin(rotation.DJC_X)};
+    T x_cos {std::cos(rotation.DJC_X)};
 
-    T ySin(std::sin(rotation.y));
-    T yCos(std::cos(rotation.y));
+    T y_sin {std::sin(rotation.DJC_Y)};
+    T y_cos {std::cos(rotation.DJC_Y)};
 
-    T zSin(std::sin(rotation.z));
-    T zCos(std::cos(rotation.z));
+    T z_sin {std::sin(rotation.DJC_Z)};
+    T z_cos {std::cos(rotation.DJC_Z)};
 
     mat3<T> rotX(std::array<T, 9>{{
-        1,    0,       0,    
-        0,    xCos,    -xSin,
-        0,    xSin,    xCos
+        1,    0,        0,    
+        0,    x_cos,    -x_sin,
+        0,    x_sin,    x_cos
     }});
 
     mat3<T> rotY(std::array<T, 9>{{
-        yCos,     0,    ySin,
-        0,        1,    0,
-        -ySin,    0,    yCos
+        y_cos,     0,    y_sin,
+        0,         1,    0,
+        -y_sin,    0,    y_cos
     }});
 
     mat3<T> rotZ(std::array<T, 9>{{
-        zCos,    -zSin,  0,
-        zSin,    zCos,   0,
-        0,       0,      1
+        z_cos,    -z_sin,  0,
+        z_sin,    z_cos,   0,
+        0,        0,       1
     }});
 
     return mat4<T>((rotX * rotY * rotZ), static_cast<T>(1));
@@ -128,31 +128,31 @@ create_mat4_scale_matrix(vec3<T> const & vec) noexcept {
                 "create_mat4_scale_matrix() only accepts floating point, and integral values"); 
 
      return mat4<T>(std::array<T, 16>{{
-        vec.x,    0,        0,        0,
-        0,        vec.y,    0,        0,
-        0,        0,        vec.z,    0,
-        0,        0,        0,        1
+        vec.DJC_X,    0,         0,         0,
+        0,            vec.DJC_Y, 0,         0,
+        0,            0,         vec.DJC_Z, 0,
+        0,            0,         0,         1
     }});
 }
 
 //------------------------------------------------------------
 template<typename T> 
 mat4<T>
-create_mat4_model_matrix(vec3<T> const & position, vec3<T> const & rotation, vec3<T> const & scale) noexcept {
-    mat4<T> _translation {create_mat4_translation_matrix<T>(position)};
-    mat4<T> _rotation    {create_mat4_rotation_matrix<T>(rotation)};
-    mat4<T> _scale       {create_mat4_scale_matrix<T>(scale)};
-    return _translation * _rotation * _scale;
+create_mat4_model_matrix(vec3<T> const & translation, vec3<T> const & rotation, vec3<T> const & scale) noexcept {
+    mat4<T> t {create_mat4_translation_matrix<T>(translation)};
+    mat4<T> r {create_mat4_rotation_matrix<T>(rotation)};
+    mat4<T> s {create_mat4_scale_matrix<T>(scale)};
+    return t * r * s;
 }
 
 //------------------------------------------------------------
 template<typename T> 
-constexpr mat4<T> // @todo : needs looking at
+constexpr mat4<T> // @todo : needs review
 create_mat4_orthographic_matrix(int width, int height, T zNear, T zFar) noexcept { 
-    T a(1.0 / static_cast<T>(width));
-    T b(1.0 / static_cast<T>(height));
-    T c(-(2.0 / (zFar - zNear)));
-    T d(-((zFar + zNear) / (zFar - zNear)));
+    T a {static_cast<T>(1) / static_cast<T>(width)};
+    T b {static_cast<T>(1) / static_cast<T>(height)};
+    T c {-(static_cast<T>(2) / (zFar - zNear))};
+    T d {-((zFar + zNear) / (zFar - zNear))};
 
     return mat4<T>(std::array<T, 16>{{
         a,    0,    0,    0,
@@ -168,16 +168,16 @@ mat4<T>
 create_mat4_projection_matrix(T fov, T aspect, T near, T far) noexcept {
     static_assert(std::is_floating_point<T>::value, "createmat4ProjectionMatrix only accepts floating point values");
 
-    T const rad = fov;
-    T const tanHalfFovy = std::tan(rad / static_cast<T>(2));
+    T const rad {fov};
+    T const tan_half_fov_y {std::tan(rad / static_cast<T>(2))};
 
-    T sX(static_cast<T>(1) / (aspect * tanHalfFovy));
-    T sY(static_cast<T>(1) / (tanHalfFovy));
-    T sZ(- (far + near) / (far - near));
-    T sA(static_cast<T>(-1));
-    T sB(- (static_cast<T>(2) * far * near) / (far - near));
+    T sX {static_cast<T>(1) / (aspect * tan_half_fov_y)};
+    T sY {static_cast<T>(1) / (tan_half_fov_y)};
+    T sZ { -(far + near) / (far - near)};
+    T sA {static_cast<T>(-1)};
+    T sB { -(static_cast<T>(2) * far * near) / (far - near)};
     
-    T zero(static_cast<T>(0));
+    T zero {static_cast<T>(0)};
 
     return mat4<T>(std::array<T, 16>{{
          sX,    0,     0,     0,
@@ -195,10 +195,10 @@ create_mat4_view_matrix(vec3<T> const & eye, vec3<T> const & centre, vec3<T> con
     vec3<T> right(1, 0, 0);
 
     return mat4<T>(std::array<T, 16>{{
-           right.x,       right.y,       right.z,    -eye.x,
-           up.x,          up.y,          up.z,       -eye.y,
-           -forward.x,    -forward.y,    -forward.z, -eye.z,
-           0,             0,              0,          1
+           right.DJC_X,       right.DJC_Y,       right.DJC_Z,    -eye.DJC_X,
+           up.DJC_X,          up.DJC_Y,          up.DJC_Z,       -eye.DJC_Y,
+           -forward.DJC_X,    -forward.DJC_Y,    -forward.DJC_Z, -eye.DJC_Z,
+           0,                 0,                 0,              1
     }});
 }
 

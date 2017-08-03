@@ -5,7 +5,7 @@ namespace djc::math {
 template<typename T>
 constexpr
 mat4<T>::mat4() noexcept 
-:   m_matrix() 
+:   m_matrix{} 
 {
     // empty
 }
@@ -14,7 +14,7 @@ mat4<T>::mat4() noexcept
 template<typename T>
 constexpr
 mat4<T>::mat4(std::array<T, 16> const & matrix) noexcept 
-: m_matrix(matrix)
+:   m_matrix{matrix}
 {
     // empty
 }
@@ -24,10 +24,9 @@ template<typename T>
 constexpr
 mat4<T>::mat4(mat3<T> const & matrix, T lastVal) noexcept 
 :   m_matrix(std::array<T, 16>{{
-        matrix[0], matrix[1], matrix[2], 0,
-        matrix[3], matrix[4], matrix[5], 0,
-        matrix[6], matrix[7], matrix[8], 0,
-                0,         0,         0, lastVal}}) // [15] fix : should be 1 ? 0 maybe make this function in utils?
+    matrix[3], matrix[4], matrix[5], 0,
+    matrix[6], matrix[7], matrix[8], 0,
+            0,         0,         0, lastVal}}) // [15] fix : should be 1 ? 0 maybe make this function in utils?
 {
 
 }
@@ -79,10 +78,10 @@ template<typename T>
 constexpr vec4<T> 
 operator * (mat4<T> const & lhs, vec4<T> const & rhs) {
     return vec4<T>(
-        /*[x]*/ (lhs[ 0] * rhs.x) + (lhs[ 1] * rhs.y) + (lhs[ 2] * rhs.z) + (lhs[ 3] * rhs.w),
-        /*[y]*/ (lhs[ 4] * rhs.x) + (lhs[ 5] * rhs.y) + (lhs[ 6] * rhs.z) + (lhs[ 7] * rhs.w),
-        /*[z]*/ (lhs[ 8] * rhs.x) + (lhs[ 9] * rhs.y) + (lhs[10] * rhs.z) + (lhs[11] * rhs.w),
-        /*[w]*/ (lhs[12] * rhs.x) + (lhs[13] * rhs.y) + (lhs[14] * rhs.z) + (lhs[15] * rhs.w)
+        /*[x]*/ (lhs[ 0] * rhs.DJC_X) + (lhs[ 1] * rhs.DJC_Y) + (lhs[ 2] * rhs.DJC_Z) + (lhs[ 3] * rhs.DJC_W),
+        /*[y]*/ (lhs[ 4] * rhs.DJC_X) + (lhs[ 5] * rhs.DJC_Y) + (lhs[ 6] * rhs.DJC_Z) + (lhs[ 7] * rhs.DJC_W),
+        /*[z]*/ (lhs[ 8] * rhs.DJC_X) + (lhs[ 9] * rhs.DJC_Y) + (lhs[10] * rhs.DJC_Z) + (lhs[11] * rhs.DJC_W),
+        /*[w]*/ (lhs[12] * rhs.DJC_X) + (lhs[13] * rhs.DJC_Y) + (lhs[14] * rhs.DJC_Z) + (lhs[15] * rhs.DJC_W)
     );
 }
 
@@ -119,4 +118,3 @@ mat4<T>::operator [] (std::size_t index) const noexcept {
 }
 
 } // namespace djc::math 
-

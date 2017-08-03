@@ -14,7 +14,7 @@ mat3<T>::mat3() noexcept
 template<typename T>
 constexpr
 mat3<T>::mat3(std::array<T, 9> matrix) noexcept
-: m_matrix(matrix) 
+:   m_matrix{matrix}
 {
     // empty
 }
@@ -46,9 +46,9 @@ template<typename T>
 constexpr vec3<T>
 operator * (mat3<T> const & lhs, vec3<T> const & rhs) {
     return vec3<T>(
-        /*[x]*/ (lhs[0] * rhs.x) + (lhs[1] * rhs.y) + (lhs[2] * rhs.z),
-        /*[y]*/ (lhs[3] * rhs.x) + (lhs[4] * rhs.y) + (lhs[5] * rhs.z),
-        /*[z]*/ (lhs[6] * rhs.x) + (lhs[7] * rhs.y) + (lhs[8] * rhs.z));
+        /*[x]*/ (lhs[0] * rhs.DJC_X) + (lhs[1] * rhs.DJC_Y) + (lhs[2] * rhs.DJC_Z),
+        /*[y]*/ (lhs[3] * rhs.DJC_X) + (lhs[4] * rhs.DJC_Y) + (lhs[5] * rhs.DJC_Z),
+        /*[z]*/ (lhs[6] * rhs.DJC_X) + (lhs[7] * rhs.DJC_Y) + (lhs[8] * rhs.DJC_Z));
 }
 
 //------------------------------------------------------------

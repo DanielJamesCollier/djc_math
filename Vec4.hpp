@@ -59,10 +59,35 @@ public:
 
 //                         data                             // 
 //------------------------------------------------------------
+#if   DJC_MATH_VEC_DATA == DJC_MATH_EXPLICIT
     T x;
     T y;
     T z;
     T w;
+
+#elif DJC_MATH_VEC_DATA == DJC_MATH_ARRAY
+    T data[4]; 
+
+#elif DJC_MATH_VEC_DATA == DJC_MATH_UNION
+    union {
+
+        T data[4];
+
+        struct {
+            T x;
+            T y;
+            T z;
+            T w;
+        };
+
+        struct {
+            T r;
+            T g;
+            T b;
+            T a; 
+        };
+    };
+#endif
 
 }; // class vec4
 
