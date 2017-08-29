@@ -150,5 +150,5 @@ using vec2d = vec2<double>;
 
 } // namespace djc::math 
 
-#include "inline/vec2.inl"
+#include "./inline/vec2.inl"
 #endif /* vec2_hpp */

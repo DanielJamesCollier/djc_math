@@ -169,5 +169,5 @@ using vec4d = vec4<double>;
 
 } // namespace djc::math 
 
-#include "inline/vec4.inl"
+#include "./inline/vec4.inl"
 #endif /* vec4_hpp */

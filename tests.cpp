@@ -421,12 +421,24 @@ transform_tests() {
 //------------------------------------------------------------
 void 
 utils_tests() {
-    constexpr auto toRad = to_radians(90.0f);
-    auto rand01 = rand_float_between_zero_one();
-    auto randUC = rand_UC_between_0_N_255();
     auto norm = normalise(24.6f, 0.0f, 1.0f);
-    constexpr auto lerp = ::lerp(0.0f, 100.0f, 50.0f);
+}
+
+//------------------------------------------------------------
+void
+common_tests() {
+    constexpr auto lerp_f = ::lerp(0.0f, 100.0f, 50.0f);
+    constexpr auto lerp_d = ::lerp(0.0, 100.0, 50.0);
     constexpr auto clamp = ::clamp(100.0f, 10.0f, 50.0f);
+    constexpr auto floor_int_f = djc::math::floor_int(10.7f);
+    constexpr auto floor_int_d = djc::math::floor_int(10.7);
+    constexpr auto floor_f = djc::math::floor(10.7f);
+    constexpr auto floor_d = djc::math::floor(10.7);
+    constexpr auto toRad_f = to_radians(90.0f);
+    constexpr auto toRad_d = to_radians(90.0);
+    constexpr auto toDeg_f = to_degrees(1.0f);
+    constexpr auto toDeg_d = to_degrees(1.0);
+
 }
 
 //------------------------------------------------------------
@@ -438,6 +450,13 @@ constexpr_math_tests() {
     constexpr auto sin = compile::constexpr_sin(0.5); 
 }
 
+//------------------------------------------------------------
+void
+perlin_tests() {
+    perlin<double> height_map{2555};
+
+    auto value {height_map.noise(0.45, 0.8, 0.55)};
+}
 //------------------------------------------------------------
 int 
 main() {
@@ -453,7 +472,9 @@ main() {
     // other
     transform_tests();
     utils_tests();
+    common_tests();
     constexpr_math_tests();
-    
+    perlin_tests();
+
     return 0;
 }

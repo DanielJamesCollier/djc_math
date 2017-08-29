@@ -73,6 +73,7 @@ template<typename T>
 vec2<T> &
 vec2<T>::operator += (vec2<T> const & rhs) noexcept {
     DJC_X += rhs.DJC_X;
+    DJC_Y += rhs.DJC_Y;
     return *this;
 }
 

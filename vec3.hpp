@@ -27,7 +27,7 @@ public:
     constexpr vec3(vec3<T> const & _xyz) noexcept = default;
     ~vec3() noexcept = default;
 
-//                       functions                         // 
+//                       functions                          // 
 //------------------------------------------------------------
     T length() const noexcept(false);
     constexpr T length2() const noexcept;
@@ -167,5 +167,5 @@ using vec3d = vec3<double>;
 
 } // namespace djc::math 
 
-#include "inline/vec3.inl"
+#include "./inline/vec3.inl"
 #endif /* vec3_hpp */

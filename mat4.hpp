@@ -72,5 +72,5 @@ private:
     
 } // namespace djc::math 
 
-#include "inline/mat4.inl"
+#include "./inline/mat4.inl"
 #endif /* mat4_hpp */

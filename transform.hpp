@@ -93,6 +93,6 @@ rotate(T angle, vec4<T> const & axis) noexcept;
 
 } // namespace djc::math 
 
-#include "inline/transform.inl"
+#include "./inline/transform.inl"
 #endif /* transform_hpp */
 

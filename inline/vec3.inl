@@ -1,7 +1,6 @@
 namespace djc::math {
 
-// RAII
-
+//                         RAII                             // 
 //------------------------------------------------------------
 template<typename T> 
 constexpr
@@ -45,8 +44,8 @@ vec3<T>::vec3(T _x, vec2<T> const & _yz) noexcept
 {
     // empty
 }
-// member - functions
 
+//                       functions                          // 
 //------------------------------------------------------------
 template<typename T> 
 T
@@ -94,8 +93,7 @@ vec3<T>::to_vec2() const noexcept {
     return vec2<T>(DJC_X, DJC_Y);
 }
 
-// member - operator overloads
-
+//                   operator overloads                     // 
 //------------------------------------------------------------
 template<typename T>
 constexpr vec3<T>
@@ -190,8 +188,7 @@ vec3<T>::operator /= (T rhs) noexcept {
     return *this;
 }
 
-// free function operator overloads
-
+//                  free function operators                 // 
 //------------------------------------------------------------
 template<typename T> 
 constexpr vec3<T>
@@ -287,8 +284,7 @@ operator << (std::ostream & lhs, vec3<T> const & rhs) {
 }
 #   endif
 
-// free functions
-
+//                     free functions                       //
 //------------------------------------------------------------
 template<typename T> 
 vec3<T>

@@ -72,5 +72,5 @@ using mat3d = mat3<double>;
 
 } // namespace djc::math 
 
-#include "inline/mat3.inl"
+#include "./inline/mat3.inl"
 #endif /* mat3_hpp */

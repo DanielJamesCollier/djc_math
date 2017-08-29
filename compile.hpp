@@ -36,5 +36,5 @@ constexpr_tan(); // @todo:
     
     
 }; // djc::math::compile
-#include "inline/compile.inl"
+#include "./inline/compile.inl"
 #endif // constexpr_math_hpp
