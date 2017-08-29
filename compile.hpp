@@ -3,10 +3,14 @@
 
 #include <cstddef> // std::size_t
 
-// to force all operations to happen at compile time the must
-// be bound to a constexpr variable
-//
-// if not bound to a constexpr variable prepare to incure massive runtime costs :)
+/* to force all operations to happen at compile time the function return
+ must be assigned to a constexpr variable. if not bound to a constexpr variable prepare to incure massive runtime costs :)
+
+example
+
+auto constexpr test =  constexpr_power(2.0f , 10); // compile time
+auto test =  constexpr_power(2.0f , 10); // runtime 
+*/
 
 namespace djc::math::compile {
 
