@@ -26,14 +26,22 @@
 #define DJC_MATH_EXPLICIT 0
 #define DJC_MATH_ARRAY    1
 #define DJC_MATH_UNION    2
+//------------------------
 
 #define DJC_MATH_VEC_DATA DJC_MATH_EXPLICIT 
 //------------------------------------------------------------
 /*
-  - if defined then the storage of all vec types is represented as T[size] T 
-    T being the template type argument and size being the vec size i.e vec3 size = 3
-  - if not defined then the storage of all vector types will be x,y,z,w
-  - the array representation is usefull when passing the data to another library such as opengl
+ - DJC_MATH_VEC_DATA = DJC_MATH_EXCPLICIT 
+   * this means that vec2, vec3, vec4 should be accesed using x,y,z,w 
+ 
+ - DJC_MATH_VEC_DATA = DJC_MATH_ARRAY
+   *  this means that vec2, vec3, vec4 should be accessed using array notation. so [0] for x. be carefull as 
+      out of bounds access is not handled.
+
+ - DJC_MATH_VEC_DATA = DJC_MATH_UNION
+   * this means vec2, vec3, vec4 can being accessed explicity using x,y,z,w or using array notation,
+     note that this using union type punning and is not defined to work by the standard, but
+     most compilers support it
 */
 
 
