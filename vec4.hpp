@@ -161,6 +161,10 @@ vec4<T> normalise(vec4<T> const & vec) noexcept(false);
 template<typename T>
 constexpr T dot(vec4<T> const & lhs, vec4<T> const & rhs) noexcept;
 
+//------------------------------------------------------------
+template<typename T>
+vec3<T> limit(vec4<T> vec, T limit) noexcept(false);
+
 //            type alias - for use in client code           // 
 //------------------------------------------------------------
 using vec4i = vec4<int>;

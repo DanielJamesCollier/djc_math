@@ -66,6 +66,14 @@ vec2_tests() {
     {
         ::normalise(vec2_default);
         auto dot_free = ::dot(vec2_default, vec2_default);
+        auto limit = ::limit(vec2_default, 2.0f); 
+
+        auto limit_vec = djc::math::vec3f(1.0f, 1.0f, 1.0f);
+        
+        limit_vec = ::limit(limit_vec, 0.5f);
+
+        std::cout << "limit " << limit_vec << std::endl;
+        
     }
 
     // CONSTEXPR
@@ -419,12 +427,6 @@ transform_tests() {
 }
 
 //------------------------------------------------------------
-void 
-utils_tests() {
-    auto norm = normalise(24.6f, 0.0f, 1.0f);
-}
-
-//------------------------------------------------------------
 void
 common_tests() {
     constexpr auto lerp_f = ::lerp(0.0f, 100.0f, 50.0f);
@@ -471,7 +473,6 @@ main() {
 
     // other
     transform_tests();
-    utils_tests();
     common_tests();
     constexpr_math_tests();
     perlin_tests();

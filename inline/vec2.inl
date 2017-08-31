@@ -247,4 +247,18 @@ dot(vec2<T> const & lhs, vec2<T> const & rhs) noexcept {
     return (lhs.DJC_X * rhs.DJC_X) + (lhs.DJC_Y * rhs.DJC_Y);
 }
 
+//------------------------------------------------------------
+template<typename T>
+vec2<T>
+limit(vec2<T> vec, T limit) noexcept(false) {
+    T length {vec.length()};
+
+    if (length > limit) {
+        vec.normalise();
+        vec *= limit;
+    }
+
+    return vec;
+}
+
 } // namespace djc::math 

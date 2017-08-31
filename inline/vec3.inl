@@ -300,4 +300,18 @@ dot(vec3<T> const & lhs, vec3<T> const & rhs) noexcept {
     return (lhs.DJC_X * rhs.DJC_X) + (lhs.DJC_Y * rhs.DJC_Y) + (lhs.DJC_Z * rhs.DJC_Z);
 }
 
+//------------------------------------------------------------
+template<typename T>
+vec3<T>
+limit(vec3<T> vec, T limit) noexcept(false) {
+    T length {vec.length()};
+
+    if (length > limit) {
+        vec.normalise();
+        vec *= limit;
+    }
+
+    return vec;
+}
+
 } // namespace djc::math 

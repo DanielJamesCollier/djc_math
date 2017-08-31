@@ -142,6 +142,10 @@ vec2<T> normalise(vec2<T> const & vec) noexcept(false);
 template<typename T>
 constexpr T dot(vec2<T> const & lhs, vec2<T> const & rhs) noexcept;
 
+//------------------------------------------------------------
+template<typename T>
+vec2<T> limit(vec2<T> vec, T limit) noexcept(false);
+
 //            type alias - for use in client code          // 
 //------------------------------------------------------------
 using vec2i = vec2<int>;
