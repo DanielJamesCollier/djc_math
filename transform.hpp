@@ -1,5 +1,5 @@
-#ifndef transform_hpp
-#define transform_hpp
+#ifndef DJC_MATH_TRANSFORM_HPP
+#define DJC_MATH_TRANSFORM_HPP
 
 // my
 #include "vec3.hpp"
@@ -92,7 +92,5 @@ mat4<T>
 rotate(T angle, vec4<T> const & axis) noexcept;
 
 } // namespace djc::math 
-
-#include "./inline/transform.inl"
-#endif /* transform_hpp */
-
+#include "inline/transform_inl.hpp"
+#endif // DJC_MATH_TRANSFORM_HPP 

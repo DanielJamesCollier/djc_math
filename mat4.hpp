@@ -1,5 +1,5 @@
-#ifndef mat4_hpp
-#define mat4_hpp
+#ifndef DJC_MATH_MAT4_HPP
+#define DJC_MATH_MAT4_HPP
 
 // my
 #include "vec4.hpp"
@@ -71,6 +71,5 @@ private:
     using mat4d = mat4<double>;
     
 } // namespace djc::math 
-
-#include "./inline/mat4.inl"
-#endif /* mat4_hpp */
+#include "inline/mat4_inl.hpp"
+#endif // DJC_MATH_MAT4_HPP

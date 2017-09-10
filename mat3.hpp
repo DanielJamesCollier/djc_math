@@ -1,5 +1,5 @@
-#ifndef mat3_hpp
-#define mat3_hpp
+#ifndef DJC_MATH_MAT3_HPP  
+#define DJC_MATH_MAT3_HPP
 
 // my 
 #include "vec3.hpp"
@@ -71,6 +71,5 @@ using mat3f = mat3<float>;
 using mat3d = mat3<double>;
 
 } // namespace djc::math 
-
-#include "./inline/mat3.inl"
-#endif /* mat3_hpp */
+#include "inline/mat3_inl.hpp"
+#endif // DJC_MATH_MAT3_HPP 

@@ -1,5 +1,5 @@
-#ifndef common_hpp
-#define common_hpp
+#ifndef DJC_MATH_COMMON_HPP 
+#define DJC_MATH_COMMON_HPP 
 
 // my
 #include "constants.hpp" 
@@ -54,5 +54,5 @@ constexpr double
 to_degrees(double radians);
 
 } // namespace djc::math
-#include "./inline/common.inl"
-#endif // common_hpp
+#include "inline/common_inl.hpp"
+#endif // DJC_MATH_COMMON_HPP 

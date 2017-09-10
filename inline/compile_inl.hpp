@@ -1,4 +1,4 @@
-namespace djc::math::compile {
+namespace djc::math {
 
 //------------------------------------------------------------
 template <typename T>
@@ -61,4 +61,4 @@ namespace internal::cos {
     
 }
     
-} // namespace djc::math::compile
+} // namespace djc::math

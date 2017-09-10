@@ -58,7 +58,7 @@ vec2<T>::dot(vec2<T> const & vec) const noexcept {
 template<typename T> 
 constexpr vec2<T> 
 vec2<T>::operator + () const noexcept {
-    return vec2<T>(DJC_X, DJC_Y);
+    return vec2<T>(+DJC_X, +DJC_Y);
 }
 
 //------------------------------------------------------------
@@ -138,6 +138,52 @@ vec2<T>::operator /= (T rhs) noexcept {
     DJC_X /= rhs;
     DJC_Y /= rhs;
     return *this;
+}
+
+//                     free functions                       //
+//------------------------------------------------------------
+template<typename T> vec2<T>
+normalise(vec2<T> const & vec) noexcept {
+    T length {std::sqrt((vec.DJC_X * vec.DJC_X) + (vec.DJC_Y * vec.DJC_Y))};
+    return vec2<T>(vec.DJC_X / length, vec.DJC_Y / length);
+}
+
+//------------------------------------------------------------
+template<typename T> 
+constexpr T
+dot(vec2<T> const & lhs, vec2<T> const & rhs) noexcept {
+    return (lhs.DJC_X * rhs.DJC_X) + (lhs.DJC_Y * rhs.DJC_Y);
+}
+
+//------------------------------------------------------------
+template<typename T>
+vec2<T>
+limit(vec2<T> vec, T limit) noexcept {
+    T length {vec.length()};
+
+    if (length > limit) {
+        vec.normalise();
+        vec *= limit;
+    }
+
+    return vec;
+}
+
+//------------------------------------------------------------
+template<typename T>
+vec2<T>
+clamp(vec2<T> vec, T min, T max) noexcept {
+    T length {vec.length()};
+    
+    if (vec.length > max) {
+        vec.normalise();
+        vec *= max;
+    } else if (vec.length < min) {
+        vec.normalise();
+        vec *= min;
+    }
+
+    return vec;
 }
 
 //                  free function operators                 // 
@@ -231,34 +277,5 @@ operator << (std::ostream & lhs, vec2<T> const & rhs) {
     return lhs << "vec2(" << rhs.DJC_X << ", " << rhs.DJC_Y << ")";
 }
 #   endif
-
-//                     free functions                       //
-//------------------------------------------------------------
-template<typename T> vec2<T>
-normalise(vec2<T> const & vec) noexcept(false) {
-    T length {std::sqrt((vec.DJC_X * vec.DJC_X) + (vec.DJC_Y * vec.DJC_Y))};
-    return vec2<T>(vec.DJC_X / length, vec.DJC_Y / length);
-}
-
-//------------------------------------------------------------
-template<typename T> 
-constexpr T
-dot(vec2<T> const & lhs, vec2<T> const & rhs) noexcept {
-    return (lhs.DJC_X * rhs.DJC_X) + (lhs.DJC_Y * rhs.DJC_Y);
-}
-
-//------------------------------------------------------------
-template<typename T>
-vec2<T>
-limit(vec2<T> vec, T limit) noexcept(false) {
-    T length {vec.length()};
-
-    if (length > limit) {
-        vec.normalise();
-        vec *= limit;
-    }
-
-    return vec;
-}
 
 } // namespace djc::math 

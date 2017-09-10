@@ -1,5 +1,5 @@
-#ifndef perlin_hpp 
-#define perlin_hpp
+#ifndef DJC_MATH_PERLIN_HPP 
+#define DJC_MATH_PERLIN_HPP
 
 // my
 #include "common.hpp" // djc::math::lerp
@@ -34,5 +34,5 @@ private:
 }; // perlin
 
 } // namespace djc::math
-#include "./inline/perlin.inl"
-#endif // perlin_hpp
+#include "inline/perlin_inl.hpp"
+#endif // DJC_MATH_PERLIN_HPP

@@ -1,5 +1,5 @@
-#ifndef Constants_hpp
-#define Constants_hpp
+#ifndef DJC_MATH_CONSTANTS_HPP 
+#define DJC_MATH_CONSTANTS_HPP
 
 namespace djc::math {
 
@@ -16,4 +16,4 @@ template<typename T>
 constexpr T half_pi = pi<T> * 0.5;
 
 } // namespace djc::math 
-#endif /* Constants_hpp */
+#endif // DJC_MATH_CONSTANTS_HPP

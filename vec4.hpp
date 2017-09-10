@@ -1,5 +1,5 @@
-#ifndef vec4_hpp
-#define vec4_hpp
+#ifndef DJC_MATH_VEC4_HPP
+#define DJC_MATH_VEC4_HPP
 
 // my
 #include "vec2.hpp"
@@ -59,16 +59,16 @@ public:
 
 //                         data                             // 
 //------------------------------------------------------------
-#if   DJC_MATH_VEC_DATA == DJC_MATH_EXPLICIT
+#if   DJC_MATH_DATA == DJC_MATH_EXPLICIT
     T x;
     T y;
     T z;
     T w;
 
-#elif DJC_MATH_VEC_DATA == DJC_MATH_ARRAY
+#elif DJC_MATH_DATA == DJC_MATH_ARRAY
     T data[4]; 
 
-#elif DJC_MATH_VEC_DATA == DJC_MATH_UNION
+#elif DJC_MATH_DATA == DJC_MATH_UNION
     union {
 
         T data[4];
@@ -91,6 +91,18 @@ public:
 
 }; // class vec4
 
+//                     free functions                       //
+//------------------------------------------------------------
+template<typename T>
+vec4<T> normalise(vec4<T> const & vec) noexcept;
+
+//------------------------------------------------------------
+template<typename T>
+constexpr T dot(vec4<T> const & lhs, vec4<T> const & rhs) noexcept;
+
+//------------------------------------------------------------
+template<typename T>
+vec4<T> limit(vec4<T> vec, T limit) noexcept;
 
 //                  free function operators                 // 
 //------------------------------------------------------------
@@ -152,19 +164,6 @@ std::ostream & operator << (std::ostream & lhs, vec4<T> const & rhs);
 // template<typename T>
 // vec4<T> operator * (Mat4<T> const & rhs & lhs, vec4<T> const & rhs); - defined in Mat4.inl
 
-//                     free functions                       //
-//------------------------------------------------------------
-template<typename T>
-vec4<T> normalise(vec4<T> const & vec) noexcept(false);
-
-//------------------------------------------------------------
-template<typename T>
-constexpr T dot(vec4<T> const & lhs, vec4<T> const & rhs) noexcept;
-
-//------------------------------------------------------------
-template<typename T>
-vec3<T> limit(vec4<T> vec, T limit) noexcept(false);
-
 //            type alias - for use in client code           // 
 //------------------------------------------------------------
 using vec4i = vec4<int>;
@@ -172,6 +171,5 @@ using vec4f = vec4<float>;
 using vec4d = vec4<double>;
 
 } // namespace djc::math 
-
-#include "./inline/vec4.inl"
-#endif /* vec4_hpp */
+#include "inline/vec4_inl.hpp"
+#endif // DJC_MATH_VEC4_HPP 

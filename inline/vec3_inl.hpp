@@ -98,7 +98,7 @@ vec3<T>::to_vec2() const noexcept {
 template<typename T>
 constexpr vec3<T>
 vec3<T>::operator + () const noexcept {
-    return vec3<T>(DJC_X, DJC_Y, DJC_Z);
+    return vec3<T>(+DJC_X, +DJC_Y, +DJC_Z);
 }
 
 //------------------------------------------------------------
@@ -186,6 +186,75 @@ vec3<T>::operator /= (T rhs) noexcept {
     DJC_Y /= rhs;
     DJC_Z /= rhs;
     return *this;
+}
+
+//                     free functions                       //
+//------------------------------------------------------------
+template<typename T> 
+vec3<T>
+normalise(vec3<T> const & vec) noexcept {
+    T length {std::sqrt((vec.DJC_X * vec.DJC_X) + (vec.DJC_Y * vec.DJC_Y) + (vec.DJC_Z * vec.DJC_Z))};
+    return vec3<T>(vec.DJC_X / length, vec.DJC_Y / length, vec.DJC_Z / length);
+}
+
+//------------------------------------------------------------
+template<typename T> 
+constexpr T 
+dot(vec3<T> const & lhs, vec3<T> const & rhs) noexcept {
+    return (lhs.DJC_X * rhs.DJC_X) + (lhs.DJC_Y * rhs.DJC_Y) + (lhs.DJC_Z * rhs.DJC_Z);
+}
+
+//------------------------------------------------------------
+template<typename T>
+vec3<T>
+limit(vec3<T> vec, T limit) noexcept {
+    T length {vec.length()};
+
+    if (length > limit) {
+        vec.normalise();
+        vec *= limit;
+    }
+
+    return vec;
+}
+
+//------------------------------------------------------------
+template<typename T>
+vec3<T>
+clamp(vec3<T> vec, T min, T max) noexcept {
+    T length {vec.length()};
+    
+    if (vec.length > max) {
+        vec.normalise();
+        vec *= max;
+    } else if (vec.length < min) {
+        vec.normalise();
+        vec *= min;
+    }
+
+    return vec;
+}
+
+//------------------------------------------------------------
+template<typename T>
+vec3<T> 
+slerp(vec3<T> const & start, vec3<T> const & end, T percent) noexcept {
+    // Dot product - the cosine of the angle between 2 vectors.
+     T dot_start_end {dot(start, end)};     
+     // Clamp it to be in the range of Acos()
+     // This may be unnecessary, but floating point
+     // precision can be a fickle mistress.
+     dot_start_end = clamp(dot_start_end, static_cast<T>(-1.0), static_cast<T>(1.0));
+     // Acos(dot) returns the angle between start and end,
+     // And multiplying that by percent returns the angle between
+     // start and the final result.
+     T theta {std::acos(dot_start_end) * percent};
+     
+     vec3<T> relative_vec {end - start * dot_start_end};
+     relative_vec.normalise();     // Orthonormal basis
+
+     // The final result.
+     return ((start * std::cos(theta)) + (relative_vec * std::sin(theta)));
 }
 
 //                  free function operators                 // 
@@ -277,41 +346,9 @@ operator / (vec3<T> const & lhs, T rhs) noexcept {
 #   if defined(DJC_MATH_STD_IOSTREAM)
 template<typename T> std::ostream &
 operator << (std::ostream & lhs, vec3<T> const & rhs) {
-    lhs << "vec3\n-----------------\n";
     lhs << "vec3(" << rhs.DJC_X << ", " << rhs.DJC_Y << ", " << rhs.DJC_Z << ")\n";
-    lhs << "-----------------\n";
     return lhs;
 }
 #   endif
-
-//                     free functions                       //
-//------------------------------------------------------------
-template<typename T> 
-vec3<T>
-normalise(vec3<T> const & vec) noexcept(false) {
-    T length {std::sqrt((vec.DJC_X * vec.DJC_X) + (vec.DJC_Y * vec.DJC_Y) + (vec.DJC_Z * vec.DJC_Z))};
-    return vec3<T>(vec.DJC_X / length, vec.DJC_Y / length, vec.DJC_Z / length);
-}
-
-//------------------------------------------------------------
-template<typename T> 
-constexpr T 
-dot(vec3<T> const & lhs, vec3<T> const & rhs) noexcept {
-    return (lhs.DJC_X * rhs.DJC_X) + (lhs.DJC_Y * rhs.DJC_Y) + (lhs.DJC_Z * rhs.DJC_Z);
-}
-
-//------------------------------------------------------------
-template<typename T>
-vec3<T>
-limit(vec3<T> vec, T limit) noexcept(false) {
-    T length {vec.length()};
-
-    if (length > limit) {
-        vec.normalise();
-        vec *= limit;
-    }
-
-    return vec;
-}
 
 } // namespace djc::math 

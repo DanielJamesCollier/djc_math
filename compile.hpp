@@ -1,5 +1,5 @@
-#ifndef constexpr_math_hpp
-#define constexpr_math_hpp
+#ifndef DJC_MATH_COMPILE_HPP 
+#define DJC_MATH_COMPILE_HPP
 
 #include <cstddef> // std::size_t
 
@@ -12,7 +12,7 @@ auto constexpr test =  constexpr_power(2.0f , 10); // compile time
 auto test =  constexpr_power(2.0f , 10); // runtime 
 */
 
-namespace djc::math::compile {
+namespace djc::math {
 
 //------------------------------------------------------------
 template <typename T>
@@ -38,7 +38,6 @@ constexpr_cos(); // @todo:
 constexpr double
 constexpr_tan(); // @todo:
     
-    
-}; // djc::math::compile
-#include "./inline/compile.inl"
-#endif // constexpr_math_hpp
+}; // djc::math
+#include "inline/compile_inl.hpp"
+#endif // DJC_MATH_COMPILE_HPP

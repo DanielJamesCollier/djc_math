@@ -1,9 +1,10 @@
-#ifndef vec3_hpp
-#define vec3_hpp
+#ifndef DJC_MATH_VEC3_HPP
+#define DJC_MATH_VEC3_HPP
 
 // my
 #include "vec2.hpp"
 #include "config.hpp"
+#include "common.hpp"
 
 // std
 #include <cmath> // std::sqrt
@@ -53,15 +54,15 @@ public:
 
 //                         data                             // 
 //------------------------------------------------------------
-#if   DJC_MATH_VEC_DATA == DJC_MATH_EXPLICIT 
+#if   DJC_MATH_DATA == DJC_MATH_EXPLICIT 
     T x;
     T y;
     T z;
 
-#elif DJC_MATH_VEC_DATA == DJC_MATH_ARRAY
+#elif DJC_MATH_DATA == DJC_MATH_ARRAY
     T data[3];
 
-#elif DJC_MATH_VEC_DATA == DJC_MATH_UNION
+#elif DJC_MATH_DATA == DJC_MATH_UNION
     union {
 
         T data[3];
@@ -84,11 +85,30 @@ public:
             T w;
         };
     };
-    
 #endif
 
 }; // class vec3
 
+//                     free functions                       //
+//------------------------------------------------------------
+template<typename T>
+vec3<T> normalise(vec3<T> const & vec) noexcept;
+
+//------------------------------------------------------------
+template<typename T>
+constexpr T dot(vec3<T> const & lhs, vec3<T> const & rhs) noexcept;
+
+//------------------------------------------------------------
+template<typename T>
+vec3<T> limit(vec3<T> vec, T limit) noexcept;
+
+//------------------------------------------------------------
+template<typename T>
+vec3<T> clamp(vec3<T> vec, T min, T max) noexcept;
+
+//------------------------------------------------------------
+template<typename T>
+vec3<T> slerp(vec3<T> const & start, vec3<T> const & end, T percent) noexcept;
 
 //                  free function operators                 // 
 //------------------------------------------------------------
@@ -150,19 +170,6 @@ std::ostream & operator << (std::ostream & lhs, vec3<T> const & rhs);
 //template<typename T>
 //constexpr vec3<T> operator * (Mat3<T> const & lhs, vec3<T> const & rhs); // defined in Mat3.inl
 
-//                     free functions                       //
-//------------------------------------------------------------
-template<typename T>
-vec3<T> normalise(vec3<T> const & vec) noexcept(false);
-
-//------------------------------------------------------------
-template<typename T>
-constexpr T dot(vec3<T> const & lhs, vec3<T> const & rhs) noexcept;
-
-//------------------------------------------------------------
-template<typename T>
-vec3<T> limit(vec3<T> vec, T limit) noexcept(false);
-
 //            type alias - for use in client code           // 
 //------------------------------------------------------------
 using vec3i = vec3<int>;
@@ -170,6 +177,5 @@ using vec3f = vec3<float>;
 using vec3d = vec3<double>;
 
 } // namespace djc::math 
-
-#include "./inline/vec3.inl"
-#endif /* vec3_hpp */
+#include "inline/vec3_inl.hpp"
+#endif // DJC_MATH_VEC3_HPP 

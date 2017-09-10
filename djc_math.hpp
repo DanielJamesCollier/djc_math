@@ -7,7 +7,7 @@
 #include "vec4.hpp"
 #include "mat3.hpp"
 #include "mat4.hpp"
-//#include "quaternion.hpp"
+#include "quaternion.hpp"
 #include "constants.hpp"
 
 // Other Classes //

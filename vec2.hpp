@@ -1,5 +1,5 @@
-#ifndef vec2_hpp
-#define vec2_hpp
+#ifndef DJC_MATH_VEC2_HPP
+#define DJC_MATH_VEC2_HPP
 
 // my
 #include "config.hpp"
@@ -50,14 +50,14 @@ public:
 
 //                         data                             // 
 //------------------------------------------------------------
-#if   DJC_MATH_VEC_DATA == DJC_MATH_EXPLICIT 
+#if   DJC_MATH_DATA == DJC_MATH_EXPLICIT 
     T x;
     T y;
 
-#elif DJC_MATH_VEC_DATA == DJC_MATH_ARRAY
+#elif DJC_MATH_DATA == DJC_MATH_ARRAY
     T data[2];
 
-#elif DJC_MATH_VEC_DATA == DJC_MATH_UNION
+#elif DJC_MATH_DATA == DJC_MATH_UNION
     union {
         
         T data[2];
@@ -72,11 +72,26 @@ public:
             T v;
         };
     };
-
 #endif
 
 }; // class vec2
 
+//                     free functions                       //
+//------------------------------------------------------------
+template<typename T>
+vec2<T> normalise(vec2<T> const & vec) noexcept;
+
+//------------------------------------------------------------
+template<typename T>
+constexpr T dot(vec2<T> const & lhs, vec2<T> const & rhs) noexcept;
+
+//------------------------------------------------------------
+template<typename T>
+vec2<T> limit(vec2<T> vec, T limit) noexcept;
+
+//------------------------------------------------------------
+template<typename T>
+vec2<T> clamp(vec2<T> vec, T min, T max) noexcept;
 
 //                  free function operators                 // 
 //------------------------------------------------------------
@@ -133,18 +148,6 @@ template<typename T>
 std::ostream & operator << (std::ostream & lhs, vec2<T> const & rhs);  
 #    endif
 
-//                     free functions                       //
-//------------------------------------------------------------
-template<typename T>
-vec2<T> normalise(vec2<T> const & vec) noexcept(false);
-
-//------------------------------------------------------------
-template<typename T>
-constexpr T dot(vec2<T> const & lhs, vec2<T> const & rhs) noexcept;
-
-//------------------------------------------------------------
-template<typename T>
-vec2<T> limit(vec2<T> vec, T limit) noexcept(false);
 
 //            type alias - for use in client code          // 
 //------------------------------------------------------------
@@ -153,6 +156,5 @@ using vec2f = vec2<float>;
 using vec2d = vec2<double>;
 
 } // namespace djc::math 
-
-#include "./inline/vec2.inl"
-#endif /* vec2_hpp */
+#include "inline/vec2_inl.hpp"
+#endif // DJC_MATH_VEC2_HPP 

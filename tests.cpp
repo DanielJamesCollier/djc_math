@@ -170,6 +170,9 @@ vec3_tests() {
     {   
         ::normalise(vec3_explicit);
         auto dot_free = ::dot(vec3_explicit, vec3_default);
+        auto lim = ::limit(vec3f(10,10,10), 1.0f);
+
+        auto slerp = ::slerp(vec3f(0,0,0), vec3f(10,10,10), 0.5f);
     }
     
     /* constexpr */
@@ -427,6 +430,20 @@ transform_tests() {
 }
 
 //------------------------------------------------------------
+void 
+quaternion_tests() {
+    quaternion_f quat(2.0f, 1.0f, 1.0f, 5.0);
+
+    std::cout << "real: " << quat.real() << std::endl;
+    std::cout << "complex: " << quat.complex() << std::endl;
+
+    auto euler_to_quat_vec = quaternion_from_euler(vec3f(2.0, 5.0, 7.0));
+    auto euler_to_quat = quaternion_from_euler(2.0, 5.0, 7.0);
+
+    std::cout << "quat from euler: " << euler_to_quat_vec << std::endl;
+}
+
+//------------------------------------------------------------
 void
 common_tests() {
     constexpr auto lerp_f = ::lerp(0.0f, 100.0f, 50.0f);
@@ -446,10 +463,10 @@ common_tests() {
 //------------------------------------------------------------
 void 
 constexpr_math_tests() {
-    constexpr auto pow = compile::constexpr_power(2, 4);
-    constexpr auto fac = compile::constexpr_factoral(5);
-    constexpr auto sqrt = compile::constexpr_sqrt(24);
-    constexpr auto sin = compile::constexpr_sin(0.5); 
+    constexpr auto pow = constexpr_power(2, 4);
+    constexpr auto fac = constexpr_factoral(5);
+    constexpr auto sqrt = constexpr_sqrt(24);
+    constexpr auto sin = constexpr_sin(0.5); 
 }
 
 //------------------------------------------------------------
@@ -470,12 +487,13 @@ main() {
     // matrix tests
     mat3_tests();
     mat4_tests(); 
-
+    
     // other
     transform_tests();
     common_tests();
     constexpr_math_tests();
     perlin_tests();
+    quaternion_tests();
 
     return 0;
 }
