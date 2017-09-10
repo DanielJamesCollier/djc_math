@@ -8,10 +8,7 @@ vec4<T>::vec4(T _xyzw) noexcept
 :   DJC_X{_xyzw}
 ,   DJC_Y{_xyzw}
 ,   DJC_Z{_xyzw}
-,   DJC_W{_xyzw}
-{
-    // empty
-}
+,   DJC_W{_xyzw}{}
 
 //------------------------------------------------------------
 template<typename T>
@@ -20,10 +17,7 @@ vec4<T>::vec4(T _x, T _y, T _z, T _w) noexcept
 :   DJC_X{_x}
 ,   DJC_Y{_y}
 ,   DJC_Z{_z}
-,   DJC_W{_w}
-{
-    // empty
-}
+,   DJC_W{_w}{}
 
 //------------------------------------------------------------
 template<typename T>
@@ -32,10 +26,7 @@ vec4<T>::vec4(vec2<T> const & _xy, T _z, T _w) noexcept
 :   DJC_X{_xy.DJC_X}
 ,   DJC_Y{_xy.DJC_Y}
 ,   DJC_Z{_z}
-,   DJC_W{_w}
-{
-    // empty
-}
+,   DJC_W{_w}{}
 
 //------------------------------------------------------------
 template<typename T>
@@ -44,10 +35,7 @@ vec4<T>::vec4(T _x, T _y, vec2<T> const & _zw) noexcept
 :   DJC_X{_x}
 ,   DJC_Y{_y}
 ,   DJC_Z{_zw.DJC_X}
-,   DJC_W{_zw.DJC_Y}
-{
-    // empty
-}
+,   DJC_W{_zw.DJC_Y}{}
 
 //------------------------------------------------------------
 template<typename T>
@@ -56,10 +44,7 @@ vec4<T>::vec4(vec2<T> const & _xy, vec2<T> const & _zw) noexcept
 :   DJC_X{_xy.DJC_X}
 ,   DJC_Y{_xy.DJC_Y}
 ,   DJC_Z{_zw.DJC_X}
-,   DJC_W{_zw.DJC_Y}
-{
-    // empty
-}
+,   DJC_W{_zw.DJC_Y}{}
 
 //------------------------------------------------------------
 template<typename T>
@@ -68,10 +53,7 @@ vec4<T>::vec4(vec3<T> const & _xyz, T _w) noexcept
 :   DJC_X{_xyz.DJC_X}
 ,   DJC_Y{_xyz.DJC_Y}
 ,   DJC_Z{_xyz.DJC_Z}
-,   DJC_W{_w}
-{
-    // empty
-}
+,   DJC_W{_w}{}
 
 //------------------------------------------------------------
 template<typename T>
@@ -80,10 +62,7 @@ vec4<T>::vec4(T _x, vec3<T> const & _yzw) noexcept
 :   DJC_X{_x}
 ,   DJC_Y{_yzw.DJC_X}
 ,   DJC_Z{_yzw.DJC_Y}
-,   DJC_W{_yzw.DJC_Z}
-{
-    // empty
-}
+,   DJC_W{_yzw.DJC_Z}{}
 
 //                       functions                         // 
 //------------------------------------------------------------
@@ -122,14 +101,14 @@ vec4<T>::dot(vec4<T> const & vec) const noexcept {
 template<typename T> 
 constexpr vec2<T>
 vec4<T>::to_vec2() const noexcept {
-    return vec2<T>(DJC_X, DJC_Y);
+    return {DJC_X, DJC_Y};
 }
 
 //------------------------------------------------------------
 template<typename T> 
 constexpr vec3<T>
 vec4<T>::to_vec3() const noexcept {
-    return vec3<T>(DJC_X, DJC_Y, DJC_Z);
+    return {DJC_X, DJC_Y, DJC_Z};
 }
 
 //                   operator overloads                     // 
@@ -137,14 +116,14 @@ vec4<T>::to_vec3() const noexcept {
 template<typename T> 
 constexpr vec4<T>
 vec4<T>::operator + () const noexcept {
-    return vec4<T>(+DJC_X, +DJC_Y, +DJC_Z, +DJC_W);
+    return {+DJC_X, +DJC_Y, +DJC_Z, +DJC_W};
 }
 
 //------------------------------------------------------------
 template<typename T> 
 constexpr vec4<T>
 vec4<T>::operator - () const noexcept {
-    return vec4<T>(-DJC_X, -DJC_Y, -DJC_Z, -DJC_W);
+    return {-DJC_X, -DJC_Y, -DJC_Z, -DJC_W};
 }
 
 //------------------------------------------------------------
@@ -240,7 +219,7 @@ vec4<T>::operator /= (T rhs) noexcept {
 template<typename T> vec4<T>
 normalise(vec4<T> const & vec) noexcept {
     T length {std::sqrt((vec.DJC_X * vec.DJC_X) + (vec.DJC_Y * vec.DJC_Y) + (vec.DJC_Z * vec.DJC_Z) + (vec.DJC_W * vec.DJC_W))};
-    return vec4<T>(vec.DJC_X / length, vec.DJC_Y / length, vec.DJC_Z / length, vec.DJC_W / length);
+    return {vec.DJC_X / length, vec.DJC_Y / length, vec.DJC_Z / length, vec.DJC_W / length};
 }
 
 //------------------------------------------------------------
@@ -286,84 +265,84 @@ clamp(vec4<T> vec, T min, T max) {
 template<typename T> 
 constexpr vec4<T> 
 operator + (vec4<T> const & lhs, vec4<T> const & rhs) noexcept {
-    return vec4<T>(lhs.DJC_X + rhs.DJC_X, lhs.DJC_Y + rhs.DJC_Y, lhs.DJC_Z + rhs.DJC_Z, lhs.DJC_W + rhs.DJC_W);
+    return {lhs.DJC_X + rhs.DJC_X, lhs.DJC_Y + rhs.DJC_Y, lhs.DJC_Z + rhs.DJC_Z, lhs.DJC_W + rhs.DJC_W};
 }
 
 //------------------------------------------------------------
 template<typename T>
 constexpr vec4<T> 
 operator - (vec4<T> const & lhs, vec4<T> const & rhs) noexcept {
-    return vec4<T>(lhs.DJC_X - rhs.DJC_X, lhs.DJC_Y - rhs.DJC_Y, lhs.DJC_Z - rhs.DJC_Z, lhs.DJC_W - rhs.DJC_W);
+    return {lhs.DJC_X - rhs.DJC_X, lhs.DJC_Y - rhs.DJC_Y, lhs.DJC_Z - rhs.DJC_Z, lhs.DJC_W - rhs.DJC_W};
 }
 
 //------------------------------------------------------------
 template<typename T> 
 constexpr vec4<T> 
 operator * (vec4<T> const & lhs, vec4<T> const & rhs) noexcept {
-    return vec4<T>(lhs.DJC_X * rhs.DJC_X, lhs.DJC_Y * rhs.DJC_Y, lhs.DJC_Z * rhs.DJC_Z, lhs.DJC_W * rhs.DJC_W);
+    return {lhs.DJC_X * rhs.DJC_X, lhs.DJC_Y * rhs.DJC_Y, lhs.DJC_Z * rhs.DJC_Z, lhs.DJC_W * rhs.DJC_W};
 }
 
 //------------------------------------------------------------
 template<typename T> 
 constexpr vec4<T> 
 operator / (vec4<T> const & lhs, vec4<T> const & rhs) noexcept {
-    return vec4<T>(lhs.DJC_X / rhs.DJC_X, lhs.DJC_Y / rhs.DJC_Y, lhs.DJC_Z / rhs.DJC_Z, lhs.DJC_W / rhs.DJC_W);
+    return {lhs.DJC_X / rhs.DJC_X, lhs.DJC_Y / rhs.DJC_Y, lhs.DJC_Z / rhs.DJC_Z, lhs.DJC_W / rhs.DJC_W};
 }
 
 //------------------------------------------------------------
 template<typename T> 
 constexpr vec4<T>
 operator + (T lhs, vec4<T> const & rhs) noexcept {
-    return vec4<T>(lhs + rhs.DJC_X, lhs + rhs.DJC_Y, lhs + rhs.DJC_Z, lhs + rhs.DJC_W);
+    return {lhs + rhs.DJC_X, lhs + rhs.DJC_Y, lhs + rhs.DJC_Z, lhs + rhs.DJC_W};
 }
 
 //------------------------------------------------------------
 template<typename T> 
 constexpr vec4<T>
 operator - (T lhs, vec4<T> const & rhs) noexcept {
-    return vec4<T>(lhs - rhs.DJC_X, lhs - rhs.DJC_Y, lhs - rhs.DJC_Z, lhs - rhs.DJC_W);
+    return {lhs - rhs.DJC_X, lhs - rhs.DJC_Y, lhs - rhs.DJC_Z, lhs - rhs.DJC_W};
 }
 
 //------------------------------------------------------------
 template<typename T> 
 constexpr vec4<T>
 operator * (T lhs, vec4<T> const & rhs) noexcept { 
-    return vec4<T>(lhs * rhs.DJC_X, lhs * rhs.DJC_Y, lhs * rhs.DJC_Z, lhs * rhs.DJC_W);
+    return {lhs * rhs.DJC_X, lhs * rhs.DJC_Y, lhs * rhs.DJC_Z, lhs * rhs.DJC_W};
 }
 
 //------------------------------------------------------------
 template<typename T> 
 constexpr vec4<T>
 operator / (T lhs, vec4<T> const & rhs) noexcept {
-    return vec4<T>(lhs / rhs.DJC_X, lhs / rhs.DJC_Y, lhs / rhs.DJC_Z, lhs / rhs.DJC_W);
+    return {lhs / rhs.DJC_X, lhs / rhs.DJC_Y, lhs / rhs.DJC_Z, lhs / rhs.DJC_W};
 }
 
 //------------------------------------------------------------
 template<typename T> 
 constexpr vec4<T>
 operator + (vec4<T> const & lhs, T rhs) noexcept {
-    return vec4<T>(lhs.DJC_X + rhs, lhs.DJC_Y + rhs, lhs.DJC_Z + rhs, lhs.DJC_W + rhs);
+    return {lhs.DJC_X + rhs, lhs.DJC_Y + rhs, lhs.DJC_Z + rhs, lhs.DJC_W + rhs};
 }
 
 //------------------------------------------------------------
 template<typename T> 
 constexpr vec4<T>
 operator - (vec4<T> const & lhs, T rhs) noexcept {
-    return vec4<T>(lhs.DJC_X - rhs, lhs.DJC_Y - rhs, lhs.DJC_Z - rhs, lhs.DJC_W - rhs);
+    return {lhs.DJC_X - rhs, lhs.DJC_Y - rhs, lhs.DJC_Z - rhs, lhs.DJC_W - rhs};
 }
 
 //------------------------------------------------------------
 template<typename T> 
 constexpr vec4<T>
 operator * (vec4<T> const & lhs, T rhs) noexcept {
-    return vec4<T>(lhs.DJC_X * rhs, lhs.DJC_Y * rhs, lhs.DJC_Z * rhs, lhs.DJC_W * rhs);
+    return {lhs.DJC_X * rhs, lhs.DJC_Y * rhs, lhs.DJC_Z * rhs, lhs.DJC_W * rhs};
 }
 
 //------------------------------------------------------------
 template<typename T> 
 constexpr vec4<T>
 operator / (vec4<T> const & lhs, T rhs) noexcept {
-    return vec4<T>(lhs.DJC_X / rhs, lhs.DJC_Y / rhs, lhs.DJC_Z / rhs, lhs.DJC_W / rhs);
+    return {lhs.DJC_X / rhs, lhs.DJC_Y / rhs, lhs.DJC_Z / rhs, lhs.DJC_W / rhs};
 }
 
 //------------------------------------------------------------

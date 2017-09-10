@@ -39,7 +39,7 @@ public:
     //                         RAII                             // 
     //------------------------------------------------------------
     constexpr mat3() noexcept;
-    constexpr explicit mat3(std::array<T, 9> matrix) noexcept;
+    constexpr mat3(std::array<T, 9> matrix) noexcept;
     ~mat3() noexcept = default;
 
     //                 friend free operators                    // 

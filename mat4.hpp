@@ -35,7 +35,7 @@ public:
     //                         RAII                             // 
     //------------------------------------------------------------
     constexpr mat4() noexcept;
-    constexpr explicit mat4(std::array<T, 16> const & matrix) noexcept;
+    constexpr mat4(std::array<T, 16> const & matrix) noexcept;
     constexpr mat4(mat3<T> const & matrix, T lastVal) noexcept;
     ~mat4() noexcept = default;
         
