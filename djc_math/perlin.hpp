@@ -1,7 +1,7 @@
 #ifndef DJC_MATH_PERLIN_HPP 
 #define DJC_MATH_PERLIN_HPP
 
-// my
+// djc_math 
 #include "common.hpp" // djc::math::lerp
 
 // std

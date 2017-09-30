@@ -1,7 +1,7 @@
 #ifndef DJC_MATH_VEC3_HPP
 #define DJC_MATH_VEC3_HPP
 
-// my
+// djc_math 
 #include "vec2.hpp"
 #include "config.hpp"
 #include "common.hpp"
@@ -28,6 +28,7 @@ public:
     constexpr vec3(vec3<T> const & _xyz) noexcept = default;
     ~vec3() noexcept = default;
 
+
 //                       functions                          // 
 //------------------------------------------------------------
     T length() const noexcept(false);
@@ -35,7 +36,7 @@ public:
     void normalise() noexcept(false);
     constexpr T dot(vec3<T> const & vec) const noexcept;
     constexpr vec3<T> cross(vec3<T> const & vec) const noexcept;
-    constexpr vec2<T> to_vec2() const noexcept;
+
 
 //                   operator overloads                     // 
 //------------------------------------------------------------
@@ -51,6 +52,7 @@ public:
     vec3<T> & operator -= (T rhs) noexcept;
     vec3<T> & operator *= (T rhs) noexcept;
     vec3<T> & operator /= (T rhs) noexcept;
+
 
 //                         data                             // 
 //------------------------------------------------------------

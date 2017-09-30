@@ -30,7 +30,7 @@ elseif (CMAKE_CXX_COMPILER_ID MATCHES "GNU")
     endif()
     
     message("this compiler version is supported")
-    
+  
 elseif (CMAKE_CXX_COMPILER_ID MATCHES "Intel")
   message("compiler = Intel")
   message(FATAL_ERROR "code has not been tested on this compiler")

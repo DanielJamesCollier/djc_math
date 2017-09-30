@@ -1,7 +1,7 @@
 #ifndef DJC_MATH_VEC2_HPP
 #define DJC_MATH_VEC2_HPP
 
-// my
+// djc_math 
 #include "config.hpp"
 
 // std
@@ -47,6 +47,7 @@ public:
     vec2<T> & operator -= (T rhs) noexcept;
     vec2<T> & operator *= (T rhs) noexcept;
     vec2<T> & operator /= (T rhs) noexcept;
+
 
 //                         data                             // 
 //------------------------------------------------------------

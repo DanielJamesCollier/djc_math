@@ -74,13 +74,6 @@ vec3<T>::cross(vec3<T> const & vec) const noexcept {
             (DJC_X * vec.DJC_Y) - (DJC_Y * vec.DJC_X)};
 }
 
-//------------------------------------------------------------
-template<typename T> 
-constexpr vec2<T>
-vec3<T>::to_vec2() const noexcept {
-    return {DJC_X, DJC_Y};
-}
-
 //                   operator overloads                     // 
 //------------------------------------------------------------
 template<typename T>

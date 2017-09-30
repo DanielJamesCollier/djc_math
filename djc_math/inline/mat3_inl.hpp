@@ -13,11 +13,26 @@ constexpr
 mat3<T>::mat3(std::array<T, 9> matrix) noexcept
 :   m_matrix{matrix}{}
 
-//                 friend free operators                    // 
+//                       operators                          // 
+//------------------------------------------------------------
+template<typename T> 
+constexpr T & 
+mat3<T>::operator [] (std::size_t index) noexcept {
+    return m_matrix[index];
+}
+
+//------------------------------------------------------------
+template<typename T> 
+constexpr T const & 
+mat3<T>::operator [] (std::size_t index) const noexcept {
+    return m_matrix[index];
+}
+
+//                  free function operators                 // 
 //------------------------------------------------------------
 template<typename T> 
 constexpr mat3<T> 
-operator * (mat3<T> const & lhs, mat3<T> const & rhs) {
+operator * (mat3<T> const & lhs, mat3<T> const & rhs) noexcept {
     return {std::array<T, 9>{{
            (lhs[0] * rhs[0]) + (lhs[1] * rhs[3]) + (lhs[2] * rhs[6]),
            (lhs[0] * rhs[1]) + (lhs[1] * rhs[4]) + (lhs[2] * rhs[7]),
@@ -35,7 +50,7 @@ operator * (mat3<T> const & lhs, mat3<T> const & rhs) {
 //------------------------------------------------------------
 template<typename T> 
 constexpr vec3<T>
-operator * (mat3<T> const & lhs, vec3<T> const & rhs) {
+operator * (mat3<T> const & lhs, vec3<T> const & rhs) noexcept {
     return {(lhs[0] * rhs.DJC_X) + (lhs[1] * rhs.DJC_Y) + (lhs[2] * rhs.DJC_Z),
             (lhs[3] * rhs.DJC_X) + (lhs[4] * rhs.DJC_Y) + (lhs[5] * rhs.DJC_Z),
             (lhs[6] * rhs.DJC_X) + (lhs[7] * rhs.DJC_Y) + (lhs[8] * rhs.DJC_Z)};
@@ -58,20 +73,5 @@ operator << (std::ostream & lhs, mat3<T> const & rhs) {
     return lhs;
 }
 #   endif
-
-//                 [private] - operators                    // 
-//------------------------------------------------------------
-template<typename T> 
-constexpr T & 
-mat3<T>::operator [] (std::size_t index) noexcept {
-    return m_matrix[index];
-}
-
-//------------------------------------------------------------
-template<typename T> 
-constexpr T const & 
-mat3<T>::operator [] (std::size_t index) const noexcept {
-    return m_matrix[index];
-}
 
 } // namespace djc::math 

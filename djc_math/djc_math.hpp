@@ -12,6 +12,7 @@
 
 // Other Classes //
 #include "common.hpp"
+#include "conversion.hpp"
 #include "transform.hpp"
 #include "compile.hpp"
 #include "perlin.hpp"

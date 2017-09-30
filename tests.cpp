@@ -122,7 +122,6 @@ vec3_tests() {
         
         auto dot     = vec3_explicit.dot(vec3_vec2_float);
         auto cross   = vec3_explicit.cross(vec3_vec2_float); 
-        auto to_vec2 = vec3_explicit.to_vec2();
     }
 
     // member operator overloads
@@ -193,7 +192,6 @@ vec3_tests() {
         constexpr auto constexpr_length2 = constexpr_default.length2();
         constexpr auto constexpr_dot     = constexpr_default.dot(constexpr_explicit); 
         constexpr auto constexpr_cross   = constexpr_default.cross(constexpr_explicit);
-        constexpr auto constexpr_tovec2  = constexpr_default.to_vec2();
     }
 
     // free functions - operator overloads
@@ -252,8 +250,6 @@ vec4_tests() {
             vec4_explicit.normalise();
             
             auto dot     = vec4_explicit.dot(vec4_vec2_float_float);
-            auto to_vec2 = vec4_explicit.to_vec2();
-            auto to_vec3 = vec4_explicit.to_vec3();
         }
 
         // member operator overloads
@@ -321,8 +317,6 @@ vec4_tests() {
         {   
             constexpr auto len2    = vec4_explicit.length2();
             constexpr auto dot     = vec4_explicit.dot(vec4_vec2_float_float);
-            constexpr auto to_vec2 = vec4_explicit.to_vec2();
-            constexpr auto to_vec3 = vec4_explicit.to_vec3();
          }
 
         // member operator overloads
@@ -390,7 +384,6 @@ mat4_tests() {
     mat4f mat_two;
 
     // member functions
-    auto to_mat3 = mat_one.to_mat3();
 
     // friend free - // @TODO : clear() clear(T) need implementing 
     

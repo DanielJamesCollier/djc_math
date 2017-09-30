@@ -1,7 +1,7 @@
 #ifndef DJC_MATH_COMMON_HPP 
 #define DJC_MATH_COMMON_HPP 
 
-// my
+// djc_math 
 #include "constants.hpp" 
 
 namespace djc::math {

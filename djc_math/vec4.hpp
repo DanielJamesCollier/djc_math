@@ -1,7 +1,7 @@
 #ifndef DJC_MATH_VEC4_HPP
 #define DJC_MATH_VEC4_HPP
 
-// my
+// djc_math 
 #include "vec2.hpp"
 #include "vec3.hpp"
 #include "config.hpp"
@@ -31,16 +31,14 @@ public:
     constexpr vec4(vec4<T> const & _rhs) noexcept = default;
     ~vec4() noexcept = default;
 
+
 //                       functions                         // 
 //------------------------------------------------------------
     T length() const noexcept(false);
     constexpr T length2() const noexcept;
     void normalise() noexcept(false);
     constexpr T dot(vec4<T> const & vec) const noexcept;
-    
-    // for cross cast to vec3
-    constexpr vec2<T> to_vec2() const noexcept;
-    constexpr vec3<T> to_vec3() const noexcept;
+
 
 //                   operator overloads                     // 
 //------------------------------------------------------------
@@ -56,6 +54,7 @@ public:
     vec4<T> & operator -= (T rhs) noexcept;
     vec4<T> & operator *= (T rhs) noexcept;
     vec4<T> & operator /= (T rhs) noexcept;
+
 
 //                         data                             // 
 //------------------------------------------------------------

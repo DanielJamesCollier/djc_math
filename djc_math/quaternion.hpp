@@ -1,7 +1,7 @@
 #ifndef DJC_MATH_QUATERNION_HPP
 #define DJC_MATH_QUATERNION_HPP
 
-// my
+// djc_math 
 #include "config.hpp"
 #include "vec3.hpp"
 #include "vec4.hpp"

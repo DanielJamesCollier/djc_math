@@ -97,20 +97,6 @@ vec4<T>::dot(vec4<T> const & vec) const noexcept {
      return DJC_X * vec.DJC_X + DJC_Y * vec.DJC_Y + DJC_Z * vec.DJC_Z + DJC_W * vec.DJC_W;
 }
 
-//------------------------------------------------------------
-template<typename T> 
-constexpr vec2<T>
-vec4<T>::to_vec2() const noexcept {
-    return {DJC_X, DJC_Y};
-}
-
-//------------------------------------------------------------
-template<typename T> 
-constexpr vec3<T>
-vec4<T>::to_vec3() const noexcept {
-    return {DJC_X, DJC_Y, DJC_Z};
-}
-
 //                   operator overloads                     // 
 //------------------------------------------------------------
 template<typename T> 

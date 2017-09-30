@@ -1,7 +1,7 @@
 #ifndef DJC_MATH_TRANSFORM_HPP
 #define DJC_MATH_TRANSFORM_HPP
 
-// my
+// djc_math 
 #include "vec3.hpp"
 #include "mat3.hpp"
 #include "mat4.hpp"

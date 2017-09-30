@@ -22,17 +22,22 @@ mat4<T>::mat4(mat3<T> const & matrix, T lastVal) noexcept
              matrix[6], matrix[7], matrix[8], 0,
                      0,         0,         0, lastVal}}}{} // [15] fix : should be 1 ? 0 maybe make this function in utils?
 
-//                       functions                          // 
+//                       operators                          // 
 //------------------------------------------------------------
-template<typename T> 
-constexpr mat3<T>
-mat4<T>::to_mat3() const noexcept {
-    return {std::array<T, 9> {{m_matrix[0], m_matrix[1], m_matrix[2],
-        m_matrix[4], m_matrix[5], m_matrix[6],
-        m_matrix[8], m_matrix[9], m_matrix[10]}}};
+template<typename T>
+constexpr T & 
+mat4<T>::operator [] (std::size_t index) noexcept {
+    return m_matrix[index];
 }
 
-//                 friend free operators                    // 
+//------------------------------------------------------------
+template<typename T> 
+constexpr T const & 
+mat4<T>::operator [] (std::size_t index) const noexcept {
+    return m_matrix[index];
+}
+
+//                  free function operators                 // 
 //------------------------------------------------------------
 template<typename T> 
 constexpr mat4<T> 
@@ -85,20 +90,5 @@ operator << (std::ostream & lhs, mat4<T> const & rhs) {
     return lhs;
 }
 #   endif
-
-//                 [private] - operators                    // 
-//------------------------------------------------------------
-template<typename T>
-constexpr T & 
-mat4<T>::operator [] (std::size_t index) noexcept {
-    return m_matrix[index];
-}
-
-//------------------------------------------------------------
-template<typename T> 
-constexpr T const & 
-mat4<T>::operator [] (std::size_t index) const noexcept {
-    return m_matrix[index];
-}
 
 } // namespace djc::math 
