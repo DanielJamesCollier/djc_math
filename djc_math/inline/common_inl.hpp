@@ -80,4 +80,53 @@ to_degrees(double radians) {
     return radians * (180.0 / pi<double>);
 }
 
+//------------------------------------------------------------
+template<typename T>
+constexpr T
+map(T value, T a, T b, T c, T d) {
+    return (value - a) * (d - c) / (b - a) + c;
+}
+
+//------------------------------------------------------------
+template<typename T>
+constexpr T
+map_AB_01(T value, T a, T b) {
+    return (value - a) / (b - a);
+}
+
+//------------------------------------------------------------
+template<typename T>
+constexpr T
+map_AB_0D(T value, T a, T b, T d) {
+    return (value - a) * (d / (b - a));
+}
+
+//------------------------------------------------------------
+template<typename T>
+constexpr T
+map_0B_01(T value, T b) {
+    return value / b;
+}
+
+//------------------------------------------------------------
+template<typename T>
+constexpr T
+map_0B_0D(T value, T b, T d) {
+    return value * (d / b);
+}
+
+//------------------------------------------------------------
+template<typename T>
+constexpr T
+map_01_0D(T value, T b) {
+    return value * b;
+}
+
+//------------------------------------------------------------
+template<typename T>
+constexpr T
+map_01_CD(T value, T c, T d) {
+    return (value + c) * d;
+}
+
 } // namespace djc::math 
