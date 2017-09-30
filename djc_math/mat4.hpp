@@ -48,19 +48,19 @@ public:
 //                  free function operators                 // 
 //------------------------------------------------------------
 template<typename T>
-constexpr mat3<T>
-operator * (mat3<T> const & lhs, mat3<T> const & rhs) noexcept;
+constexpr mat4<T>
+operator * (mat4<T> const & lhs, mat4<T> const & rhs) noexcept;
 
 //------------------------------------------------------------
 template<typename T>
-constexpr vec3<T>
-operator * (mat3<T> const & lhs, vec3<T> const & rhs) noexcept;
+constexpr vec4<T>
+operator * (mat4<T> const & lhs, vec4<T> const & rhs) noexcept;
 
 //------------------------------------------------------------
 #   if defined(DJC_MATH_STD_IOSTREAM)
 template<typename T>
 std::ostream &
-operator << (std::ostream & lhs, mat3<T> const & rhs);
+operator << (std::ostream & lhs, mat4<T> const & rhs);
 #   endif
 
 
