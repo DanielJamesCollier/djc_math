@@ -56,9 +56,9 @@ extend_to_vec4(vec3<T> const & vec) noexcept {
 template<typename T>
 constexpr mat4<T>
 extend_to_mat4(mat3<T> const & mat) noexcept {
-    return {std::array<T, 16> {{mat[0], mat[1], mat[2],  T{}
-                                mat[4], mat[5], mat[6],  T{}
-                                mat[8], mat[9], mat[10], T{}
+    return {std::array<T, 16> {{mat[0], mat[1], mat[2],  T{},
+                                mat[4], mat[5], mat[6],  T{},
+                                mat[8], mat[9], mat[10], T{},
                                    T{},    T{},     T{}, T{}}}};
 }
 

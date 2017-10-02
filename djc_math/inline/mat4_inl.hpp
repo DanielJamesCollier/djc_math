@@ -41,7 +41,7 @@ mat4<T>::operator [] (std::size_t index) const noexcept {
 //------------------------------------------------------------
 template<typename T> 
 constexpr mat4<T> 
-operator * (mat4<T> const & lhs, mat4<T> const & rhs) {
+operator * (mat4<T> const & lhs, mat4<T> const & rhs) noexcept {
     return {std::array<T, 16>{{
            (lhs[ 0] * rhs[ 0]) + (lhs[ 1] * rhs[ 4]) + (lhs[ 2] * rhs[ 8]) + (lhs[ 3] * rhs[12]),
            (lhs[ 0] * rhs[ 1]) + (lhs[ 1] * rhs[ 5]) + (lhs[ 2] * rhs[ 9]) + (lhs[ 3] * rhs[13]),
@@ -67,7 +67,7 @@ operator * (mat4<T> const & lhs, mat4<T> const & rhs) {
 //------------------------------------------------------------
 template<typename T> 
 constexpr vec4<T> 
-operator * (mat4<T> const & lhs, vec4<T> const & rhs) {
+operator * (mat4<T> const & lhs, vec4<T> const & rhs) noexcept {
     return {(lhs[ 0] * rhs.DJC_X) + (lhs[ 1] * rhs.DJC_Y) + (lhs[ 2] * rhs.DJC_Z) + (lhs[ 3] * rhs.DJC_W),
             (lhs[ 4] * rhs.DJC_X) + (lhs[ 5] * rhs.DJC_Y) + (lhs[ 6] * rhs.DJC_Z) + (lhs[ 7] * rhs.DJC_W),
             (lhs[ 8] * rhs.DJC_X) + (lhs[ 9] * rhs.DJC_Y) + (lhs[10] * rhs.DJC_Z) + (lhs[11] * rhs.DJC_W),
