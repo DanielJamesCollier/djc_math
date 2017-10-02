@@ -4,3 +4,4 @@
 #include "catch.hpp"
 
 #include "vec2_unit_tests.cpp"
+#include "vec3_unit_tests.cpp"
