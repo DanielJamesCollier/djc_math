@@ -101,7 +101,11 @@ constexpr T dot(vec4<T> const & lhs, vec4<T> const & rhs) noexcept;
 
 //------------------------------------------------------------
 template<typename T>
-vec4<T> limit(vec4<T> vec, T limit) noexcept;
+vec4<T> clamp_length(vec4<T> vec, T max) noexcept;
+
+//------------------------------------------------------------
+template<typename T>
+vec4<T> clamp(vec4<T> vec, T min, T max) noexcept;
 
 //                  free function operators                 // 
 //------------------------------------------------------------

@@ -102,7 +102,7 @@ constexpr T dot(vec3<T> const & lhs, vec3<T> const & rhs) noexcept;
 
 //------------------------------------------------------------
 template<typename T>
-vec3<T> limit(vec3<T> vec, T limit) noexcept;
+vec3<T> clamp_length(vec3<T> vec, T max) noexcept;
 
 //------------------------------------------------------------
 template<typename T>

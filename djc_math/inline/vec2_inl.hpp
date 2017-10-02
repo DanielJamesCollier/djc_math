@@ -151,12 +151,12 @@ dot(vec2<T> const & lhs, vec2<T> const & rhs) noexcept {
 //------------------------------------------------------------
 template<typename T>
 vec2<T>
-limit(vec2<T> vec, T limit) noexcept {
+clamp_length(vec2<T> vec, T max) noexcept {
     T length {vec.length()};
 
-    if (length > limit) {
+    if (length > max) {
         vec.normalise();
-        vec *= limit;
+        vec *= max;
     }
 
     return vec;
@@ -168,10 +168,10 @@ vec2<T>
 clamp(vec2<T> vec, T min, T max) noexcept {
     T length {vec.length()};
     
-    if (vec.length > max) {
+    if (length > max) {
         vec.normalise();
         vec *= max;
-    } else if (vec.length < min) {
+    } else if (length < min) {
         vec.normalise();
         vec *= min;
     }
@@ -232,7 +232,7 @@ operator * (T lhs, vec2<T> const & rhs) noexcept {
 template<typename T> 
 constexpr vec2<T>
 operator / (T lhs, vec2<T> const & rhs) noexcept {
-    return {lhs * rhs.DJC_X, lhs * rhs.DJC_Y};
+    return {lhs / rhs.DJC_X, lhs / rhs.DJC_Y};
 }
 
 //------------------------------------------------------------

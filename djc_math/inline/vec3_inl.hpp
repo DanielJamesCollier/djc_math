@@ -188,12 +188,12 @@ dot(vec3<T> const & lhs, vec3<T> const & rhs) noexcept {
 //------------------------------------------------------------
 template<typename T>
 vec3<T>
-limit(vec3<T> vec, T limit) noexcept {
+clamp_length(vec3<T> vec, T max) noexcept {
     T length {vec.length()};
 
-    if (length > limit) {
+    if (length > max) {
         vec.normalise();
-        vec *= limit;
+        vec *= max;
     }
 
     return vec;
@@ -205,10 +205,10 @@ vec3<T>
 clamp(vec3<T> vec, T min, T max) noexcept {
     T length {vec.length()};
     
-    if (vec.length > max) {
+    if (length > max) {
         vec.normalise();
         vec *= max;
-    } else if (vec.length < min) {
+    } else if (length < min) {
         vec.normalise();
         vec *= min;
     }

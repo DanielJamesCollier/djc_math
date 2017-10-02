@@ -218,12 +218,12 @@ dot(vec4<T> const & lhs, vec4<T> const & rhs) noexcept {
 //------------------------------------------------------------
 template<typename T>
 vec4<T>
-limit(vec4<T> vec, T limit) noexcept{
+clamp_length(vec4<T> vec, T max) noexcept {
     T length {vec.length()};
 
-    if (length > limit) {
+    if (length > max) {
         vec.normalise();
-        vec *= limit;
+        vec *= max;
     }
 
     return vec;
@@ -232,7 +232,7 @@ limit(vec4<T> vec, T limit) noexcept{
 //------------------------------------------------------------
 template<typename T>
 vec4<T>
-clamp(vec4<T> vec, T min, T max) {
+clamp(vec4<T> vec, T min, T max) noexcept {
     T length {vec.length()};
 
     if (length > max) {

@@ -49,4 +49,4 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wall")
 set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -Wall")
 
-add_executable(${PROJECT_NAME} ./tests.cpp)
+add_executable(${PROJECT_NAME} ./unit_tests/unit_tests.cpp)
