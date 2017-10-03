@@ -7,6 +7,7 @@
 #include "common.hpp"
 
 // std
+#include <cstddef> // std::size_t
 #include <cmath> // std::sqrt
 #   if defined(DJC_MATH_STD_IOSTREAM)
 #include <iostream> // std::ostream
@@ -31,11 +32,7 @@ public:
 
 //                       functions                          // 
 //------------------------------------------------------------
-    T length() const noexcept(false);
-    constexpr T length2() const noexcept;
-    void normalise() noexcept(false);
-    constexpr T dot(vec3<T> const & vec) const noexcept;
-    constexpr vec3<T> cross(vec3<T> const & vec) const noexcept;
+    constexpr std::size_t size() const noexcept;
 
 
 //                   operator overloads                     // 
@@ -94,6 +91,14 @@ public:
 //                     free functions                       //
 //------------------------------------------------------------
 template<typename T>
+T magnitude(vec3<T> const & vec) noexcept;
+
+//------------------------------------------------------------
+template<typename T>
+constexpr T magnitude_squared(vec3<T> const & vec) noexcept;
+
+//------------------------------------------------------------
+template<typename T>
 vec3<T> normalise(vec3<T> const & vec) noexcept;
 
 //------------------------------------------------------------
@@ -102,7 +107,11 @@ constexpr T dot(vec3<T> const & lhs, vec3<T> const & rhs) noexcept;
 
 //------------------------------------------------------------
 template<typename T>
-vec3<T> clamp_length(vec3<T> vec, T max) noexcept;
+constexpr T cross(vec3<T> const & lhs, vec3<T> const & rhs) noexcept;
+
+//------------------------------------------------------------
+template<typename T>
+vec3<T> clamp_magnitude(vec3<T> vec, T max) noexcept;
 
 //------------------------------------------------------------
 template<typename T>

@@ -18,32 +18,9 @@ vec2<T>::vec2(T _x, T _y) noexcept
 //                       functions                         // 
 //------------------------------------------------------------
 template<typename T>
-T
-vec2<T>::length() const noexcept(false) {
-    return std::sqrt(DJC_X * DJC_X + DJC_Y * DJC_Y);
-}
-
-//------------------------------------------------------------
-template<typename T> 
-constexpr T
-vec2<T>::length2() const noexcept {
-    return DJC_X * DJC_X + DJC_Y * DJC_Y;
-}
-
-//------------------------------------------------------------
-template<typename T> 
-void
-vec2<T>::normalise() noexcept(false) {
-    T length {std::sqrt(DJC_X * DJC_X + DJC_Y * DJC_Y)};
-    DJC_X /= length;
-    DJC_Y /= length;
-}
-
-//------------------------------------------------------------
-template<typename T> 
-constexpr T
-vec2<T>::dot(vec2<T> const & vec) const noexcept {
-    return DJC_X * vec.DJC_X + DJC_Y * vec.DJC_Y;
+constexpr std::size_t 
+vec2<T>::size() const noexcept {
+    return 2;
 }
 
 //                   operator overloads                     // 
@@ -135,6 +112,20 @@ vec2<T>::operator /= (T rhs) noexcept {
 
 //                     free functions                       //
 //------------------------------------------------------------
+template<typename T>
+T
+magnitude(vec2<T> const & vec) noexcept {
+    return std::sqrt(vec.DJC_X * vec.DJC_X + vec.DJC_Y * vec.DJC_Y);
+}
+
+//------------------------------------------------------------
+template<typename T> 
+constexpr T
+magnitude_squared(vec2<T> const & vec) noexcept {
+    return vec.DJC_X * vec.DJC_X + vec.DJC_Y * vec.DJC_Y;
+}
+
+//------------------------------------------------------------
 template<typename T> vec2<T>
 normalise(vec2<T> const & vec) noexcept {
     T length {std::sqrt((vec.DJC_X * vec.DJC_X) + (vec.DJC_Y * vec.DJC_Y))};
@@ -151,11 +142,11 @@ dot(vec2<T> const & lhs, vec2<T> const & rhs) noexcept {
 //------------------------------------------------------------
 template<typename T>
 vec2<T>
-clamp_length(vec2<T> vec, T max) noexcept {
-    T length {vec.length()};
+clamp_magnitude(vec2<T> vec, T max) noexcept {
+    T length {djc::math::magnitude(vec)};
 
     if (length > max) {
-        vec.normalise();
+        vec = djc::math::normalise(vec);
         vec *= max;
     }
 
@@ -166,13 +157,13 @@ clamp_length(vec2<T> vec, T max) noexcept {
 template<typename T>
 vec2<T>
 clamp(vec2<T> vec, T min, T max) noexcept {
-    T length {vec.length()};
+    T length {djc::math::magnitude(vec)};
     
     if (length > max) {
-        vec.normalise();
+        vec = djc::math::normalise(vec);
         vec *= max;
     } else if (length < min) {
-        vec.normalise();
+        vec = djc::math::normalise(vec);
         vec *= min;
     }
 
