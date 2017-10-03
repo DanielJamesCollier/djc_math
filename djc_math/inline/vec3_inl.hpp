@@ -35,44 +35,11 @@ vec3<T>::vec3(T _x, vec2<T> const & _yz) noexcept
 
 //                       functions                          // 
 //------------------------------------------------------------
-template<typename T> 
-T
-vec3<T>::length() const noexcept(false) {
-    return std::sqrt(DJC_X * DJC_X + DJC_Y * DJC_Y + DJC_Z * DJC_Z);
-}
-
-//------------------------------------------------------------
-template<typename T> 
-T constexpr
-vec3<T>::length2() const noexcept {
-    return DJC_X * DJC_X + DJC_Y * DJC_Y + DJC_Z * DJC_Z;
-}
-
-//------------------------------------------------------------
-template<typename T> 
-void
-vec3<T>::normalise() noexcept(false) {
-    T length {std::sqrt(DJC_X * DJC_X + DJC_Y * DJC_Y + DJC_Z * DJC_Z)};
-    DJC_X /= length;
-    DJC_Y /= length;
-    DJC_Z /= length;
-}
-
-//------------------------------------------------------------
-template<typename T> 
-constexpr T
-vec3<T>::dot(vec3<T> const & vec) const noexcept {
-    return DJC_X * vec.DJC_X + DJC_Y * vec.DJC_Y + DJC_Z * vec.DJC_Z;
-}
-
-//------------------------------------------------------------
-template<typename T> 
-constexpr vec3<T>
-vec3<T>::cross(vec3<T> const & vec) const noexcept {
-    return {(DJC_Y * vec.DJC_Z) - (DJC_Z * vec.DJC_Y),
-            (DJC_Z * vec.DJC_X) - (DJC_X * vec.DJC_Z),
-            (DJC_X * vec.DJC_Y) - (DJC_Y * vec.DJC_X)};
-}
+template<typename T>
+constexpr std::size_t 
+vec3<T>::size() const noexcept {
+    return 3;
+};
 
 //                   operator overloads                     // 
 //------------------------------------------------------------
@@ -172,6 +139,20 @@ vec3<T>::operator /= (T rhs) noexcept {
 //                     free functions                       //
 //------------------------------------------------------------
 template<typename T> 
+T
+magnitude(vec3<T> const & vec) noexcept {
+    return std::sqrt(vec.DJC_X * vec.DJC_X + vec.DJC_Y * vec.DJC_Y + vec.DJC_Z * vec.DJC_Z);
+}
+
+//------------------------------------------------------------
+template<typename T> 
+T constexpr
+magnitude_squared(vec3<T> const & vec) noexcept {
+    return vec.DJC_X * vec.DJC_X + vec.DJC_Y * vec.DJC_Y + vec.DJC_Z * vec.DJC_Z;
+}
+
+//------------------------------------------------------------
+template<typename T> 
 vec3<T>
 normalise(vec3<T> const & vec) noexcept {
     T length {std::sqrt((vec.DJC_X * vec.DJC_X) + (vec.DJC_Y * vec.DJC_Y) + (vec.DJC_Z * vec.DJC_Z))};
@@ -186,13 +167,22 @@ dot(vec3<T> const & lhs, vec3<T> const & rhs) noexcept {
 }
 
 //------------------------------------------------------------
+template<typename T> 
+constexpr vec3<T>
+cross(vec3<T> const & lhs, vec3<T> const & rhs) noexcept {
+    return {(lhs.DJC_Y * rhs.DJC_Z) - (lhs.DJC_Z * rhs.DJC_Y),
+            (lhs.DJC_Z * rhs.DJC_X) - (lhs.DJC_X * rhs.DJC_Z),
+            (lhs.DJC_X * rhs.DJC_Y) - (lhs.DJC_Y * rhs.DJC_X)};
+}
+
+//------------------------------------------------------------
 template<typename T>
 vec3<T>
-clamp_length(vec3<T> vec, T max) noexcept {
-    T length {vec.length()};
+clamp_magnitude(vec3<T> vec, T max) noexcept {
+    T length {djc::math::magnitude(vec)};
 
     if (length > max) {
-        vec.normalise();
+        vec = djc::math::normalise(vec);
         vec *= max;
     }
 
@@ -203,13 +193,13 @@ clamp_length(vec3<T> vec, T max) noexcept {
 template<typename T>
 vec3<T>
 clamp(vec3<T> vec, T min, T max) noexcept {
-    T length {vec.length()};
+    T length {djc::math::magnitude(vec)};
     
     if (length > max) {
-        vec.normalise();
+        vec = djc::math::normalise(vec);
         vec *= max;
     } else if (length < min) {
-        vec.normalise();
+        vec = djc::math::normalise(vec);
         vec *= min;
     }
 
@@ -225,14 +215,14 @@ slerp(vec3<T> const & start, vec3<T> const & end, T percent) noexcept {
      // Clamp it to be in the range of Acos()
      // This may be unnecessary, but floating point
      // precision can be a fickle mistress.
-     dot_start_end = clamp(dot_start_end, static_cast<T>(-1.0), static_cast<T>(1.0));
+     dot_start_end = djc::math::clamp(dot_start_end, static_cast<T>(-1.0), static_cast<T>(1.0));
      // Acos(dot) returns the angle between start and end,
      // And multiplying that by percent returns the angle between
      // start and the final result.
      T theta {std::acos(dot_start_end) * percent};
      
      vec3<T> relative_vec {end - start * dot_start_end};
-     relative_vec.normalise();     // Orthonormal basis
+     relative_vec = djc::math::normalise(relative_vec);
 
      // The final result.
      return ((start * std::cos(theta)) + (relative_vec * std::sin(theta)));

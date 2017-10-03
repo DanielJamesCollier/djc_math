@@ -5,6 +5,7 @@
 #include "config.hpp"
 
 // std
+#include <cstddef> // std::size_t
 #include <cmath> // std::sqrt
 #   if defined(DJC_MATH_STD_IOSTREAM)
 #include <iostream> // std::ostream
@@ -24,13 +25,9 @@ public:
     constexpr vec2(vec2<T> const & _xy) noexcept = default;
     ~vec2() noexcept = default;
 
-
 //                       functions                         // 
 //------------------------------------------------------------
-     T length() const noexcept(false);
-     constexpr T length2() const noexcept;
-     void normalise() noexcept(false);
-     constexpr T dot(vec2<T> const & vec) const noexcept;
+     constexpr std::size_t size() const noexcept;
 
     
 //                   operator overloads                     // 
@@ -88,7 +85,7 @@ constexpr T dot(vec2<T> const & lhs, vec2<T> const & rhs) noexcept;
 
 //------------------------------------------------------------
 template<typename T>
-vec2<T> clamp_length(vec2<T> vec, T max) noexcept;
+vec2<T> clamp_magnitude(vec2<T> vec, T max) noexcept;
 
 //------------------------------------------------------------
 template<typename T>

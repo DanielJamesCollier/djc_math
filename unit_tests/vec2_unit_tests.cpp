@@ -28,43 +28,10 @@ TEST_CASE("vec2 copy constructor test", "[vec2]") {
 
 //                       functions                          // 
 //------------------------------------------------------------
-TEST_CASE("vec2 length", "[vec2]") {
-    // length of a positive vector 
-    djc::math::vec2d vec_a(1, 1);
+TEST_CASE("vec2 size", "[vec2]") {
+    djc::math::vec2i vec;
 
-    REQUIRE(vec_a.length() == Approx(1.41421356237)); 
-    
-    // length of a negative vector
-    djc::math::vec2d vec_b(-1, -1);
-
-    REQUIRE(vec_b.length() == Approx(1.41421356237));
-}
-
-TEST_CASE("vec2 length2", "[vec2]") {
-    // length2 of a positive vector
-    djc::math::vec2d vec_a(1, 1);
-
-    REQUIRE(vec_a.length2() == Approx(2.0));
-    
-    // length2 of a negative vector 
-    djc::math::vec2d vec_b(-1, -1);
-
-    REQUIRE(vec_b.length2() == Approx(2.0));
-}
-
-TEST_CASE("vec2 normalise", "[vec2]") {
-    djc::math::vec2d vec(9812, 1893); // random numbers
-    
-    vec.normalise();
-
-    REQUIRE(vec.length() == Approx(1.0));
-}
-
-TEST_CASE("vec2 dot", "[vec2]") {
-    djc::math::vec2d vec_a(10, 10);
-    djc::math::vec2d vec_b(5, 5);
-    
-    REQUIRE(vec_a.dot(vec_b) == Approx(100.0));
+    REQUIRE(vec.size() == 2);
 }
 
 //                   operator overloads                     // 
@@ -269,10 +236,34 @@ TEST_CASE("operator /= scalar", "[vec2]") {
 
 //                     free functions                       //
 //------------------------------------------------------------
+TEST_CASE("free function - vec2 magnitude", "[vec2]") {
+    // length of a positive vector 
+    djc::math::vec2d vec_a(1, 1);
+
+    REQUIRE(djc::math::magnitude(vec_a) == Approx(1.41421356237)); 
+    
+    // length of a negative vector
+    djc::math::vec2d vec_b(-1, -1);
+
+    REQUIRE(djc::math::magnitude(vec_b) == Approx(1.41421356237));
+}
+
+TEST_CASE("free function - vec2 magnitude_squared", "[vec2]") {
+    // length2 of a positive vector
+    djc::math::vec2d vec_a(1, 1);
+
+    REQUIRE(djc::math::magnitude_squared(vec_a) == Approx(2.0));
+    
+    // length2 of a negative vector 
+    djc::math::vec2d vec_b(-1, -1);
+
+    REQUIRE(djc::math::magnitude_squared(vec_b) == Approx(2.0));
+}
+
 TEST_CASE("free function - vec2 normalise", "[vec2]") {
     djc::math::vec2d vec(1 , 1);
     auto result = djc::math::normalise(vec);
-    REQUIRE(result.length() == Approx(1.0));
+    REQUIRE(djc::math::magnitude(result) == Approx(1.0));
 }
 
 TEST_CASE("free function - vec2 dot", "[vec2]") {
@@ -282,40 +273,40 @@ TEST_CASE("free function - vec2 dot", "[vec2]") {
 }
 
 
-TEST_CASE("free function - vec2 clamp_length", "[vec2]") {
+TEST_CASE("free function - vec2 clamp_magnitude", "[vec2]") {
     // positive 
     djc::math::vec2d vec_a(100, 100);
 
-    auto result_a = djc::math::clamp_length(vec_a, 50.0);
+    auto result_a = djc::math::clamp_magnitude(vec_a, 50.0);
     
-    REQUIRE(result_a.length() == Approx(50.0));
+    REQUIRE(djc::math::magnitude(result_a) == Approx(50.0));
 
     // negative
     djc::math::vec2d vec_b(-100, -100);
 
-    auto result_b = djc::math::clamp_length(vec_b, 50.0);
+    auto result_b = djc::math::clamp_magnitude(vec_b, 50.0);
 
-    REQUIRE(result_b.length() == Approx(50));
+    REQUIRE(djc::math::magnitude(result_b) == Approx(50));
 }
 
 TEST_CASE("free function - vec2 clamp", "[vec2]") {
     // upper bound clamp test 
     djc::math::vec2d vec_a(200, 200);
     
-    REQUIRE(vec_a.length() == Approx(282.842712475));
+    REQUIRE(djc::math::magnitude(vec_a) == Approx(282.842712475));
 
     auto result_a = djc::math::clamp(vec_a, 200.0, 250.0);
 
-    REQUIRE(result_a.length() == Approx(250.0));
+    REQUIRE(djc::math::magnitude(result_a) == Approx(250.0));
 
     // lower bound clamp test
     djc::math::vec2d vec_b(200, 200);
    
-    REQUIRE(vec_b.length() == Approx(282.842712475));
+    REQUIRE(djc::math::magnitude(vec_b) == Approx(282.842712475));
 
     auto result_v = djc::math::clamp(vec_b, 300.0, 400.0);
 
-    REQUIRE(result_v.length() == Approx(300.0));
+    REQUIRE(djc::math::magnitude(result_v) == Approx(300.0));
 }
 
 //                  free function operators                 // 

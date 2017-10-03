@@ -31,7 +31,7 @@ TEST_CASE("vec3 constructor(scalar, vec2)", "[vec3]") {
 
     REQUIRE(vec_a.x == 1);
     REQUIRE(vec_a.y == 2);
-    REQUIRE(vec_a.z == 2);
+    REQUIRE(vec_a.z == 3);
 }
 
 TEST_CASE("vec3 copy constructor", "[vec3]") {
