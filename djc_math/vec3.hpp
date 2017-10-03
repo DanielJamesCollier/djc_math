@@ -2,8 +2,8 @@
 #define DJC_MATH_VEC3_HPP
 
 // djc_math 
-#include "vec2.hpp"
 #include "config.hpp"
+#include "vec2.hpp"
 #include "common.hpp"
 
 // std
@@ -11,7 +11,7 @@
 #   if defined(DJC_MATH_STD_IOSTREAM)
 #include <iostream> // std::ostream
 #   endif
-#include <type_traits> // std::is_intergra<T> - std::is_floating_point<T>
+#include <type_traits> // std::is_intergral<T> - std::is_floating_point<T>
 
 namespace djc::math {
 
