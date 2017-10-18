@@ -37,7 +37,14 @@ elseif (CMAKE_CXX_COMPILER_ID MATCHES "Intel")
 
 elseif (CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
   message("compiler = MSVC")
-  message(FATAL_ERROR "this compiler does not support the C++17 features that are required")
+
+if (MSVC_VERSION GREATER_EQUAL "1900")
+    include(CheckCXXCompilerFlag)
+    CHECK_CXX_COMPILER_FLAG("/std:c++latest" _cpp_latest_flag_supported)
+    if (_cpp_latest_flag_supported)
+        add_compile_options("/std:c++latest")
+    endif()
+endif()
 
 endif()
 message("*----------------------*")
